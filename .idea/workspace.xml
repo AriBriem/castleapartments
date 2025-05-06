@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="added basic apps">
       <change afterPath="$PROJECT_DIR$/static/fonts/Fontspring-DEMO-integralcf-heavy.otf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/static/img/icons/logo.svg" afterDir="false" />
@@ -19,6 +20,10 @@
       <change beforePath="$PROJECT_DIR$/castleapartments/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/castleapartments/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/listing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/listing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/views.py" afterDir="false" />
+=======
+    <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
 =======
     <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -114,7 +119,11 @@
       <workItem from="1746479027308" duration="2752000" />
       <workItem from="1746523680196" duration="1063000" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <workItem from="1746524764777" duration="6560000" />
+=======
+      <workItem from="1746526793868" duration="3984000" />
+>>>>>>> Stashed changes
 =======
       <workItem from="1746526793868" duration="3984000" />
 >>>>>>> Stashed changes
