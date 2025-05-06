@@ -7,22 +7,22 @@ from listing.models import Postcodes
 
 class Users(models.Model):
     userID = models.IntegerField(primary_key=True)
-    name = models.CharField()
-    email = models.CharField()
-    phoneNumber = models.CharField()
-    password = models.CharField()
-    address = models.CharField()
-    personalID = models.CharField()
+    name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    phoneNumber = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    personalID = models.CharField(max_length=255)
     postcode = models.ForeignKey(Postcodes, on_delete=models.CASCADE)
-    country = models.CharField()
-    profileImagePath = models.CharField()
-    coverImagePath = models.CharField()
+    country = models.CharField(max_length=255)
+    profileImagePath = models.CharField(max_length=255)
+    coverImagePath = models.CharField(max_length=255)
     registerDate = models.DateTimeField()
     def __str__(self):
         return self.name
 
 class SellerProfile(models.Model):
     userID = models.ForeignKey(Users, primary_key=True, on_delete=models.CASCADE)
-    logoPath = models.CharField()
+    logoPath = models.CharField(max_length=255)
     bio = models.TextField()
     isCompany = models.BooleanField()
