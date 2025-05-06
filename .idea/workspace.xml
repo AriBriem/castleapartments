@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="added basic apps">
       <change afterPath="$PROJECT_DIR$/static/fonts/Fontspring-DEMO-integralcf-heavy.otf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/static/img/icons/logo.svg" afterDir="false" />
@@ -18,6 +19,10 @@
       <change beforePath="$PROJECT_DIR$/castleapartments/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/castleapartments/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/listing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/listing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/views.py" afterDir="false" />
+=======
+    <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +49,12 @@
     &quot;assignee&quot;: &quot;AriBriem&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AriBriem/castleapartments.git&quot;,
-    &quot;accountId&quot;: &quot;20061b4d-9c2a-4f67-bcfb-26d218820fcc&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AriBriem/castleapartments.git",
+    "accountId": "a1c564bf-0589-4f92-8605-c76da2a89ba9"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -108,7 +113,11 @@
       <workItem from="1746446213827" duration="877000" />
       <workItem from="1746479027308" duration="2752000" />
       <workItem from="1746523680196" duration="1063000" />
+<<<<<<< Updated upstream
       <workItem from="1746524764777" duration="6560000" />
+=======
+      <workItem from="1746526793868" duration="3984000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="added basic apps">
       <option name="closed" value="true" />
