@@ -142,3 +142,15 @@ body {
 .searchIcon {
     margin: 0 0.4rem 0 0.1rem;
 }
+
+#the-footer {
+    background: #212227;
+}
+
+.left-side-footer {
+    margin-left: 50px
+}
+
+.right-side-footer {
+    margin-left: 200px
+}

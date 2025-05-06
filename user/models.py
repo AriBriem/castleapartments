@@ -1,6 +1,6 @@
 from django.db import models
 
-from listing.models import Postcodes
+
 
 
 # Create your models here.
@@ -13,7 +13,7 @@ class Users(models.Model):
     password = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     personalID = models.CharField(max_length=255)
-    postcode = models.ForeignKey(Postcodes, on_delete=models.CASCADE)
+    postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     country = models.CharField(max_length=255)
     profileImagePath = models.CharField(max_length=255)
     coverImagePath = models.CharField(max_length=255)
@@ -22,7 +22,7 @@ class Users(models.Model):
         return self.name
 
 class SellerProfile(models.Model):
-    userID = models.ForeignKey(Users, primary_key=True, on_delete=models.CASCADE)
+    userID = models.ForeignKey('user.Users', primary_key=True, on_delete=models.CASCADE)
     logoPath = models.CharField(max_length=255)
     bio = models.TextField()
     isCompany = models.BooleanField()

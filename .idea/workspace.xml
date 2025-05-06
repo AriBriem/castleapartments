@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="added basic apps">
-      <change afterPath="$PROJECT_DIR$/static/fonts/Fontspring-DEMO-integralcf-heavy.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/icons/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/icons/searchicon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/styles/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/listing/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/listing/listing.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/castleapartments/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/castleapartments/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/listing/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/listing/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/listing/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/listing/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/offer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/offer/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,26 +55,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.DjangoProject.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/VLN2/DjangoProject/static/fonts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.python.django.customization.DjangoModulesConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.DjangoProject.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.settings.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/VLN2/DjangoProject/static/fonts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.intellij.python.django.customization.DjangoModulesConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\VLN2\DjangoProject\static\fonts" />
@@ -138,5 +133,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added basic apps" />
     <option name="LAST_COMMIT_MESSAGE" value="added basic apps" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/castleapartments$settings.coverage" NAME="settings Coverage Results" MODIFIED="1746535989164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/castleapartments" />
   </component>
 </project>
