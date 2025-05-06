@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+</head>
+<body>
+{% if show_navbar %}
+  {% include "partials/navbar.html" %}
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+{% if show_footer %}
+  {% include "partials/footer.html" %}
+{% endif %}
+</body>
+</html>

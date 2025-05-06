@@ -1,0 +1,144 @@
+
+@font-face {
+    font-family: 'logo-font';
+    src: url('../fonts/Fontspring-DEMO-integralcf-heavy.otf') format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background: #fafafa;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333438;
+    font-size: 1.2rem;
+    margin: 0 20px;
+    font-weight: 700;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 272px;
+}
+
+.logoImg {
+    margin: 2px;
+}
+
+.logo h1 {
+    font-family: 'logo-font', sans-serif;
+    color:#333438;
+    font-size: 25px;
+    margin: 0 18px;
+}
+
+.loginBtnContainer {
+    width: 272px;
+}
+
+.loginBtn {
+    float: right;
+    width: 7rem;
+    height: 2.8rem;
+    border: none;
+    border-radius: 5rem;
+    background: #333438;
+    font-size: 1rem;
+    color: #ffffff;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.loginBtn:hover {
+    background: #4e5059;
+    color: #ffffff;
+    transition: 0.2s;
+}
+.loginBtn:active {
+    background: #38a5ff;
+    color: #ffffff;
+    transition: 0.1s;
+}
+
+.intro {
+    display: flex;
+    margin: 10% 20% 0%;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #212227;
+    text-shadow: 0px 8px 20px rgb(0 0 0 / 10%);
+}
+
+.intro h4 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #747474;
+    margin: 2% 0;
+}
+
+.searchContainer {
+    width: 70%;
+    height: 3rem;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    margin: 1% 0;
+    border-radius: 10rem;
+}
+
+.searchInput {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    padding-left: 20px;
+    font-size: 1rem;
+    color: #3E4851;
+}
+
+.searchBtn {
+    width: 6rem;
+    border: none;
+    border-radius: 10rem;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #333438;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.searchBtn:hover {
+    background: #5cb6ff;
+    color: #ffffff;
+    transition: 0.2s;
+}
+.searchBtn:active {
+    background: #38a5ff;
+    color: #ffffff;
+    transition: 0.1s;
+}
+
+.searchIcon {
+    margin: 0 0.4rem 0 0.1rem;
+}
