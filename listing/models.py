@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+class Postcodes(models.Model):
+    postcode = models.IntegerField(primary_key=True)
+    country = models.CharField()
+    def __str__(self):
+        return self.postcode
+
+
 class Listings(models.Model):
     listingID = models.IntegerField(primary_key=True)
     typeID = models.ForeignKey(Type, on_delete=models.CASCADE)
@@ -18,8 +25,3 @@ class Listings(models.Model):
 
     def __str__(self):
         return self.listingID
-
-class Postcodes(models.Model):
-    postcode = models.IntegerField(primary_key=True)
-    country = models.CharField()
-
