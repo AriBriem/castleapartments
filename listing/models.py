@@ -11,11 +11,15 @@ class Listings(models.Model):
     rooms = models.IntegerField()
     bathrooms = models.IntegerField()
     bedrooms = models.IntegerField()
-    postcode = models.ForeignKey(Postcode, on_delete=models.CASCADE)
+    postcode = models.ForeignKey(Postcodes, on_delete=models.CASCADE)
     description = models.TextField()
     thumbnailPath = models.CharField()
     postDate = models.DateTimeField()
 
     def __str__(self):
         return self.listingID
+
+class Postcodes(models.Model):
+    postcode = models.IntegerField(primary_key=True)
+    country = models.CharField()
 
