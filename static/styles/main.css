@@ -154,3 +154,11 @@ body {
 .right-side-footer {
     margin-left: 200px
 }
+
+.info2col {
+    display: flex;
+}
+
+.pageTitle {
+    color: red;
+}
