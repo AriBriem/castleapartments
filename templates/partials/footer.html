@@ -1,6 +1,8 @@
 {% load static %}
-<footer id="the-footer">
-    <div class="right-side-footer">
+
+<footer>
+  <div class="footer-grids">
+    <div class="left">
         <div class="logo">
             <img src="{% static '/img/icons/logo.svg' %}" alt="Castle Apartments Logo" class="logoImg">
             <div class="logoTextContainer">
@@ -9,10 +11,14 @@
             </div>
         </div>
     </div>
-    <span class="right-side-footer">Facebook: @castleapartments</span>
-    <p class="left-side-footer">Finndu drauma eignina þína á Castle apartments</p>
-    <span class="right-side-footer">Instagram:@castle_apartments</span>
-    <p class="left-side-footer">Castle apartments ehf.</p>
-    <span class="right-side-footer">Linked In: @castleapartments</span>
-
+    <div class="right" id="right-to-logo"><b>Facebook:</b> @castleapartments</div>
+  </div>
+  <div class="footer-grids">
+    <div class="left" id="company-tagline"><b>Finndu drauma eignina þína á Castle apartments</b></div>
+      <div class="right"><b>Instagram:</b> @castle_apartments</div>
+  </div>
+  <div class="footer-grids">
+    <div class="left" id="company-ehf">Castle apartments ehf.</div>
+      <div class="right"><b>Linked In:</b> @castleapartments</div>
+  </div>
 </footer>
