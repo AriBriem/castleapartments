@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'castleapartments.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'verklegt_namskeid_db',
+        'USER': 'verklegt_db_user',
+        'PASSWORD': '0cmbRfLwBsimLZWcL494fzAG',
+        'HOST': 'db-verklegt-namskeid-ii-eu-q0jy5g.postgres.database.azure.com',
+        'PORT': '5432'
     }
 }
 
