@@ -31,6 +31,9 @@
 .p-4 { padding: 1rem; }
 .p-8 { padding: 2rem; }
 
+.whitespace12 { padding: 0 12%; }
+.whitespace8 { padding: 0 8%; }
+
 /* ========== Flexbox ========== */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
