@@ -107,6 +107,8 @@ body {
     border-radius: 10rem;
 }
 
+
+
 .searchInput {
     width: 100%;
     height: 100%;
@@ -157,29 +159,10 @@ footer {
 .footer-grids {
     display: flex;
     justify-content: space-between;
+    margin-top: 30px
 }
 .left {
     max-width: 300px;
-    margin-left: 60px;
-}
-
-.right {
-    margin-top: 11px;
-    margin-right: 60px;
-    font-size: 17px;
-}
-
-#right-to-logo {
-    margin-top: 23px;
-}
-
-#company-tagline {
-    font-size: 16px
-}
-
-#company-ehf {
-    font-size: 12px;
-    margin-top: 11px;
 }
 
 
@@ -265,7 +248,7 @@ footer {
 .actionButton {
     background: #ffffff;
     color: #000000;
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
     width: 100%;
     padding: 6px;
@@ -276,4 +259,11 @@ footer {
 .invert {
     background: #000000;
     color: #ffffff;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: center;
+    margin: 1% 0;
+    border-radius: 10rem;
 }
