@@ -158,7 +158,6 @@ footer {
     display: flex;
     justify-content: space-between;
 }
-
 .left {
     max-width: 300px;
     margin-left: 60px;
@@ -181,4 +180,15 @@ footer {
 #company-ehf {
     font-size: 12px;
     margin-top: 11px;
+}
+.right-side-footer {
+    margin-left: 200px
+}
+
+.info2col {
+    display: flex;
+}
+
+.pageTitle {
+    color: red;
 }
