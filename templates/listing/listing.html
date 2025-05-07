@@ -2,50 +2,62 @@
 {% load static %}
 
 {% block content %}
-    <div class="info2col">
-        <div class="fullImageLarge">
-            <img src="{% static '/img/icons/logo.svg' %}">
+    <div class="whitespace12">
+        <div class="flex">
+            <div class="fullImageLarge col66">
+                <img src="{% static '/img/test/listingtest.png' %}">
+            </div>
+            <div class="fullImageSmall col34">
+                <img src="{% static '/img/test/listingtest.png' %}">
+                <img src="{% static '/img/test/listingtest.png' %}">
+            </div>
         </div>
-        <div class="fullImageSmall">
-            <img src="{% static '/img/icons/logo.svg' %}">
-            <img src="{% static '/img/icons/logo.svg' %}">
-        </div>
-    </div>
-    <div class="info2col">
-        <div class="description">
-            <div class="descRow">
-                <h1 class="pageTitle">Heimilisfang 123</h1>
-                <div>
-                    <p class="smallText">Birt: 29.0.2005</p>
-                    <div class="infoBox">
-                        <p class="green">Til sölu</p>
+        <div class="flex">
+            <div class="description col66">
+                <div class="descRow">
+                    <h1 class="pageTitle">Heimilisfang 123</h1>
+                    <div class="descRow">
+                        <p class="smallText infoText">Birt: 29.0.2005</p>
+                        <div class="infoBox">
+                            <p class="green">Til sölu</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="descRow">
-                <p>Ásett verð: <b>48.000.000 kr.</b></p>
-            </div>
-            <div class="descRow">
-                <div class="descCol">
-                    <p>105 Reykjavík</p>
-                    <p><b>Tegund:</b> Fjölbýli</p>
+                <div class="descRow">
+                    <p>Ásett verð: <b>48.000.000 kr.</b></p>
                 </div>
-                <div class="descCol">
-                    <p><b>Fermetrar:</b> 50</p>
-                    <p><b>Herbergi:</b> 2</p>
+                <div class="descRow">
+                    <div class="descCol">
+                        <p>105 Reykjavík</p>
+                        <p><b>Tegund:</b> Fjölbýli</p>
+                    </div>
+                    <div class="descCol">
+                        <p><b>Fermetrar:</b> 50</p>
+                        <p><b>Herbergi:</b> 2</p>
+                    </div>
+                    <div class="descCol">
+                        <p><b>Svefnherbergi:</b> 1</p>
+                        <p><b>Baðherbergi:</b> 1</p>
+                    </div>
                 </div>
-                <div class="descCol">
-                    <p><b>Svefnherbergi:</b> 1</p>
-                    <p><b>Baðherbergi:</b> 1</p>
+                <div class="descRow">
+                    <p>Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.</p>
                 </div>
             </div>
-            <div class="descRow">
-                <p>Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.</p>
-            </div>
-        </div>
-        <div>
-            <div class="infoBox">
-                <img src="{% static '/img/icons/logo.svg' %}">
+            <div class="col34">
+                <div class="infoBox">
+                    <div class="flex">
+                        <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
+                        <div>
+                            <h3>Jón Jónsson</h3>
+                            <h4>105 Reykjavík</h4>
+                        </div>
+                    </div>
+                    <p><b>Sími:</b> 123 1234</p>
+                    <p><b>Email:</b> jonjonsson@gmail.com</p>
+                    <button class="actionButton">Sjá seljanda</button>
+                </div>
+                <div class="actionButton invert marginsides2">Senda tilboð</div>
             </div>
         </div>
     </div>
