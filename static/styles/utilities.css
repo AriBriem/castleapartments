@@ -68,7 +68,7 @@
 
 .text-primary { color: #007BFF; }
 .text-black { color: #000000; }
-.text-white {color: #ffffff; }
+.text-white {color: #ffffff !important; }
 .text-muted { color: #6c757d; }
 
 /* ========== Borders & Radius ========== */

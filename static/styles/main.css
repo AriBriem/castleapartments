@@ -144,7 +144,6 @@ body {
 }
 
 footer {
-    color: #F5F5F5;
     height: 275px;
     width: 100%;
     background: #212227;
@@ -182,9 +181,7 @@ footer {
     font-size: 12px;
     margin-top: 11px;
 }
-.right-side-footer {
-    margin-left: 200px
-}
+
 
 .profilePic {
     border-radius: 50%;
