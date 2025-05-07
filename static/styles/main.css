@@ -143,14 +143,44 @@ body {
     margin: 0 0.4rem 0 0.1rem;
 }
 
-#the-footer {
+footer {
+    color: #F5F5F5;
+    height: 275px;
+    width: 100%;
     background: #212227;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 30px;
 }
 
-.left-side-footer {
-    margin-left: 50px
+.footer-grids {
+    display: flex;
+    justify-content: space-between;
+}
+.left {
+    max-width: 300px;
+    margin-left: 60px;
 }
 
+.right {
+    margin-top: 11px;
+    margin-right: 60px;
+    font-size: 17px;
+}
+
+#right-to-logo {
+    margin-top: 23px;
+}
+
+#company-tagline {
+    font-size: 16px
+}
+
+#company-ehf {
+    font-size: 12px;
+    margin-top: 11px;
+}
 .right-side-footer {
     margin-left: 200px
 }
