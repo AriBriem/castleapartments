@@ -152,6 +152,7 @@ footer {
     flex-direction: column;
     padding: 40px;
     gap: 30px;
+    margin-top: 30px
 }
 
 .footer-grids {
