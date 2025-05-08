@@ -26,3 +26,9 @@ class SellerProfile(models.Model):
     logoPath = models.CharField(max_length=255)
     bio = models.TextField()
     isCompany = models.BooleanField()
+
+class Country(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name

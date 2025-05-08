@@ -59,6 +59,8 @@
 .max-w-screen { max-width: 100vw; }
 .w-half { width: 50%; }
 .h-8 { height: 2rem; }
+.h-10 { height: 2.5rem; }
+.h-12 { height: 3rem; }
 
 /* ========== Text ========== */
 .text-sm { font-size: 0.875rem; }
