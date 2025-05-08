@@ -4,15 +4,18 @@
 {% block title %}Castle Apartments{% endblock %}
 
 {% block content %}
-    <div class="intro">
-        <h1>Finndu drauma eignina þína á Castle Apartments</h1>
-        <h4>Hér eru um 10.000 eignir til sölu</h4>
-        <div class="searchContainer">
-            <input type="text" placeholder="Leita að eignum..." class="searchInput">
-            <button class="searchBtn"><img src="{% static 'img/icons/searchicon.svg' %}" alt="search icon" class="inline-block mr-1">Leita</button>
+    <div class="flex flex-col text-center items-center whitespace8 mtp-6">
+        <div class="whitespace12 flex flex-col text-center items-center">
+            <h1 class="text-dark text-title font-medium text-shadow-soft">Finndu drauma eignina þína á Castle
+                Apartments</h1>
+            <h4 class="text-gray font-light text-lg my-4">Hér eru um 10.000 eignir til sölu</h4>
+            <div class="searchContainer wp-80">
+                <input type="text" placeholder="Leita að eignum..." class="searchInput">
+                <button class="searchBtn"><img src="{% static 'img/icons/searchicon.svg' %}" alt="search icon" class="inline-block mr-1">Leita</button>
+            </div>
         </div>
 
-        <div class="grid grid-2column g-4 gx-8">
+        <div class="grid grid-2column g-4 gx-8 wp-70 mt-4 mb-4">
             <!--
             <div class="filterItem">
                 <label for="location">Staðsetning:</label>
@@ -35,10 +38,96 @@
                 <label for="bedrooms">Svefnherbergi:</label>
                 <input type="number" id="bedrooms" placeholder="Sláðu inn fjölda svefnherbergja">
             </div>-->
-            <button class="filterBtn"><i class="fas fa-band-aid"></i>Póstnúmer</button>
-            <button class="filterBtn">Tegund</button>
-            <button class="filterBtn">Staðsetning</button>
-            <button class="filterBtn">Verð</button>
+            <button class="flex justify-between p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fas fa-map-marker-alt text-primary"></i>Póstnúmer</span><i class="fa fa-angle-down"></i></button>
+            <button class="flex justify-between p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fas fa-home text-primary"></i>Tegund</span><i class="fa fa-angle-down"></i></button>
+            <button class="flex justify-between p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fas fa-map-marker-alt text-primary"></i>Staðsetning</span><i class="fa fa-angle-down"></i></button>
+            <button class="flex justify-between p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fa fa-dollar text-primary"></i>Verð</span><i class="fa fa-angle-down"></i></button>
+        </div>
+        <div class="flex flex-col my-8">
+            <div class="flex">
+                <button class="flex justify-between px-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span class="flex items-center g-2"><i class="fa fa-sort text-dark"></i>Raða eftir...</span></button>
+                <button class="flex justify-between px-2 ml-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span class="flex items-center g-2"><i class="far fa-bookmark text-primary"></i>Vistað</span></button>
+            </div>
+            <div class="grid grid-3column g-4 my-2">
+                <div class="flex flex-col">
+                    <img class="rounded-lg mb-2 asp-3-2" src="{% static '/img/test/listingtest.png' %}">
+                    <div class="flex flex-col px-2">
+                        <div class="flex justify-between mb-2">
+                            <p class="text-base"><b>Heimilisfang 123</b></p>
+                            <p class="text-base text-green">Í sölu</p>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <p class="text-base">105 Reykjavík</p>
+                            <p class="text-base"><b>Tegund:</b> Fjölbýli</p>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <p class="text-base"><b>Fermetrar:</b> Fjölbýli</p>
+                            <p class="text-base"><b>Herbergi:</b> Fjölbýli</p>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <p class="text-base"><b>Ásett verð</b></p>
+                            <p class="text-base">48.000.000 kr.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <img class="rounded-lg mb-2 asp-3-2" src="{% static '/img/test/bannertest.png' %}">
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Heimilisfang 123</b></p>
+                        <p class="text-base text-green">Í sölu</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base">105 Reykjavík</p>
+                        <p class="text-base"><b>Tegund:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Fermetrar:</b> Fjölbýli</p>
+                        <p class="text-base"><b>Herbergi:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Ásett verð</b></p>
+                        <p class="text-base">48.000.000 kr.</p>
+                    </div>
+                </div>
+                                <div class="flex flex-col">
+                    <img class="rounded-lg mb-2" src="{% static '/img/test/listingtest.png' %}">
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Heimilisfang 123</b></p>
+                        <p class="text-base text-green">Í sölu</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base">105 Reykjavík</p>
+                        <p class="text-base"><b>Tegund:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Fermetrar:</b> Fjölbýli</p>
+                        <p class="text-base"><b>Herbergi:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Ásett verð</b></p>
+                        <p class="text-base">48.000.000 kr.</p>
+                    </div>
+                </div>
+                                <div class="flex flex-col">
+                    <img class="rounded-lg mb-2" src="{% static '/img/test/listingtest.png' %}">
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Heimilisfang 123</b></p>
+                        <p class="text-base text-green">Í sölu</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base">105 Reykjavík</p>
+                        <p class="text-base"><b>Tegund:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Fermetrar:</b> Fjölbýli</p>
+                        <p class="text-base"><b>Herbergi:</b> Fjölbýli</p>
+                    </div>
+                    <div class="flex justify-between mb-2">
+                        <p class="text-base"><b>Ásett verð</b></p>
+                        <p class="text-base">48.000.000 kr.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
