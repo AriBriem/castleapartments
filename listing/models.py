@@ -11,15 +11,12 @@ class Postcodes(models.Model):
 
 
 class ListingType(models.Model):
-    typeID = models.IntegerField(primary_key=True)
     type = models.CharField(max_length=255)
     def __str__(self):
         return self.type
 
 
-
 class Listings(models.Model):
-    listingID = models.IntegerField(primary_key=True)
     typeID = models.ForeignKey('listing.ListingType', on_delete=models.CASCADE)
     sellerID = models.ForeignKey('user.SellerProfile', on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
@@ -37,7 +34,7 @@ class Listings(models.Model):
 
 
 class ListingImage(models.Model):
-    listingID = models.ForeignKey('listing.Listings', primary_key=True, on_delete=models.CASCADE)
+    listingID = models.ForeignKey('listing.Listings', on_delete=models.CASCADE, related_name='images')
     imagePath = models.CharField(max_length=255)
     def __str__(self):
         return self.imagePath

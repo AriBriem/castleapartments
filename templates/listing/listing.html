@@ -2,31 +2,35 @@
 {% load static %}
 
 {% block content %}
-    <div class="whitespace12">
-        <div class="flex">
-            <div class="fullImageLarge col66">
-                <img src="{% static '/img/test/listingtest.png' %}">
+    <div class="whitespace16">
+        <div class="flex py-4">
+            <div class="col66">
+                <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
             </div>
-            <div class="fullImageSmall col34">
-                <img src="{% static '/img/test/listingtest.png' %}">
-                <img src="{% static '/img/test/listingtest.png' %}">
+            <div class="flex flex-col col34 ml-4">
+                <div class="basis50 mb-4">
+                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                </div>
+                <div class="basis50">
+                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                </div>
             </div>
         </div>
-        <div class="flex">
-            <div class="description col66">
-                <div class="descRow">
+        <div class="flex pb-4">
+            <div class="col66">
+                <div class="flex justify-between my-2">
                     <h1 class="pageTitle">Heimilisfang 123</h1>
-                    <div class="descRow">
-                        <p class="smallText infoText">Birt: 29.0.2005</p>
+                    <div class="flex justify-between my-2">
+                        <p class="smallText infoText">Birt: 222.0.2005</p>
                         <div class="infoBox">
                             <p class="green">Til sölu</p>
                         </div>
                     </div>
                 </div>
-                <div class="descRow">
+                <div class="flex justify-between my-2">
                     <p>Ásett verð: <b>48.000.000 kr.</b></p>
                 </div>
-                <div class="descRow">
+                <div class="flex justify-between my-2">
                     <div class="descCol">
                         <p>105 Reykjavík</p>
                         <p><b>Tegund:</b> Fjölbýli</p>
@@ -40,24 +44,24 @@
                         <p><b>Baðherbergi:</b> 1</p>
                     </div>
                 </div>
-                <div class="descRow">
+                <div class="flex justify-between my-2">
                     <p>Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.</p>
                 </div>
             </div>
-            <div class="col34">
-                <div class="infoBox">
-                    <div class="flex">
+            <div class="flex flex-col col34 ml-4">
+                <div class="flex flex-col p-4 text-black rounded-lg bg-dark">
+                    <div class="flex mb-2 mt-2">
                         <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
-                        <div>
+                        <div class="ml-2">
                             <h3>Jón Jónsson</h3>
-                            <h4>105 Reykjavík</h4>
+                            <h4 class="font-medium">105 Reykjavík</h4>
                         </div>
                     </div>
-                    <p><b>Sími:</b> 123 1234</p>
-                    <p><b>Email:</b> jonjonsson@gmail.com</p>
-                    <button class="actionButton">Sjá seljanda</button>
+                    <p class="mb-1"><b>Sími:</b> 123 1234</p>
+                    <p class="mb-4"><b>Email:</b> jonjonsson@gmail.com</p>
+                    <button class="bg-light no-border rounded text-base py-1">Sjá seljanda</button>
                 </div>
-                <div class="actionButton invert marginsides2">Senda tilboð</div>
+                <button class="bg-black no-border rounded text-base py-1 text-white m-4">Senda tilboð</button>
             </div>
         </div>
     </div>
