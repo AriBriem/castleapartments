@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="whitespace30 mt-8">
+    <h1 class="g-2 ml-2">Skrá eign</h1>
+    <p class="text-sm ml-2">Settu þína eign á vefinn okkar og sjáðu hvort þú fáir tilboð</p>
+    <div class="inputContainer flex-col g-2">
+    <br>
+        <label for="input-address" class="flex flex-col text-sm ml-2">Heimilisfang</label>
+        <input type="text" id="input-address" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+        <div class="flex g-4">
+            <label for="input-location" class="flex flex-col text-sm ml-2 w-half">Staðsetning</label>
+            <label for="input-postnumber" class="flex flex-col text-sm ml-2 w-half">Póstnúmer</label>
+        </div>
+        <div class="flex g-4">
+            <select id="input-location" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                {% for postcode in postcodes %}
+                <option value="{{ postcode.id }}">{{ postcode.location }}</option>
+                {% endfor %}
+            </select>
+            <select id="input-postnumber" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                {% for postcode in postcodes %}
+                <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex g-4">
+            <label for="select-type" class="flex flex-col text-sm ml-2 w-half" >Tegund</label>
+            <label for="input-square-meters" class="flex flex-col text-sm ml-2 w-half">Fermetrar</label>
+        </div>
+        <div class="flex g-4">
+            <select id="select-type" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                {% for type in types %}
+                <option value="{{ type.id }}">{{ type.type }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" id="input-square-meters" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+        </div>
+        <div class="flex g-4">
+            <label for="input-rooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi herbergja</label>
+            <label for="input-bedrooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi svefnherbergja</label>
+            <label for="input-bathrooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi baðherbergja</label>
+        </div>
+        <div class="flex g-4">
+            <input type="number" id="input-rooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+            <input type="number" id="input-bedrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+            <input type="number" id="input-bathrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+        </div>
+        <label for="input-description" class="flex flex-col text-sm ml-2">Lýsing eignar</label>
+        <textarea id="input-description" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-20" rows="10" cols="60" placeholder="Type here..."></textarea>
+    </div>
+    <br>
+    <button class="bg-gray text-black no-border w-30 p-1 text-base rounded-lg">Bæta við mynd</button>
+    <div class="flex flex-row">
+        <button class="bg-gray text-black no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+        <button class="bg-black text-white no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
+    </div>
+</div>
+{% endblock %}

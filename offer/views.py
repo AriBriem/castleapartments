@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def make_offer(request, listing_id):
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id})
+
+def finalize_offer(request, listing_id):
+    return render(request, 'offer/offerfinalization.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id})
