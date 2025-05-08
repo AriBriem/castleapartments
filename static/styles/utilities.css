@@ -85,6 +85,11 @@
 .g-4 { gap: 1rem; }
 .g-8 { gap: 2rem; }
 
+.gx-1 { column-gap: 0.25rem !important; }
+.gx-2 { column-gap: 0.5rem !important; }
+.gx-4 { column-gap: 1rem !important; }
+.gx-8 { column-gap: 2rem !important; }
+
 
 /* ========== Flexbox ========== */
 .flex { display: flex; }
@@ -93,10 +98,19 @@
 .justify-between { justify-content: space-between; }
 .justify-center { justify-content: center; }
 .items-center { align-items: center; }
+.wrap { flex-wrap: wrap; }
 
 .basis66 { flex-basis: 66%; }
 .basis34 { flex-basis: 34%; }
 .basis50 { flex-basis: 50%; }
+
+/* ========== Grid ========== */
+.grid {
+    display: grid;
+}
+.grid-2column {
+    grid-template-columns: repeat(2, 1fr);
+}
 
 /* ========== Width & Height ========== */
 .w-full { width: 100%; }
