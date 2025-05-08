@@ -82,8 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'verklegt_namskeid_db',
         'USER': 'verklegt_db_user',
-        'PASSWORD': '0cmbRfLwBsimLZWcL494fzAG',
-        'HOST': 'db-verklegt-namskeid-ii-eu-q0jy5g.postgres.database.azure.com',
+        'PASSWORD': '8pADbqa1xM820Fs2UQi5DVfI',
+        'HOST': 'db-verklegt-namskeid-ii-eu-xpctqq.postgres.database.azure.com',
         'PORT': '5432'
     }
 }
