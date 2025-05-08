@@ -7,7 +7,7 @@ class Postcodes(models.Model):
     postcode = models.IntegerField(primary_key=True)
     location = models.CharField(max_length=255)
     def __str__(self):
-        return self.postcode
+        return str(self.postcode)
 
 
 class ListingType(models.Model):
