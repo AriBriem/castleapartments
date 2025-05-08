@@ -103,6 +103,7 @@
 .h-full { height: 100%; }
 .max-w-screen { max-width: 100vw; }
 .w-half { width: 50%; }
+.w-30 {width: 30%; }
 .h-8 { height: 2rem; }
 .h-10 { height: 2.5rem; }
 .h-12 { height: 3rem; }
