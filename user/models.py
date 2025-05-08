@@ -6,7 +6,6 @@ from django.db import models
 # Create your models here.
 
 class Users(models.Model):
-    userID = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     phoneNumber = models.CharField(max_length=255)
@@ -22,7 +21,7 @@ class Users(models.Model):
         return self.name
 
 class SellerProfile(models.Model):
-    userID = models.ForeignKey('user.Users', primary_key=True, on_delete=models.CASCADE)
+    userID = models.OneToOneField('user.Users', on_delete=models.CASCADE)
     logoPath = models.CharField(max_length=255)
     bio = models.TextField()
     isCompany = models.BooleanField()

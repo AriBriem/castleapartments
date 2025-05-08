@@ -11,6 +11,12 @@
     font-family: 'DM Sans', sans-serif;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 body {
     background: #fafafa;
 }
@@ -170,10 +176,6 @@ footer {
     border-radius: 50%;
     width: 48px;
     aspect-ratio: 1;
-}
-
-.flex {
-    display: flex;
 }
 
 .col34 {
