@@ -34,6 +34,7 @@ class Listings(models.Model):
 
 
 class ListingImage(models.Model):
+    id = models.AutoField(primary_key=True)
     listingID = models.ForeignKey('listing.Listings', on_delete=models.CASCADE, related_name='images')
     imagePath = models.CharField(max_length=255)
     def __str__(self):
