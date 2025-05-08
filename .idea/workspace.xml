@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a646fac7-532e-4ae6-9919-c9be74bd6211" name="Changes" comment="Fixed some things with the footer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/castleapartments/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/castleapartments/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,12 +32,12 @@
     &quot;assignee&quot;: &quot;AriBriem&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AriBriem/castleapartments.git",
-    "accountId": "a1c564bf-0589-4f92-8605-c76da2a89ba9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AriBriem/castleapartments.git&quot;,
+    &quot;accountId&quot;: &quot;a1c564bf-0589-4f92-8605-c76da2a89ba9&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
