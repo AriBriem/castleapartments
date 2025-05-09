@@ -5,9 +5,9 @@ from django.db import models
 
 class Postcodes(models.Model):
     postcode = models.IntegerField(primary_key=True)
-    country = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
     def __str__(self):
-        return self.postcode
+        return str(self.postcode)
 
 
 class ListingType(models.Model):
@@ -26,16 +26,16 @@ class Listings(models.Model):
     bedrooms = models.IntegerField()
     postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     description = models.TextField()
-    thumbnail_path = models.CharField(max_length=255)
+    thumbnail_path = models.ImageField(upload_to="img/listingimages/")
     post_date = models.DateTimeField()
 
     def __str__(self):
-        return self.listingID
+        return self.address
 
 
 class ListingImage(models.Model):
     id = models.AutoField(primary_key=True)
     listing_id = models.ForeignKey('listing.Listings', on_delete=models.CASCADE, related_name='images')
-    image_path = models.CharField(max_length=255)
+    image_path = models.ImageField(max_length=255, upload_to="img/listingimages/")
     def __str__(self):
         return self.imagePath
