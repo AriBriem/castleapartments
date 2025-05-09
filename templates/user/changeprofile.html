@@ -23,11 +23,13 @@
         </div>
         <div class="flex g-4">
             <select id="select-location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <option value=""></option>
                 {% for postcode in postcodes %}
                 <option value="{{ postcode.id }}">{{ postcode.location }}</option>
                 {% endfor %}
             </select>
             <select id="select-postnumber" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <option value=""></option>
                 {% for postcode in postcodes %}
                 <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
                 {% endfor %}
@@ -35,13 +37,14 @@
         </div>
         <label for="select-country" class="flex flex-col text-sm ml-2">Land</label>
         <select id="select-country" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+            <option value=""></option>
             {% for country in countries %}
                 <option value="{{ country.id }}">{{ country.name }}</option>
             {% endfor %}
         </select>
         <div class="flex g-4">
-            <button class="bg-gray text-black no-border w-fit-content p-1 text-base rounded-lg">Breyta prófílmynd</button>
-            <button class="bg-gray text-black no-border w-fit-content p-1 text-base rounded-lg">Breyta forsíðumynd</button>
+            <button class="bg-gray text-black no-border w-fit-content p-1 text-base rounded-lg"><i class="fa fa-file-image-o"></i>  Breyta prófílmynd</button>
+            <button class="bg-gray text-black no-border w-fit-content p-1 text-base rounded-lg"><i class="fa fa-file-image-o"></i>  Breyta forsíðumynd</button>
         </div>
     </div>
 

@@ -12,4 +12,4 @@ def get_listing_by_id(request, listing_id):
 def create_listing(request):
     postcodes = Postcodes.objects.all()
     types = ListingType.objects.all()
-    return render(request, 'listing/createlisting.html', {"show_navbar": False, "show_footer": True, "postcode": postcodes, "type": types})
+    return render(request, 'listing/createlisting.html', {"show_navbar": False, "show_footer": False, "postcodes": postcodes, "types": types})
