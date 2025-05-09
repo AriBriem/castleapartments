@@ -21,6 +21,10 @@ body {
     background: #fafafa;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;

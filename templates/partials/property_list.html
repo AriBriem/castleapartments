@@ -1,0 +1,30 @@
+{% load static %}
+<div class="flex flex-col my-8">
+    <div class="flex">
+        <button class="flex justify-between px-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span class="flex items-center g-2"><i class="fa fa-sort text-dark"></i>Raða eftir...</span></button>
+        <button class="flex justify-between px-2 ml-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span class="flex items-center g-2"><i class="far fa-bookmark text-primary"></i>Vistað</span></button>
+    </div>
+    <div class="grid grid-3column g-4 my-2">
+        <div class="flex flex-col">
+            <img class="rounded-lg mb-2 asp-3-2" src="{% static '/img/test/listingtest.png' %}">
+            <div class="flex flex-col px-2">
+                <div class="flex justify-between mb-2">
+                    <p class="text-base"><b>Heimilisfang 123</b></p>
+                    <p class="text-base text-green">Í sölu</p>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <p class="text-base">105 Reykjavík</p>
+                    <p class="text-base"><b>Tegund:</b> Fjölbýli</p>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <p class="text-base"><b>Fermetrar:</b> Fjölbýli</p>
+                    <p class="text-base"><b>Herbergi:</b> Fjölbýli</p>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <p class="text-base"><b>Ásett verð</b></p>
+                    <p class="text-base">48.000.000 kr.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
