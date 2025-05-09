@@ -1,5 +1,28 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <p>steinar er bestur</p>
+    <div class="whitespace12">
+        <div>
+            <img src="{% static '/img/test/bannertest.png' %}" class = "rounded-lg">
+            <img src="{% static '/img/test/profiletest.png' %}" class = "profilePicLarge ml-12">
+            <h2>Jón Jónsson</h2>
+        </div>
+        <div class="flex">
+            <div>
+                <p><b>Sími:</b> 123 1234</p>
+                <p><b>Email:</b> jonjonsson@gmail.com</p>
+            </div>
+            <div>
+                <p><b>Einstaklingur</b></p>
+                <p><b>Heimilisfang:</b> Húsasund 123, 105 Reykjavík</p>
+            </div>
+        </div>
+        <p>
+            Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.
+        </p>
+        <div>
+            <
+        </div>
+    </div>
 {% endblock %}
