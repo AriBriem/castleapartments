@@ -2,27 +2,40 @@
 {% load static %}
 
 {% block content %}
-    <div class="whitespace12">
-        <div>
-            <img src="{% static '/img/test/bannertest.png' %}" class = "rounded-lg">
-            <img src="{% static '/img/test/profiletest.png' %}" class = "profilePicLarge ml-12">
-            <h2>Jón Jónsson</h2>
-        </div>
-        <div class="flex">
-            <div>
-                <p><b>Sími:</b> 123 1234</p>
-                <p><b>Email:</b> jonjonsson@gmail.com</p>
+    <div class="whitespace12 mb-large">
+        <div class="pt-8">
+            <img src="{% static '/img/test/bannertest.png' %}" class="rounded-1rem">
+            <div class="flex flex-row">
+                <img src="{% static '/img/test/profiletest.png' %}" class="profilePicLarge ml-12">
+                <h2 class="ml-4 mt-4">Jón Jónsson</h2>
+                <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta prófíl</button>
+                <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta seljanda upplýsingum
+                </button>
+                <button class="no-border ml-3 px-3 rounded-2 height align center red">Skrá út</button>
             </div>
             <div>
-                <p><b>Einstaklingur</b></p>
-                <p><b>Heimilisfang:</b> Húsasund 123, 105 Reykjavík</p>
+                <h3 class="mx-2 mt-4">Mínar eignir</h3>
             </div>
-        </div>
-        <p>
-            Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.
-        </p>
-        <div>
-            <
+            <div>
+                <h3 class="mx-2 mtv-10">Mín tilboð</h3>
+            </div>
+            <div class="px-2 flex flex-row mt-8 mr-L">
+                <h5 class="font-light" style="width: 16%;">Heimilisfang</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Heimilisfang</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Dagsetning</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Rennur út</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Staða</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Staða</h5>
+            </div>
+            <div class="px-2 flex flex-row mt-8 bg-gray py-4">
+                <h5 class="font-light" style="width: 16%;">Heimilisfang</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Heimilisfang</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Dagsetning</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Rennur út</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Staða</h5>
+                <h5 class="ml-8  font-light" style="width: 16%;">Staða</h5>
+                <button class="no-border ml-3 px-3 rounded-2 height align center black">Klára tilboð</button>
+            </div>
         </div>
     </div>
 {% endblock %}

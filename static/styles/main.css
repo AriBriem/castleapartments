@@ -177,7 +177,8 @@ footer {
 
 .profilePicLarge {
     border-radius: 50%;
-    width: 161px;
+    width: 130px;
+    margin-top: -65px;
 }
 
 .col34 {
