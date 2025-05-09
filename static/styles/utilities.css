@@ -158,6 +158,11 @@
 .h-screen-70 { height: 70vh; }
 .h-screen-50 { height: 50vh; }
 
+.maxh-50v { max-height: 50vh}
+
+.overflow-auto { overflow: auto; }
+.pos-abs { position: absolute; }
+
 /* ========== Text ========== */
 .text-sm { font-size: 0.875rem; }
 .text-base { font-size: 1rem; }
