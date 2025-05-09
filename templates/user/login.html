@@ -2,19 +2,19 @@
 
 {% block content %}
     <div class="whitespace30 mt-8">
-    <h1 class="g-2 ml-2">Innskráning</h1>
-    <div class="inputContainer flex-col ml-2">
-    <br>
-        <label for="input-email" class="flex flex-col text-sm ml-2">Netfang</label>
-        <input type="text" id="input-email" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-        <label for="input-password" class="flex flex-col text-sm ml-2">Lykilorð</label>
-        <input type="text" id="input-password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+        <h1 class="g-2 ml-4">Innskráning</h1>
+        <div class="inputContainer flex-col g-2 ml-2">
+        <br>
+            <label for="input-email" class="flex flex-col text-sm ml-2">Netfang</label>
+            <input type="text" id="input-email" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+            <label for="input-password" class="flex flex-col text-sm ml-2">Lykilorð</label>
+            <input type="text" id="input-password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+        </div>
+        <br>
+            <p class="text-sm ml-4">Er ekki með aðgang? <a href="http://127.0.0.1:8000/signup">nýskráning</a></p>
+        <div class="flex flex-row g-4">
+            <button class="bg-gray text-black rounded no-border w-half p-1 text-base ml-2 mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+            <button class="bg-black text-white rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
+        </div>
     </div>
-    <br>
-        <p class="text-sm">Er ekki með aðgang? <a href="http://127.0.0.1:8000/signup">nýskráning</a></p>
-    <div class="flex flex-row">
-    <button class="bg-gray text-black rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
-    <button class="bg-black text-white rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
-    </div>
-</div>
 {% endblock %}

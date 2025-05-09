@@ -20,3 +20,6 @@ def change_profile(request):
 
 def seller_information(request):
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False})
+
+def mypages(request):
+    return render(request, 'user/mypages.html', {"show_navbar": True, "show_footer": True})

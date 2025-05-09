@@ -21,6 +21,7 @@
 .ml-2 { margin-left: 0.5rem; }
 .ml-4 { margin-left: 1rem; }
 .ml-8 { margin-left: 2rem; }
+.ml-12 { margin-left: 3rem; }
 .mr-1 { margin-right: 0.25rem; }
 .mr-2 { margin-right: 0.5rem; }
 .mr-4 { margin-right: 1rem; }
@@ -138,6 +139,7 @@
 .h-10 { height: 2.5rem; }
 .h-12 { height: 3rem; }
 .h-20 { height: 5rem; }
+.h-30 { height: 7.5rem; }
 
 .w-fit { width: fit-content; }
 .w-fit-min { min-width: fit-content; }

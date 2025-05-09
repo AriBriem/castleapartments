@@ -179,6 +179,11 @@ footer {
     aspect-ratio: 1;
 }
 
+.profilePicLarge {
+    border-radius: 50%;
+    width: 161px;
+}
+
 .col34 {
     flex-basis: 34%;
 }
