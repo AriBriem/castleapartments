@@ -70,7 +70,8 @@
 .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
 .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
 
-.mtp-6 { margin-top: 6%; }
+.mtv-6 { margin-top: 6vh; }
+.mtv-10 { margin-top: 10vh; }
 
 .whitespace50 { padding: 0 50%; }
 .whitespace40 { padding: 0 40%; }
@@ -139,11 +140,13 @@
 .h-20 { height: 5rem; }
 
 .w-fit { width: fit-content; }
+.w-fit-min { min-width: fit-content; }
 
 .max-w-screen-15 { max-width: 15vw}
 
 .w-screen-70 { width: 70vw; }
 .w-screen-50 { width: 50vw; }
+.w-screen-12 { width: 12vw; }
 .h-screen-70 { height: 70vh; }
 .h-screen-50 { height: 50vh; }
 

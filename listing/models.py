@@ -26,7 +26,7 @@ class Listings(models.Model):
     bedrooms = models.IntegerField()
     postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     description = models.TextField()
-    thumbnailPath = models.CharField(max_length=255)
+    thumbnailPath = models.ImageField(upload_to="img/listingimages/")
     postDate = models.DateTimeField()
 
     def __str__(self):

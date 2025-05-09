@@ -14,15 +14,15 @@ class Users(models.Model):
     personalID = models.CharField(max_length=255)
     postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     country = models.CharField(max_length=255)
-    profileImagePath = models.CharField(max_length=255)
-    coverImagePath = models.CharField(max_length=255)
+    profileImagePath = models.ImageField(upload_to="img/profilepics/")
+    coverImagePath = models.ImageField(upload_to="img/coverimages/")
     registerDate = models.DateTimeField()
     def __str__(self):
         return self.name
 
 class SellerProfile(models.Model):
     userID = models.OneToOneField('user.Users', on_delete=models.CASCADE)
-    logoPath = models.CharField(max_length=255)
+    logoPath = models.ImageField(upload_to="img/logos/")
     bio = models.TextField()
     isCompany = models.BooleanField()
 
