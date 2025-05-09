@@ -104,7 +104,6 @@ body {
 }
 
 .searchContainer {
-    width: 70%;
     height: 3rem;
     background: #f2f2f2;
     display: flex;
@@ -112,8 +111,6 @@ body {
     margin: 1% 0;
     border-radius: 10rem;
 }
-
-
 
 .searchInput {
     width: 100%;
@@ -268,5 +265,9 @@ footer {
     justify-content: center;
     margin: 1% 0;
     border-radius: 10rem;
+}
+
+.listing-item {
+    display: flex;
 }
 
