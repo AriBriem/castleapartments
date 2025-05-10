@@ -188,6 +188,7 @@
 .bg-black { background-color: #000000; }
 .bg-white { background-color: #ffffff; }
 .bg-primary { background-color: #007BFF; color: white; }
+.bg-red { { background-color: #FF0000; }}
 
 .text-primary { color: #007BFF; }
 .text-black { color: #000000; }

@@ -36,6 +36,6 @@ class Listings(models.Model):
 class ListingImage(models.Model):
     id = models.AutoField(primary_key=True)
     listing_id = models.ForeignKey('listing.Listings', on_delete=models.CASCADE, related_name='images')
-    image_path = models.ImageField(max_length=255, upload_to="img/listingimages/")
+    image_path = models.ImageField(max_length=255, upload_to="img/listingimages/", default='/static/img/default.jpg')
     def __str__(self):
-        return self.imagePath
+        return self.image_path
