@@ -28,15 +28,30 @@
                 <h5 class="ml-8  font-light center wp-15">Seljandi</h5>
                 <h5 class="font-light center wp-10"></h5>
             </div>
-            <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
-                <h5 class="font-light center wp-15">Heimilisfang</h5>
-                <h5 class="ml-8  font-light center wp-15">01.01.2025</h5>
-                <h5 class="ml-8  font-light center wp-15">24.12.2025</h5>
-                <h5 class="ml-8  font-light center wp-15">Samþykkt</h5>
-                <h5 class="ml-8  font-light center wp-15">100.000.000 kr.</h5>
-                <h5 class="ml-8  font-light center wp-15">Jón Jónsson</h5>
-                <button class="no-border px-3 rounded-2 height align center text-white bg-black text-small" style="width: 10%">Klára tilboð</button>
-            </div>
+            {% for offer in offers %}
+                {% if offer.buyer_id_id == request.user.id %}
+                    <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
+                        <h5 class="font-light center wp-15">
+                            {% for listing in listings %}
+                                {% if listing.id == offer.listing_id_id %}
+                                    {{ listing.address }}
+                                {% endif %}
+                            {% endfor %}</h5>
+
+                        <h5 class="ml-8  font-light center wp-15">{{ offer.post_date }}</h5>
+                        <h5 class="ml-8  font-light center wp-15">{{ offer.expiry_date }}</h5>
+                        <h5 class="ml-8  font-light center wp-15">{{ offer.status }}</h5>
+                        <h5 class="ml-8  font-light center wp-15">{{ offer.amount }}</h5>
+                        <h5 class="ml-8  font-light center wp-15">
+                            {% for usre in users %}
+                                {% if user.id == offer.buyer_id_id %}
+                                    {{ user.name }}
+                                {% endif %}
+                            {% endfor %}</h5>
+                        <button class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
