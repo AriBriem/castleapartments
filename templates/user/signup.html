@@ -31,12 +31,12 @@
                 <div class="flex g-4">
                     <select id="select-location" name="location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                         {% for postcode in postcodes %}
-                        <option value="{{ postcode.id }}">{{ postcode.location }}</option>
+                            <option value="{{ postcode.postcode }}">{{ postcode.location }}</option>
                         {% endfor %}
                     </select>
                     <select id="select-postcode" name="postcode" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                         {% for postcode in postcodes %}
-                        <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
+                            <option value="{{ postcode.postcode }}">{{ postcode.postcode }}</option>
                         {% endfor %}
                     </select>
                 </div>

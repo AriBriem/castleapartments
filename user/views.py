@@ -37,9 +37,13 @@ def signup(request):
         cover_image_path = request.FILES.get('cover_image')
 
         if postcode:
-            postcode = Postcodes.objects.get(id=postcode)
-
-        country = Country.objects.get(id=country) if country else None
+            postcode = Postcodes.objects.get(postcode=postcode)
+        else:
+            postcode = None
+        if country:
+            country = Country.objects.get(id=country)
+        else:
+            country = None
 
         if Users.objects.filter(email=email).exists():
             messages.error(request, "User with this email already exists.")
@@ -52,7 +56,6 @@ def signup(request):
                 phone_number=phone_number,
                 address=address,
                 personal_id=personal_id,
-                location=location,
                 postcode=postcode,
                 country=country,
                 profile_image_path=profile_image_path,
