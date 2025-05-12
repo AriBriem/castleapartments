@@ -11,7 +11,9 @@
     <div class="nav-links">
         <a href="/">Heim</a>
         <a href="/listing/">Skrá eign</a>
+        {% if user.is_authenticated %}
         <a href="/mypages">Mínar síður</a>
+        {% endif %}
     </div>
     <div class="loginBtnContainer">
         <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
