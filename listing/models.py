@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils import timezone
 # Create your models here.
 
 
@@ -27,7 +28,7 @@ class Listings(models.Model):
     postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     description = models.TextField()
     thumbnail_path = models.ImageField(upload_to="img/listingimages/")
-    post_date = models.DateTimeField()
+    post_date = models.DateTimeField(default=timezone.now)
     sold = models.BooleanField(default=False)
     price = models.IntegerField()
 
@@ -38,6 +39,6 @@ class Listings(models.Model):
 class ListingImage(models.Model):
     id = models.AutoField(primary_key=True)
     listing = models.ForeignKey('listing.Listings', on_delete=models.CASCADE, related_name='images')
-    image_path = models.ImageField(max_length=255, upload_to="img/listingimages/")
+    image_path = models.ImageField(max_length=255, upload_to="img/listingimages/", default='/static/img/default.jpg')
     def __str__(self):
         return self.image_path

@@ -3,52 +3,57 @@
 {% block content %}
     <div class="whitespace30 mt-8">
         <h1 class="g-2 ml-4">Nýskráning</h1>
-        <div class="inputContainer flex-col g-2 ml-2">
-        <br>
-            <label for="input-name" class="flex flex-col text-sm ml-2">Nafn</label>
-            <input type="text" id="input-name" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <label for="input-email" class="flex flex-col text-sm ml-2">Netfang</label>
-            <input type="text" id="input-email" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <label for="input-phone" class="flex flex-col text-sm ml-2">Símanúmer</label>
-            <input type="text" id="input-phone" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <label for="input-password" class="flex flex-col text-sm ml-2">Lykilorð</label>
-            <input type="text" id="input-password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <label for="input-address" class="flex flex-col text-sm ml-2">Heimilisfang</label>
-            <input type="text" id="input-address" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <label for="input-nationalID" class="flex flex-col text-sm ml-2">Kennitala</label>
-            <input type="text" id="input-nationalID" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-            <div class="flex g-4">
-                <label for="select-location" class="flex flex-col text-sm ml-2 w-half">Staðsetning</label>
-                <label for="select-postnumber" class="flex flex-col text-sm ml-2 w-half">Póstnúmer</label>
-            </div>
-            <div class="flex g-4">
-                <select id="select-location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                    {% for postcode in postcodes %}
-                    <option value="{{ postcode.id }}">{{ postcode.location }}</option>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="inputContainer flex-col g-2 ml-2">
+            <br>
+                <label for="input-name" class="flex flex-col text-sm ml-2">Nafn</label>
+                <input type="text" id="input-name" name="name" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-email" class="flex flex-col text-sm ml-2">Netfang</label>
+                <input type="text" id="input-email" name="email" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-phone" class="flex flex-col text-sm ml-2">Símanúmer</label>
+                <input type="text" id="input-phone" name="phone_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-password" class="flex flex-col text-sm ml-2">Lykilorð</label>
+                <input type="text" id="input-password" name="password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-address" class="flex flex-col text-sm ml-2">Heimilisfang</label>
+                <input type="text" id="input-address" name="address" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-personalID" class="flex flex-col text-sm ml-2">Kennitala</label>
+                <input type="text" id="input-personalID" name="personal_id" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <div class="flex g-4">
+                    <label for="select-location" class="flex flex-col text-sm ml-2 w-half">Staðsetning</label>
+                    <label for="select-postcode" class="flex flex-col text-sm ml-2 w-half">Póstnúmer</label>
+                </div>
+                <div class="flex g-4">
+                    <select id="select-location" name="location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                        {% for postcode in postcodes %}
+                        <option value="{{ postcode.id }}">{{ postcode.location }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="select-postcode" name="postcode" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                        {% for postcode in postcodes %}
+                        <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <label for="select-country" class="flex flex-col text-sm ml-2">Land</label>
+                <select id="select-country" name="country" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                    {% for country in countries %}
+                        <option value="{{ country.id }}">{{ country.name }}</option>
                     {% endfor %}
                 </select>
-                <select id="select-postnumber" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                    {% for postcode in postcodes %}
-                    <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
-                    {% endfor %}
-                </select>
+                <div class="flex g-4">
+                    <label for="choose-profile" class="flex flex-col text-sm ml-2"><i class="fa fa-file-image-o"></i>  Bæta við prófílmynd</label>
+                    <input type="file" id="choose-profile" name="profile_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png">
+                    <label for="choose-cover" class="flex flex-col text-sm ml-2"><i class="fa fa-file-image-o"></i>  Bæta við forsíðumynd</label>
+                    <input type="file" id="choose-cover" name="cover_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png">
+                </div>
+                <p class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg">Ert þú nú þegar með aðgang? <a href="http://127.0.0.1:8000/login">Innskráning</a></p>
             </div>
-            <label for="select-country" class="flex flex-col text-sm ml-2">Land</label>
-            <select id="select-country" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                {% for country in countries %}
-                    <option value="{{ country.id }}">{{ country.name }}</option>
-                {% endfor %}
-            </select>
-            <div class="flex g-4">
-                <button class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg"><i class="fa fa-file-image-o"></i>  Bæta við prófílmynd</button>
-                <button class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg"><i class="fa fa-file-image-o"></i>  Bæta við forsíðumynd</button>
-            </div>
-            <p class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg">Ert þú nú þegar með aðgang? <a href="http://127.0.0.1:8000/login">Innskráning</a></p>
-        </div>
 
-        <div class="flex flex-row g-4">
-            <button class="bg-gray text-black no-border w-half p-1 text-base ml-2 mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
-            <button class="bg-black text-white no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
-        </div>
+            <div class="flex flex-row g-4">
+                <button class="bg-gray text-black no-border w-half p-1 text-base ml-2 mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+                <button type="submit" class="bg-black text-white no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
+            </div>
+        </form>
     </div>
 {% endblock %}
