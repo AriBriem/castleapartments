@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
-from listing.models import Postcodes
+from listing.models import Postcodes, Listings
+from offer.models import Offers
 from user.models import Country, SellerProfile
 from user.models import Users
 
@@ -9,12 +10,12 @@ from user.models import Users
 # Create your views here.
 def login_user(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
+        email = request.POST.get('email')
+        password = request.POST.get('password')
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('listing-index')
         else:
             return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False, "error": "Invalid email or password."})
     return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False})
@@ -23,17 +24,27 @@ def signup(request):
     postcodes = Postcodes.objects.all()
     countries = Country.objects.all()
     if request.method == 'POST':
-        name = request.POST.get['name']
-        email = request.POST.get['email']
-        phone_number = request.POST.get['phone_number']
-        password = request.POST.get['password']
-        address = request.POST.get['address']
-        personal_id = request.POST.get['personal_id']
-        location = request.POST.get['location']
-        postcode = request.POST.get['postcode']
-        country = request.POST.get['country']
-        profile_image_path = request.FILES.get['profile_image']
-        cover_image_path = request.FILES.get['cover_image']
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        address = request.POST.get('address')
+        personal_id = request.POST.get('personal_id')
+        location = request.POST.get('location')
+        postcode = request.POST.get('postcode')
+        country = request.POST.get('country')
+        profile_image_path = request.FILES.get('profile_image')
+        cover_image_path = request.FILES.get('cover_image')
+
+        if postcode:
+            postcode = Postcodes.objects.get(postcode=postcode)
+        else:
+            postcode = None
+        if country:
+            country = Country.objects.get(id=country)
+        else:
+            country = None
+
         if Users.objects.filter(email=email).exists():
             messages.error(request, "User with this email already exists.")
             return redirect("user-signup")
@@ -45,7 +56,6 @@ def signup(request):
                 phone_number=phone_number,
                 address=address,
                 personal_id=personal_id,
-                location=location,
                 postcode=postcode,
                 country=country,
                 profile_image_path=profile_image_path,
@@ -54,9 +64,10 @@ def signup(request):
             messages.success(request, "Account created successfully. You can now log in.")
             return redirect("user-login")
         except ValueError as e:
+            print(f"Signup error: {e}")
             messages.error(request, str(e))
-            return redirect("signup")
-    return render(request, 'user/signup.html', {"show_navbar": False, "show_footer": False, "country": countries, "postcodes": postcodes})
+            return redirect("user-signup")
+    return render(request, 'user/signup.html', {"show_navbar": False, "show_footer": False, "countries": countries, "postcodes": postcodes, "error": messages.error})
 
 def change_profile(request):
     postcodes = Postcodes.objects.all()
@@ -139,4 +150,7 @@ def seller_information(request):
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False})
 
 def mypages(request):
-    return render(request, 'user/mypages.html', {"show_navbar": True, "show_footer": True})
+    offers = Offers.objects.all()
+    listings = Listings.objects.all()
+    users = Users.objects.all()
+    return render(request, 'user/mypages.html', {"show_navbar": True, "show_footer": True, "offers": offers, "listings": listings, "users": users})

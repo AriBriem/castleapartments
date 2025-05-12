@@ -69,15 +69,15 @@ def create_listing(request):
     postcodes = Postcodes.objects.all()
     types = ListingType.objects.all()
     if request.method == 'POST':
-        address = request.POST['address']
-        postcode = request.POST['postcode']
-        type = request.POST['type']
-        sqr_meters = request.POST['sqr_meters']
-        rooms = request.POST['rooms']
-        bathrooms = request.POST['bathrooms']
-        bedrooms = request.POST['bedrooms']
-        description = request.POST['description']
-        thumbnail_path = request.FILES.get['listing_image']
+        address = request.POST.get('address')
+        postcode = request.POST.get('postcode')
+        type = request.POST.get('type')
+        sqr_meters = request.POST.get('sqr_meters')
+        rooms = request.POST.get('rooms')
+        bathrooms = request.POST.get('bathrooms')
+        bedrooms = request.POST.get('bedrooms')
+        description = request.POST.get('description')
+        thumbnail_path = request.FILES.get('listing_image')
 
         if Listings.objects.filter(address=address).exists():
             messages.error(request, "Listing with this address already exists.")

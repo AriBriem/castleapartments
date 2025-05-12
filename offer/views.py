@@ -8,7 +8,6 @@ from offer.models import Offers
 # Create your views here.
 
 def make_offer(request, listing_id):
-
     listing = get_object_or_404(Listings, id=listing_id)
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -29,7 +28,7 @@ def make_offer(request, listing_id):
             status='Pending'
         )
         return redirect('listing-detail', listing_id=listing_id)
-    return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id})
+    return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
 def finalize_offer(request, listing_id):
     return render(request, 'offer/offerfinalization.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id})
