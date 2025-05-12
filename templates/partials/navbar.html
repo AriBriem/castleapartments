@@ -1,21 +1,19 @@
 {% load static %}
-<nav>
-    <div class="navbar">
-        <a href="/" class="logo">
-            <!--<img src="logo.png" alt="Logo" class="logoImg">>>!-->
-            <img src="{% static '/img/icons/logo.svg' %}" alt="Castle Apartments Logo" class="logoImg">
-            <div class="logoTextContainer">
-                <h1>Castle</h1>
-                <h1>Apartments</h1>
-            </div>
-        </a>
-        <div class="nav-links">
-            <a href="/">Heim</a>
-            <a href="property.html">Skrá eign</a>
-            <a href="my.html">Mínar síður</a>
+<nav class="navbar">
+    <a href="/" class="logo">
+        <!--<img src="logo.png" alt="Logo" class="logoImg">>>!-->
+        <img src="{% static '/img/icons/logo.svg' %}" alt="Castle Apartments Logo" class="logoImg">
+        <div class="logoTextContainer">
+            <h1>Castle</h1>
+            <h1>Apartments</h1>
         </div>
-        <div class="loginBtnContainer">
-            <button class="loginBtn">Innskráning</button>
-        </div>
+    </a>
+    <div class="nav-links">
+        <a href="/">Heim</a>
+        <a href="/listing/">Skrá eign</a>
+        <a href="/mypages">Mínar síður</a>
+    </div>
+    <div class="loginBtnContainer">
+        <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
     </div>
 </nav>

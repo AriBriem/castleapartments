@@ -17,27 +17,28 @@
 
         <div class="grid grid-2column g-4 mt-4 mb-4">
             <div>
-                <button id="postcode-button" class="flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
+                <button id="postcode" class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
                 <span class="flex items-center g-2">
                     <i class="fas fa-map-marker-alt text-primary"></i>Póstnúmer
                 </span>
                     <i class="fa fa-angle-down ml-2"></i>
                 </button>
-                <div>
-                    <div id="postcode-filter" class="mh-50v overflow-auto pos-abs bg-white w-screen-12 w-fit-min hidden">
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                    <div id="postcode-filter" class="filter maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
                         {% for city, postcodes in postcodes_by_location.items %}
-                            <div class="city-block">
-                                <label>
-                                    <input type="checkbox" class="city-checkbox" data-city-id="{{ city }}">
+                            <div class="city-block text-left user-select-none">
+                                <i data-target="city-{{ city }}" class="expand-button-city fa fa-angle-right mx-2"></i>
+                                <label class="">
+                                    <input type="checkbox" class="city-checkbox" data-city="{{ city }}">
                                     <strong>{{ city }}</strong>
                                 </label>
-                                <div class="postcode-list">
+                                <div id="city-{{ city }}" class="postcode-list grid grid-2column justify-items-center hidden user-select-none">
                                     {% for postcode in postcodes %}
-                                        <label>
-                                            <input type="checkbox" class="postcode-checkbox" data-city-id="{{ city }}"
+                                        <label class="">
+                                            <input type="checkbox" class="postcode-checkbox" data-city="{{ city }}"
                                                    value="{{ postcode }}">
                                             {{ postcode }}
-                                        </label><br>
+                                        </label>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -45,14 +46,171 @@
                     </div>
                 </div>
             </div>
-            <button class="flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fas fa-home text-primary"></i>Tegund</span><i class="fa fa-angle-down ml-2"></i></button>
-            <button class="flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fas fa-map-marker-alt text-primary"></i>Staðsetning</span><i class="fa fa-angle-down ml-2"></i></button>
-            <button class="flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white"><span class="flex items-center g-2"><i class="fa fa-dollar text-primary"></i>Verð</span><i class="fa fa-angle-down ml-2"></i></button>
+            <div>
+                <button id="type"
+                        class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
+                <span class="flex items-center g-2">
+                    <i class="fas fa-home text-primary"></i>Tegund
+                </span>
+                    <i class="fa fa-angle-down ml-2"></i>
+                </button>
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                    <div id="type-filter"
+                         class="filter maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
+                        {% for type in types %}
+                            <div class="city-block text-left user-select-none">
+                                <label class="">
+                                    <input type="checkbox" class="type-checkbox" value="{{ type.id }}">
+                                    {{ type.type }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button id="meter"
+                        class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
+                <span class="flex items-center g-2">
+                    <i class="fas fa-ruler text-primary"></i>Fermetrar
+                </span>
+                    <i class="fa fa-angle-down ml-2"></i>
+                </button>
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                    <div id="meter-filter"
+                         class="filter flex maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
+                        <div class="city-block basis50 text-center user-select-none">
+                            <label class="">
+                                Frá:
+                                <select id="meter-from-filter">
+                                    <option value=""></option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                    <option value="110">110</option>
+                                    <option value="120">120</option>
+                                    <option value="130">130</option>
+                                    <option value="140">140</option>
+                                    <option value="150">150</option>
+                                    <option value="160">160</option>
+                                    <option value="170">170</option>
+                                    <option value="180">180</option>
+                                    <option value="190">190</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="city-block basis50 text-center user-select-none">
+                            <label class="">
+                                Til:
+                                <select id="meter-to-filter">
+                                    <option value=""></option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                    <option value="110">110</option>
+                                    <option value="120">120</option>
+                                    <option value="130">130</option>
+                                    <option value="140">140</option>
+                                    <option value="150">150</option>
+                                    <option value="160">160</option>
+                                    <option value="170">170</option>
+                                    <option value="180">180</option>
+                                    <option value="190">190</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button id="price"
+                        class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
+                <span class="flex items-center g-2">
+                    <i class="fa fa-dollar text-primary"></i>Verð
+                </span>
+                    <i class="fa fa-angle-down ml-2"></i>
+                </button>
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                    <div id="price-filter"
+                         class="filter flex maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
+                        <div class="city-block basis50 text-center user-select-none">
+                            <label class="">
+                                Frá:
+                                <select id="price-from-filter">
+                                    <option value=""></option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                    <option value="110">110</option>
+                                    <option value="120">120</option>
+                                    <option value="130">130</option>
+                                    <option value="140">140</option>
+                                    <option value="150">150</option>
+                                    <option value="160">160</option>
+                                    <option value="170">170</option>
+                                    <option value="180">180</option>
+                                    <option value="190">190</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="city-block basis50 text-center user-select-none">
+                            <label class="">
+                                Til:
+                                <select id="price-to-filter">
+                                    <option value=""></option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="60">60</option>
+                                    <option value="70">70</option>
+                                    <option value="80">80</option>
+                                    <option value="90">90</option>
+                                    <option value="100">100</option>
+                                    <option value="110">110</option>
+                                    <option value="120">120</option>
+                                    <option value="130">130</option>
+                                    <option value="140">140</option>
+                                    <option value="150">150</option>
+                                    <option value="160">160</option>
+                                    <option value="170">170</option>
+                                    <option value="180">180</option>
+                                    <option value="190">190</option>
+                                    <option value="200">200</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="property-list">
-
+        <div id="property-list" class="w-full">
         </div>
     </div>
-
     <script src="{% static '/scripts/index.js' %}"></script>
 {% endblock %}

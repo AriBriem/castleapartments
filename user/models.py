@@ -21,7 +21,7 @@ class Users(models.Model):
         return self.name
 
 class SellerProfile(models.Model):
-    user_id = models.OneToOneField('user.Users', on_delete=models.CASCADE)
+    user = models.OneToOneField('user.Users', on_delete=models.CASCADE)
     logo_path = models.ImageField(upload_to="img/logos/")
     bio = models.TextField()
     is_company = models.BooleanField()
