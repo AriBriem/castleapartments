@@ -29,7 +29,8 @@ def index(request):
     return render(request, 'listing/index.html', context)
 
 def get_listing_by_id(request, listing_id):
-    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing_id": listing_id})
+    listing = Listings.objects.get(id=listing_id)
+    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing})
 
 def filter_listings(request):
     postcode_ids = request.GET.get('postcodes')

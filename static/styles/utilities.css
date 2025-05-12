@@ -216,7 +216,7 @@
 .rounded-2 { border-radius: 0.5rem; }
 .rounded-4 { border-radius: 1rem; }
 .rounded-8 { border-radius: 2rem; }
-.rounded-lg { border-radivertical-align: baseline;us: 0.5rem; }
+.rounded-lg { border-radius: 0.5rem; }
 .rounded-1rem { border-radius: 1rem; }
 .circular { border-radius: 50%; }
 
@@ -229,8 +229,7 @@
 
 /* ========== Colors ========== */
 
-.red {center; color: red;}
-.black { center; color: black; }
+
 
 /* ========== Alignment ========== */
 

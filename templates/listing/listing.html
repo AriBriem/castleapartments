@@ -19,33 +19,33 @@
         <div class="flex pb-4">
             <div class="col66 px-2">
                 <div class="flex justify-between items-stretch my-2">
-                    <h1 class="pageTitle">Heimilisfang 123</h1>
+                    <h1 class="pageTitle">{{ listing.address }}</h1>
                     <div class="flex items-center">
-                        <p class="smallText infoText">Birt: 29.0.2005</p>
+                        <p class="smallText infoText">Birt: {{ listings.postdate }}</p>
                         <div class="ml-4 px-2 hp-80 bg-dark rounded-lg flex items-center">
                             <p class="green">Til sölu</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-between my-2">
-                    <p>Ásett verð: <b>48.000.000 kr.</b></p>
+                    <p>Ásett verð: <b>{{ listing.price }} kr.</b></p>
                 </div>
                 <div class="flex justify-between my-2">
                     <div class="descCol">
-                        <p>105 Reykjavík</p>
-                        <p><b>Tegund:</b> Fjölbýli</p>
+                        <p>{{ listing.postcode }} {{ listing.postcode.location }}</p>
+                        <p><b>Tegund:</b> {{ listing.type.type }}</p>
                     </div>
                     <div class="descCol">
-                        <p><b>Fermetrar:</b> 50</p>
-                        <p><b>Herbergi:</b> 2</p>
+                        <p><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
+                        <p><b>Herbergi:</b> {{ listing.rooms }}</p>
                     </div>
                     <div class="descCol">
-                        <p><b>Svefnherbergi:</b> 1</p>
-                        <p><b>Baðherbergi:</b> 1</p>
+                        <p><b>Svefnherbergi:</b> {{ listing.bedrooms }}</p>
+                        <p><b>Baðherbergi:</b> {{ listing.bathrooms }}</p>
                     </div>
                 </div>
                 <div class="flex justify-between my-2">
-                    <p>Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.</p>
+                    <p>{{ listing.description }}</p>
                 </div>
             </div>
             <div class="flex flex-col col34 ml-4">

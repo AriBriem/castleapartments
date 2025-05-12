@@ -30,7 +30,7 @@ class Listings(models.Model):
     thumbnail_path = models.ImageField(upload_to="img/listingimages/")
     post_date = models.DateTimeField(default=timezone.now)
     sold = models.BooleanField(default=False)
-    price = models.IntegerField()
+    price = models.IntegerField(default=0)
 
     def __str__(self):
         return self.address

@@ -12,11 +12,15 @@
             <div class="flex flex-col px-2">
                 <div class="flex justify-between mb-2">
                     <p class="text-base"><b>{{ listing.address }}</b></p>
-                    <p class="text-base text-green">Í sölu</p>
+                    {% if not listing.sold %}
+                        <p class="text-base text-green">Í sölu</p>
+                    {% else %}
+                        <p class="text-base text-red">Seld</p>
+                    {% endif %}
                 </div>
                 <div class="flex justify-between mb-2">
                     <p class="text-base">{{ listing.postcode }} {{ listing.postcode.location }}</p>
-                    <p class="text-base"><b>Tegund:</b> {{ listing.type_id.type }}</p>
+                    <p class="text-base"><b>Tegund:</b> {{ listing.type.type }}</p>
                 </div>
                 <div class="flex justify-between mb-2">
                     <p class="text-base"><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
@@ -24,7 +28,7 @@
                 </div>
                 <div class="flex justify-between mb-2">
                     <p class="text-base"><b>Ásett verð</b></p>
-                    <p class="text-base">48.000.000 kr.</p>
+                    <p class="text-base">{{ listing.price }} kr.</p>
                 </div>
             </div>
         </a>

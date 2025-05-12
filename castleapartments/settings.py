@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'offer.apps.OfferConfig',
     'listing.apps.ListingConfig',
+    'payment.apps.PaymentConfig',
 
 ]
+
+USE_THOUSAND_SEPARATOR = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
