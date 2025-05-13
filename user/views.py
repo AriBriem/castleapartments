@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from listing.models import Postcodes, Listings
@@ -149,6 +149,9 @@ def seller_information(request):
         return redirect('listing-index')
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False})
 
+def seller_profile(request, seller_id):
+    seller = get_object_or_404(Users, id=seller_id)
+    return render(request, 'user/sellerprofile.html', {"show_navbar": True, "show_footer": True, "seller": seller})
 def mypages(request):
     offers = Offers.objects.all()
     listings = Listings.objects.all()

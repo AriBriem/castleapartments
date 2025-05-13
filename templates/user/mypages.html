@@ -4,10 +4,10 @@
 {% block content %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
-            <img src="{% static '/img/test/bannertest.png' %}" class="rounded-1rem">
+            <img src="{{ user.cover_image_path.url }}" alt="Forsíðumynd" class="rounded-1rem">
             <div class="flex flex-row">
-                <img src="{% static '/img/test/profiletest.png' %}" class="profilePicLarge ml-12">
-                <h2 class="ml-4 mt-4">Jón Jónsson</h2>
+                <img src="{{ user.profile_image_path.url }}" alt="Prófílmynd" class="profilePicLarge ml-12">
+                <h2 class="ml-4 mt-4">{{ request.user.name }}</h2>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta prófíl</button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta seljanda upplýsingum
                 </button>
