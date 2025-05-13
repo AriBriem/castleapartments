@@ -4,10 +4,10 @@
 {% block content %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
-            <img src="{% static '/img/test/bannertest.png' %}" class="rounded-1rem">
+            <img src="{{ user.cover_image_path.url }}" alt="Forsíðumynd" class="rounded-1rem">
             <div class="flex flex-row">
-                <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" class="profilePicLarge ml-12">
-                <h2 class="ml-4 mt-4">Jón Jónsson</h2>
+                <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12">
+                <h2 class="ml-4 mt-4">{{ request.user.name }}</h2>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta prófíl</button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta seljanda upplýsingum
                 </button>
@@ -15,6 +15,18 @@
             </div>
             <div>
                 <h3 class="mx-2 mt-4">Mínar eignir</h3>
+            </div>
+            <div>
+                <h3 class="mx-2 mt-4">Heimilisfang 123</h3>
+            </div>
+            <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
+                <h5 class="font-light center wp-15">Heimilisfang</h5>
+                <h5 class="ml-8  font-light center wp-15">01.01.2025</h5>
+                <h5 class="ml-8  font-light center wp-15">24.12.2025</h5>
+                <h5 class="ml-8  font-light center wp-15">Samþykkt</h5>
+                <h5 class="ml-8  font-light center wp-15">100.000.000 kr.</h5>
+                <h5 class="ml-8  font-light center wp-15">Jón Jónsson</h5>
+                <button class="no-border px-3 rounded-2 height align center text-white bg-black text-small" style="width: 10%">Klára tilboð</button>
             </div>
             <div>
                 <h3 class="mx-2 mtv-10">Mín tilboð</h3>
@@ -41,7 +53,10 @@
                         <button class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
                     </div>
                 {% endif %}
+            {% empty %}
+                <h4 class="ml-2 text-gray font-light my-4">Þú hefur ekki gert nein tilboð ennþá.</h4>
             {% endfor %}
+
         </div>
     </div>
 {% endblock %}

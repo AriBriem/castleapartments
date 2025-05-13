@@ -2,9 +2,9 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
-from listing.models import ListingType
+from listing.models import ListingType, ListingImage
 from listing.models import Postcodes, Listings, ListingType
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from listing.models import ListingType, Listings
 from listing.models import Postcodes
 # Create your views here.
@@ -32,7 +32,7 @@ def index(request):
     return render(request, 'listing/index.html', context)
 
 def get_listing_by_id(request, listing_id):
-    listing = Listings.objects.get(id=listing_id)
+    listing = get_object_or_404(Listings, id=listing_id)
     return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing})
 
 def filter_listings(request):
@@ -86,7 +86,7 @@ def create_listing(request):
         bathrooms = request.POST.get('bathrooms')
         bedrooms = request.POST.get('bedrooms')
         description = request.POST.get('description')
-        thumbnail_path = request.FILES.get('listing_image')
+        thumbnail_path = request.FILES.getlist('listing_image')
 
         if Listings.objects.filter(address=address).exists():
             messages.error(request, "Listing with this address already exists.")
@@ -103,6 +103,8 @@ def create_listing(request):
             description=description,
             thumbnail_path=thumbnail_path
         )
+        for file in thumbnail_path:
+            ListingImage.objects.create(listing=listing.id, image_path=file)
         messages.success(request, "Listing created successfully. You can now log in.")
         if Listings.objects.filter(seller_id=request.user.id).exclude(address=address).exists():
             return redirect("listing-detail", listing_id=listing.id)

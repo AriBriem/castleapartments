@@ -5,7 +5,7 @@
     <div class="whitespace30 mt-8">
         <h1 class="g-2 ml-2">Skrá eign</h1>
         <p class="text-sm ml-2">Settu þína eign á vefinn okkar og sjáðu hvort þú fáir tilboð</p>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="inputContainer flex-col g-2">
             <br>
