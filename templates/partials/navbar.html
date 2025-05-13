@@ -16,6 +16,12 @@
         {% endif %}
     </div>
     <div class="loginBtnContainer">
-        <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
+        {% if not user.is_authenticated %}
+            <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
+        {% else %}
+            <a href="/mypages">
+                <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
+            </a>
+        {% endif %}
     </div>
 </nav>

@@ -6,12 +6,12 @@
         <div class="pt-8">
             <img src="{% static '/img/test/bannertest.png' %}" class="rounded-1rem">
             <div class="flex flex-row">
-                <img src="{% static '/img/test/profiletest.png' %}" class="profilePicLarge ml-12">
+                <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" class="profilePicLarge ml-12">
                 <h2 class="ml-4 mt-4">Jón Jónsson</h2>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta prófíl</button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta seljanda upplýsingum
                 </button>
-                <button class="no-border ml-3 px-3 rounded-2 height align center red">Skrá út</button>
+                <button class="no-border ml-3 px-3 rounded-2 height align center red" onclick="window.location.href='/logout'">Skrá út</button>
             </div>
             <div>
                 <h3 class="mx-2 mt-4">Mínar eignir</h3>
@@ -30,7 +30,7 @@
             </div>
             {% for offer in offers %}
 
-                {% if offer.buyer_id_id == request.user.id %}
+                {% if offer.buyer_id == request.user.id %}
                     <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
                         <h5 class="font-light center wp-15">{{ offer.buyer.listing.address }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.post_date }}</h5>

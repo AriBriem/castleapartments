@@ -20,6 +20,10 @@ def login_user(request):
             return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False, "error": "Invalid email or password."})
     return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False})
 
+def logout_user(request):
+    logout(request)
+    return redirect('listing-index')
+
 def signup(request):
     postcodes = Postcodes.objects.all()
     countries = Country.objects.all()
@@ -123,34 +127,51 @@ def change_profile(request):
     return render(request, 'user/changeprofile.html', {"show_navbar": False, "show_footer": False, "country": countries, "postcodes": postcodes, "user": user})
 
 def seller_information(request):
+    from_listing = request.GET.get('from') == 'listing'
     if request.method == 'POST':
         bio = request.POST.get('bio')
         logo_path = request.FILES.get('logo_path')
-        is_company = request.POST.get('seller-type')
-        if is_company == "yes":
-            is_company = True
-        elif is_company == "no":
-            is_company = False
+        is_company = request.POST.get('is_company')
 
-
-        if not bio or not is_company:
+        if not bio or is_company not in ['yes', 'no']:
             return render(request, 'user/sellerinformation.html', {
                 'show_navbar': False,
                 'show_footer': False,
                 'error': 'Settu inn lýsingu og veldu einstakling eða fyrirtæki',
             })
 
+        if is_company == "yes":
+            is_company = True
+        elif is_company == "no":
+            is_company = False
+
         SellerProfile.objects.create(
-            user_id=request.user,
+            user_id=request.user.id,
             logo_path=logo_path,
             bio=bio,
             is_company=is_company
         )
+        if from_listing:
+            return redirect('listing-create')
         return redirect('listing-index')
-    return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False})
+    return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
 
 def mypages(request):
-    offers = Offers.objects.all()
-    listings = Listings.objects.all()
-    users = Users.objects.all()
-    return render(request, 'user/mypages.html', {"show_navbar": True, "show_footer": True, "offers": offers, "listings": listings, "users": users})
+    user = request.user
+    outgoing_offers = Offers.objects.filter(buyer=request.user)
+    seller_profile = SellerProfile.objects.get(user_id=request.user.id)
+    if seller_profile:
+        incoming_offers = Offers.objects.filter(listing__seller__user=user)
+        listings = Listings.objects.filter(seller__user=user)
+    else:
+        incoming_offers = None
+        listings = None
+    context = {
+        'show_navbar': True,
+        'show_footer': True,
+        'incoming_offers': incoming_offers,
+        'outgoing_offers': outgoing_offers,
+        'listings': listings,
+        'user': user,
+    }
+    return render(request, 'user/mypages.html', context)

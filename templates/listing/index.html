@@ -23,7 +23,7 @@
                 </span>
                     <i class="fa fa-angle-down ml-2"></i>
                 </button>
-                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden zindex">
                     <div id="postcode-filter" class="filter maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
                         {% for city, postcodes in postcodes_by_location.items %}
                             <div class="city-block text-left user-select-none">
@@ -54,7 +54,7 @@
                 </span>
                     <i class="fa fa-angle-down ml-2"></i>
                 </button>
-                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden zindex">
                     <div id="type-filter"
                          class="filter maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
                         {% for type in types %}
@@ -76,7 +76,7 @@
                 </span>
                     <i class="fa fa-angle-down ml-2"></i>
                 </button>
-                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden zindex">
                     <div id="meter-filter"
                          class="filter flex maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
                         <div class="city-block basis50 text-center user-select-none">
@@ -146,7 +146,7 @@
                 </span>
                     <i class="fa fa-angle-down ml-2"></i>
                 </button>
-                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden">
+                <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden zindex">
                     <div id="price-filter"
                          class="filter flex maxh-30v overflow-auto bg-white w-screen-12 w-fit-min">
                         <div class="city-block basis50 text-center user-select-none">
@@ -209,8 +209,18 @@
                 </div>
             </div>
         </div>
-        <div id="property-list" class="w-full">
+        <div class="w-full">
+            <div class="flex flex-col my-8">
+                <div class="flex">
+                    <button class="flex justify-between px-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span
+                            class="flex items-center g-2"><i class="fa fa-sort text-dark"></i>Raða eftir...</span>
+                    </button>
+                    <button class="flex justify-between px-2 ml-2 items-center no-border h-8 rounded-lg bg-white w-fit">
+                        <span class="flex items-center g-2"><i class="far fa-bookmark text-primary"></i>Vistað</span>
+                    </button>
+                </div>
+                <div id="property-list"></div>
+            </div>
         </div>
-    </div>
     <script src="{% static '/scripts/index.js' %}"></script>
 {% endblock %}

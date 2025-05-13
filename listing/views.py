@@ -10,6 +10,9 @@ from listing.models import Postcodes
 # Create your views here.
 from collections import defaultdict
 
+from user.models import SellerProfile
+
+
 def index(request):
     postcodes_by_location = defaultdict(list)
     for row in Postcodes.objects.values('postcode', 'location'):
@@ -48,10 +51,10 @@ def filter_listings(request):
     if type_ids:
         type_ids = type_ids.split(',')
         filters &= Q(type_id__in=type_ids)
-    #if price_from:
-    #    filters &= Q(price__gte=price_from)
-    #if price_to:
-    #    filters &= Q(price__lte=price_to)
+    if price_from:
+        filters &= Q(price__gte=int(price_from)*1000000)
+    if price_to:
+        filters &= Q(price__lte=int(price_to)*1000000)
     if meters_from:
         filters &= Q(sqr_meters__gte=meters_from)
     if meters_to:
@@ -66,12 +69,18 @@ def filter_listings(request):
     return render(request, 'partials/property_list.html', {"listings": listings})
 
 def create_listing(request):
-    postcodes = Postcodes.objects.all()
+    if not SellerProfile.objects.filter(user=request.user).exists():
+        return redirect('/seller-information?from=listing')
+
+    postcodes_by_location = defaultdict(list)
+    for row in Postcodes.objects.values('postcode', 'location'):
+        postcodes_by_location[row['location']].append(row['postcode'])
+    postcodes_by_location = dict(postcodes_by_location)
     types = ListingType.objects.all()
     if request.method == 'POST':
         address = request.POST.get('address')
-        postcode = request.POST.get('postcode')
-        type = request.POST.get('type')
+        postcode = Postcodes.objects.get(postcode = request.POST.get('postcode'))
+        type = ListingType.objects.get(id=request.POST.get('type'))
         sqr_meters = request.POST.get('sqr_meters')
         rooms = request.POST.get('rooms')
         bathrooms = request.POST.get('bathrooms')
@@ -98,4 +107,10 @@ def create_listing(request):
         if Listings.objects.filter(seller_id=request.user.id).exclude(address=address).exists():
             return redirect("listing-detail", listing_id=listing.id)
         return redirect("user-seller-information")
-    return render(request, 'listing/createlisting.html', {"show_navbar": False, "show_footer": False, "postcodes": postcodes, "types": types})
+
+    context = {
+        "show_navbar": False,
+        "show_footer": False,
+        "postcodes_by_location": postcodes_by_location,
+        "types": types}
+    return render(request, 'listing/createlisting.html', context)
