@@ -163,6 +163,7 @@
 .w-screen-12 { width: 12vw; }
 .h-screen-70 { height: 70vh; }
 .h-screen-50 { height: 50vh; }
+.h-screen-30 { height: 30vh; }
 
 .maxh-30v { max-height: 30vh; }
 .minh-100v { min-height: 100vh; }

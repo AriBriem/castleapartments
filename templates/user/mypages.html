@@ -4,7 +4,7 @@
 {% block content %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
-            <img src="{{ user.cover_image_path.url }}" alt="Forsíðumynd" class="rounded-1rem">
+            <img src="{% if user.profile_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
             <div class="flex flex-row">
                 <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12">
                 <h2 class="ml-4 mt-4">{{ request.user.name }}</h2>
@@ -29,7 +29,7 @@
                 <button class="no-border px-3 rounded-2 height align center text-white bg-black text-small" style="width: 10%">Klára tilboð</button>
             </div>
             <div>
-                <h3 class="mx-2 mtv-10">Mín tilboð</h3>
+                <h3 class="mx-2 mtv-10">Send tilboð</h3>
             </div>
             <div class="px-3 flex flex-row mt-8">
                 <h5 class="font-light center wp-15">Heimilisfang</h5>
