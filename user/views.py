@@ -162,7 +162,7 @@ def seller_profile(request, seller_id):
 def mypages(request):
     user = request.user
     outgoing_offers = Offers.objects.filter(buyer=request.user)
-    seller_profile = SellerProfile.objects.get(user_id=request.user.id)
+    seller_profile = SellerProfile.objects.filter(user=request.user)
     if seller_profile:
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
         listings = Listings.objects.filter(seller__user=user)
