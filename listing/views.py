@@ -42,6 +42,7 @@ def filter_listings(request):
     price_to = request.GET.get('price_to')
     meters_from = request.GET.get('meters_from')
     meters_to = request.GET.get('meters_to')
+    seller = request.GET.get('seller_id')
 
     filters = Q()
 
@@ -59,6 +60,8 @@ def filter_listings(request):
         filters &= Q(sqr_meters__gte=meters_from)
     if meters_to:
         filters &= Q(sqr_meters__lte=meters_to)
+    if seller:
+        filters &= Q(seller=seller)
 
     if filters:
         listings = Listings.objects.filter(filters)
@@ -86,7 +89,8 @@ def create_listing(request):
         bathrooms = request.POST.get('bathrooms')
         bedrooms = request.POST.get('bedrooms')
         description = request.POST.get('description')
-        thumbnail_path = request.FILES.getlist('listing_image')
+        thumbnail_path = request.FILES.get('listing_image')
+        price = request.POST.get('price').replace(".", "")
 
         if Listings.objects.filter(address=address).exists():
             messages.error(request, "Listing with this address already exists.")
@@ -101,10 +105,11 @@ def create_listing(request):
             bathrooms=bathrooms,
             bedrooms=bedrooms,
             description=description,
+            price = price,
             thumbnail_path=thumbnail_path
         )
-        for file in thumbnail_path:
-            ListingImage.objects.create(listing=listing.id, image_path=file)
+        #for file in thumbnail_path:
+        #    ListingImage.objects.create(listing=listing.id, image_path=file)
         messages.success(request, "Listing created successfully. You can now log in.")
         if Listings.objects.filter(seller_id=request.user.id).exclude(address=address).exists():
             return redirect("listing-detail", listing_id=listing.id)

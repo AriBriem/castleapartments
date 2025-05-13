@@ -50,10 +50,12 @@
                     <label for="input-bathrooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi baðherbergja</label>
                 </div>
                 <div class="flex g-4">
-                    <input type="number" id="input-rooms" min="0" name="rooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10" disabled>
+                    <input type="number" id="input-rooms" min="0" name="rooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10" readonly>
                     <input type="number" id="input-bedrooms" min="0" name="bedrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                     <input type="number" id="input-bathrooms" min="0" name="bathrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                 </div>
+                <label for="input-price" class="flex flex-col text-sm ml-2">Ásett verð</label>
+                <input type="text" id="input-price" name="price" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                 <label for="input-description" class="flex flex-col text-sm ml-2">Lýsing eignar</label>
                 <textarea id="input-description" name="description" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-20" rows="10" cols="60" placeholder="Type here..."></textarea>
             </div>

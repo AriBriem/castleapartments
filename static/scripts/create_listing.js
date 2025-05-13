@@ -3,6 +3,7 @@ const postcode_select = document.querySelector('#input-postcode')
 const rooms_select = document.querySelector('#input-rooms')
 const bedrooms_select = document.querySelector('#input-bedrooms')
 const bathrooms_select = document.querySelector('#input-bathrooms')
+const price_input = document.querySelector('#input-price')
 
 location_select.addEventListener('change', () => {
     Array.from(postcode_select.options).forEach(postcode => {
@@ -27,5 +28,19 @@ const updateRoomCount = () => {
         rooms_select.value = new_value;
     }
 }
+
+price_input.addEventListener('input', (e) => {
+    let value = e.target.value;
+    console.log("uh")
+
+    // Remove all non-digit characters
+    value = value.replace(/\D/g, '');
+
+    // Format with commas
+    const formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    // Update input
+    e.target.value = formatted;
+});
 
 updateRoomCount()
