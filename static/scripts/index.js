@@ -5,11 +5,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const cityCheckboxes = document.querySelectorAll('.city-checkbox');
     const postcodeCheckboxes = document.querySelectorAll('.postcode-checkbox');
     const typeCheckboxes = document.querySelectorAll('.type-checkbox');
+
+    const searchBar = document.querySelector('#search-bar')
+    const searchBtn = document.querySelector('#search-button')
+
     const metersFromSelect = document.querySelector('#meter-from-filter');
     const metersToSelect = document.querySelector('#meter-to-filter');
     const priceFromSelect = document.querySelector('#price-from-filter');
     const priceToSelect = document.querySelector('#price-to-filter');
     const selectFilters = [metersFromSelect, metersToSelect, priceFromSelect, priceToSelect]
+
+    searchBar.addEventListener('input', () => {
+
+    })
+
+    searchBtn.addEventListener('click', () => {
+        filterProperties()
+    })
 
     selectFilters.forEach(select => {
         select.addEventListener('change', () => {
@@ -94,12 +106,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxMeters = metersToSelect.value;
         const minPrice = priceFromSelect.value;
         const maxPrice = priceToSelect.value;
+        const searchValue = searchBar.value;
 
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')
 
         // Send selectedPostcodes to server or filter client-side
-        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}`)
+        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}`)
           .then(response => response.text())
           .then(html => {
             listContainer.innerHTML = html;

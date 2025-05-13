@@ -43,6 +43,7 @@ def filter_listings(request):
     meters_from = request.GET.get('meters_from')
     meters_to = request.GET.get('meters_to')
     seller = request.GET.get('seller_id')
+    search = request.GET.get('search')
 
     filters = Q()
 
@@ -62,6 +63,8 @@ def filter_listings(request):
         filters &= Q(sqr_meters__lte=meters_to)
     if seller:
         filters &= Q(seller=seller)
+    if search:
+        filters &= Q(address__icontains=search)
 
     if filters:
         listings = Listings.objects.filter(filters)
