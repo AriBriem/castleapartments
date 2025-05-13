@@ -18,7 +18,7 @@
 .mb-4 { margin-bottom: 1rem; }
 .mb-8 { margin-bottom: 2rem; }
 .mb-mid { margin-bottom: 5rem; }
-.mb-large { margin-bottom: 10rem; }
+.mb-large { margin-bottom: 10rem !important; }
 .ml-1 { margin-left: 0.25rem; }
 .ml-2 { margin-left: 0.5rem; }
 .ml-3 { margin-left: 0.75rem; }
@@ -32,6 +32,7 @@
 .mr-L { margin-right: 4rem; }
 .mr-XL { margin-right: 8rem; }
 .mr-10p { margin-right: 10%; }
+.mr-1p { margin-right: 1%; }
 
 .mx-1 { margin-right: 0.25rem; margin-left: 0.25rem; }
 .mx-2 { margin-right: 0.5rem; margin-left: 0.5rem; }
@@ -144,6 +145,8 @@
 .wp-50 { width: 50%; }
 .wp-15 { width: 15%; }
 .wp-10 { width: 10%; }
+.wp-17 { width: 17.75%; }
+.wp-30 { width: 30%; }
 .h-full { height: 100%; }
 .hp-80 { height: 80%; }
 .hp-70 { height: 70%; }
@@ -205,13 +208,17 @@
 .bg-black { background-color: #000000; }
 .bg-white { background-color: #ffffff; }
 .bg-primary { background-color: #007BFF; color: white; }
-.bg-red { { background-color: #FF0000; }}
+.bg-red { background-color: #FF0000; }
+.bg-green { background-color: #34C759;}
 
 .text-primary { color: #007BFF; }
 .text-black { color: #000000; }
 .text-dark { color: #212227; }
 .text-gray { color: #747474; }
-.text-green { color: green; }
+.text-green { color: #34C759; }
+.text-red { color: #FF3B30; }
+.text-yellow { color: #FFCC00; }
+.text-blue { color: #4F9AFF; }
 .text-white {color: #ffffff !important; }
 .text-muted { color: #6c757d; }
 
