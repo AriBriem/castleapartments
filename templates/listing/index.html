@@ -11,13 +11,16 @@
             <h4 class="text-gray font-light text-lg my-4">Hér eru um 10.000 eignir til sölu</h4>
             <div class="searchContainer wp-80">
                 <input id="search-bar" type="text" placeholder="Leita að eignum..." class="searchInput">
-                <button id="search-button" class="searchBtn"><img src="{% static 'img/icons/searchicon.svg' %}" alt="search icon" class="inline-block mr-1">Leita</button>
+                <button id="search-button" class="searchBtn"><img src="{% static 'img/icons/searchicon.svg' %}"
+                                                                  alt="search icon" class="inline-block mr-1">Leita
+                </button>
             </div>
         </div>
 
         <div class="grid grid-2column g-4 mt-4 mb-4">
             <div>
-                <button id="postcode" class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
+                <button id="postcode"
+                        class="filter-button flex justify-between w-screen-12 w-fit-min p-2 items-center no-border rounded-lg bg-white">
                 <span class="flex items-center g-2">
                     <i class="fas fa-map-marker-alt text-primary"></i>Póstnúmer
                 </span>
@@ -32,7 +35,8 @@
                                     <input type="checkbox" class="city-checkbox" data-city="{{ city }}">
                                     <strong>{{ city }}</strong>
                                 </label>
-                                <div id="city-{{ city }}" class="postcode-list grid grid-2column justify-items-center hidden user-select-none">
+                                <div id="city-{{ city }}"
+                                     class="postcode-list grid grid-2column justify-items-center hidden user-select-none">
                                     {% for postcode in postcodes %}
                                         <label class="">
                                             <input type="checkbox" class="postcode-checkbox" data-city="{{ city }}"
@@ -212,9 +216,27 @@
         <div class="w-full">
             <div class="flex flex-col my-8">
                 <div class="flex">
-                    <button class="flex justify-between px-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span
-                            class="flex items-center g-2"><i class="fa fa-sort text-dark"></i>Raða eftir...</span>
-                    </button>
+                    <div>
+                        <button id="order-by"
+                                class="filter-button flex justify-between px-2 items-center no-border h-8 rounded-lg bg-white w-fit"><span
+                                class="flex items-center g-2"><i class="fa fa-sort text-dark"></i>Raða eftir...</span>
+                        </button>
+                        <div class="p-2 pos-abs bg-white rounded-lg box-shadow-down hidden zindex">
+                            <div id="order-by-filter"
+                                 class="filter flex flex-col maxh-30v overflow-auto bg-white w-screen-8 w-fit-min">
+                                <input type="radio" id="order-none" name="order-by" value="undefined" hidden checked>
+                                <label for="order-none" class="order-by-option">Engu</label>
+                                <input type="radio" id="order-price-asc" name="order-by" value="price" hidden>
+                                <label for="order-price-asc" class="order-by-option">Verð (lægst)</label>
+                                <input type="radio" id="order-price-desc" name="order-by" value="-price" hidden>
+                                <label for="order-price-desc" class="order-by-option">Verð (hæst)</label>
+                                <input type="radio" id="order-name-asc" name="order-by" value="address" hidden>
+                                <label for="order-name-asc" class="order-by-option">Nafn (A-Ö)</label>
+                                <input type="radio" id="order-name-desc" name="order-by" value="-address" hidden>
+                                <label for="order-name-desc" class="order-by-option" hidden>Nafn (Ö-A)</label>
+                            </div>
+                        </div>
+                    </div>
                     <button class="flex justify-between px-2 ml-2 items-center no-border h-8 rounded-lg bg-white w-fit">
                         <span class="flex items-center g-2"><i class="far fa-bookmark text-primary"></i>Vistað</span>
                     </button>
@@ -222,5 +244,6 @@
                 <div id="property-list"></div>
             </div>
         </div>
+    </div>
     <script src="{% static '/scripts/index.js' %}"></script>
 {% endblock %}

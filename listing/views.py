@@ -44,6 +44,7 @@ def filter_listings(request):
     meters_to = request.GET.get('meters_to')
     seller = request.GET.get('seller_id')
     search = request.GET.get('search')
+    order_by = request.GET.get('order_by')
 
     filters = Q()
 
@@ -66,10 +67,14 @@ def filter_listings(request):
     if search:
         filters &= Q(address__icontains=search)
 
+
     if filters:
         listings = Listings.objects.filter(filters)
     else:
         listings = Listings.objects.all()
+
+    if order_by and order_by != 'undefined':
+        listings = listings.order_by(order_by)
 
 
     return render(request, 'partials/property_list.html', {"listings": listings})
@@ -87,7 +92,7 @@ def create_listing(request):
         address = request.POST.get('address')
         postcode = Postcodes.objects.get(postcode = request.POST.get('postcode'))
         type = ListingType.objects.get(id=request.POST.get('type'))
-        sqr_meters = request.POST.get('sqr_meters')
+        sqr_meters = request.POST.get('sqr_meters')[:-2]
         rooms = request.POST.get('rooms')
         bathrooms = request.POST.get('bathrooms')
         bedrooms = request.POST.get('bedrooms')

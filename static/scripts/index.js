@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceToSelect = document.querySelector('#price-to-filter');
     const selectFilters = [metersFromSelect, metersToSelect, priceFromSelect, priceToSelect]
 
+    const orderByInputs = document.querySelectorAll('input[name="order-by"]')
+
+    orderByInputs.forEach(radio => {
+        radio.addEventListener('change', () => {
+            filterProperties()
+        })
+    })
+
     searchBar.addEventListener('input', () => {
 
     })
@@ -107,12 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const minPrice = priceFromSelect.value;
         const maxPrice = priceToSelect.value;
         const searchValue = searchBar.value;
+        const orderBy = document.querySelector('input[name="order-by"]:checked')?.value;
 
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')
 
         // Send selectedPostcodes to server or filter client-side
-        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}`)
+        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}`)
           .then(response => response.text())
           .then(html => {
             listContainer.innerHTML = html;
