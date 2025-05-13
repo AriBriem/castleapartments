@@ -1,25 +1,25 @@
 {% load static %}
 <nav class="navbar">
-    <a href="/" class="logo">
+    <a href="/" class="logo m-0">
         <!--<img src="logo.png" alt="Logo" class="logoImg">>>!-->
         <img src="{% static '/img/icons/logo.svg' %}" alt="Castle Apartments Logo" class="logoImg">
         <div class="logoTextContainer">
-            <h1>Castle</h1>
-            <h1>Apartments</h1>
+            <h1 class="font-size-large">Castle</h1>
+            <h1 class="font-size-large">Apartments</h1>
         </div>
     </a>
-    <div class="nav-links">
-        <a href="/">Heim</a>
-        <a href="/listing/">Skrá eign</a>
+    <div class="nav-links bg-gray px-2 py-4 rounded-4 flex flex-row">
+        <a href="/"><h5>Heim</h5></a>
+        <a href="/listing/"><h5>Skrá eign</h5></a>
         {% if user.is_authenticated %}
-        <a href="/mypages">Mínar síður</a>
+        <a href="/mypages"><h5>Mínar síður</h5></a>
         {% endif %}
     </div>
     <div class="loginBtnContainer">
         {% if not user.is_authenticated %}
             <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
         {% else %}
-            <a href="/mypages" class="float-r">
+            <a href="/mypages" class="float-r m-0">
                 <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
             </a>
         {% endif %}

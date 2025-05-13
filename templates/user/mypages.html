@@ -4,17 +4,17 @@
 {% block content %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
-            <img src="{% if user.profile_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
+            <img src="{% if user.cover_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
             <div class="flex flex-row">
-                <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12">
+                <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12 asp-1-1">
                 <h2 class="ml-4 mt-4">{{ request.user.name }}</h2>
-                <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta prófíl</button>
+                <button class="no-border ml-3 px-3 rounded-2 height align center" onclick="window.location.href='change-profile'">Breyta prófíl</button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center">Breyta seljanda upplýsingum
                 </button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center red" onclick="window.location.href='/logout'">Skrá út</button>
             </div>
             <div>
-                <h3 class="mx-2 mt-4">Mínar eignir</h3>
+                <h3 class="mx-2 mt-8">Mínar eignir</h3>
             </div>
             <div>
                 <h3 class="mx-2 mt-4">Heimilisfang 123</h3>

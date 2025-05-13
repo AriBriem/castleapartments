@@ -3,27 +3,31 @@
 
 
 {% block content %}
-    <div class="whitespace12">
-        <div>
-            <img src="{% static '/img/test/bannertest.png' %}">
-            <img src="{% static '/img/test/profiletest.png' %}">
-            <h2>Jón Jónsson</h2>
-        </div>
-        <div class="flex">
-            <div>
-                <p><b>Sími:</b> 123 1234</p>
-                <p><b>Email:</b> jonjonsson@gmail.com</p>
+    <div class="whitespace12 mb-large">
+        <div class="pt-8">
+            <img src="{% if seller.user.cover_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
+            <div class="flex flex-row">
+                <img src="{% if seller.user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}"alt="Prófílmynd" class="profilePicLarge ml-12 asp-1-1">
+                <h2 class="ml-4 mt-4">{{ seller.name }}</h2>
+            </div>
+            <div class="flex flex-row mx-2 mt-8">
+                <p class="wp-50"><b>Sími:</b> {{ seller.phone_number }}</p>
+                <p class="wp-50"><b>{% if seller.is_company %}Fyrirtæki{% else %}Einstaklingur{% endif %}</b></p>
+            </div>
+            <div class="flex flex-row mx-2 mt-4">
+                <p class="wp-50"><b>Email:</b> {{ seller.email }}</p>
+                <p class="wp-50"><b>Heimilisfang:</b> {{ seller.address }}</p>
             </div>
             <div>
-                <p><b>Einstaklingur</b></p>
-                <p><b>Heimilisfang:</b> Húsasund 123, 105 Reykjavík</p>
+                <h3 class="mx-2 mt-8">Lýsing</h3>
+            </div>
+            <div class="flex flex-row mx-2 mt-4 mb-mid">
+                <p>
+                Ég legg mikla áherslu á heiðarleika og góð samskipti þegar kemur að fasteignaviðskiptum. Markmið mitt er að gera ferlið eins auðvelt og þægilegt og mögulegt er fyrir alla aðila. Ég er opinn, hreinskilinn og tilbúinn að svara öllum spurningum sem upp kunna að koma.
+                </p>
+            </div>
+            <div id="seller-listings">
             </div>
         </div>
-        <p>
-            Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.
-        </p>
-        <div>
-            <
-        </div>
-    </div>
+    <script src="{% static '/scripts/seller-pofile.js' %}"></script>
 {% endblock %}

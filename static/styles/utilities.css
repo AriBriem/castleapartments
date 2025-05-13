@@ -1,5 +1,5 @@
 /* ========== Spacing ========== */
-.m-0 { margin: 0; }
+.m-0 { margin: 0 !important;}
 .m-a { margin: auto }
 .p-0 { padding: 0; }
 
@@ -17,6 +17,7 @@
 .mb-2 { margin-bottom: 0.5rem; }
 .mb-4 { margin-bottom: 1rem; }
 .mb-8 { margin-bottom: 2rem; }
+.mb-mid { margin-bottom: 5rem; }
 .mb-large { margin-bottom: 10rem; }
 .ml-1 { margin-left: 0.25rem; }
 .ml-2 { margin-left: 0.5rem; }
@@ -105,6 +106,9 @@
 .asp-3-2 {
     aspect-ratio: 3 / 2;
 }
+.asp-1-1 {
+    aspect-ratio: 1 / 1;
+}
 
 
 /* ========== Flexbox ========== */
@@ -137,6 +141,7 @@
 .w-full { width: 100%; }
 .wp-80 { width: 80%; }
 .wp-70 { width: 70%; }
+.wp-50 { width: 50%; }
 .wp-15 { width: 15%; }
 .wp-10 { width: 10%; }
 .h-full { height: 100%; }
@@ -189,6 +194,8 @@
 .font-bold { font-weight: bold; }
 .font-medium { font-weight: 600; }
 .font-light { font-weight: 400; }
+
+.font-size-large { font-size: larger !important; }
 
 /* ========== Colors ========== */
 .bg-none { background: none}
