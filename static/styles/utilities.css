@@ -180,6 +180,9 @@
 
 .overflow-auto { overflow: auto; }
 .pos-abs { position: absolute; }
+.pos-rel { position: relative; }
+.l-4 { left: 1rem; }
+.r-4 { right: 1rem; }
 
 /* ========== Text ========== */
 .text-small { font-size: 0.80rem; }

@@ -4,15 +4,17 @@
 {% block content %}
     <div class="whitespace16">
         <div class="flex py-4">
-            <div class="col66">
-                <img class="h-full rounded-lg" src="{{ listing.thumbnail_path.url }} ">
+            <div class="col66 pos-rel">
+                <img id="image-1" class="h-full rounded-lg" src="{{ listing.thumbnail_path.url }} ">
+                <i id="prev-image" class="fas fa-chevron-left image-button l-4"></i>
+                <i id="next-image" class="fas fa-chevron-right image-button r-4"></i>
             </div>
             <div class="flex flex-col col34 ml-4">
                 <div class="basis50 mb-4">
-                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                       <img id="image-2" class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
                 </div>
                 <div class="basis50">
-                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                       <img id="image-3" class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
                 </div>
             </div>
         </div>
@@ -65,4 +67,6 @@
             </div>
         </div>
     </div>
+    {{ images|json_script:"listing-images" }};
+    <script src="{% static '/scripts/listing.js' %}"></script>
 {% endblock %}

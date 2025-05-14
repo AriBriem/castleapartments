@@ -33,7 +33,9 @@ def index(request):
 
 def get_listing_by_id(request, listing_id):
     listing = get_object_or_404(Listings, id=listing_id)
-    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing})
+    listing_images = ListingImage.objects.filter(listing=listing)
+    image_urls = [img.image_path.url for img in listing_images]
+    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls})
 
 def filter_listings(request):
     postcode_ids = request.GET.get('postcodes')
