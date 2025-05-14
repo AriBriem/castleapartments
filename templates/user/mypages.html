@@ -67,7 +67,7 @@
                         <h5 class="font-light center wp-15">{{ offer.listing.address }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.post_date }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.expiry_date }}</h5>
-                        <h5 class="ml-8  font-light center wp-15">{% if offer.status == "Pending" %}Í bið{% elif offer.status == "Accepted" %}Samþykkt{% elif offer.status == "Contingent" %}Skilyrt{% elif offer.status == "Rejected" %}Hafnað</h5>
+                        <h5 class="ml-8  font-light center wp-15">{% if offer.status == "Pending" %}Í bið{% elif offer.status == "Accepted" %}Samþykkt{% elif offer.status == "Contingent" %}Skilyrt{% elif offer.status == "Rejected" %}Hafnað {% endif %}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.amount }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.listing.seller.user.name }}</h5>
                         {% if offer.status == "Accepted" or offer.status == "Contingent"%}
