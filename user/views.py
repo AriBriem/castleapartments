@@ -167,16 +167,18 @@ def mypages(request):
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
         listings = Listings.objects.filter(seller__user=user)
         if request.method == 'POST':
+            offer_id = request.POST.get('offer_id')
             accepted = request.POST.get('accepted')
             contingent = request.POST.get('contingent')
             rejected = request.POST.get('rejected')
+            offer = Offers.objects.get(id=offer_id)
             if accepted:
-                incoming_offers.status = 'Accepted'
+                offer.status = 'Accepted'
             elif contingent:
-                incoming_offers.status = 'Contingent'
+                offer.status = 'Contingent'
             elif rejected:
-                incoming_offers.status = 'Rejected'
-            incoming_offers.save()
+                offer.status = 'Rejected'
+            offer.save()
     else:
         incoming_offers = None
         listings = None
