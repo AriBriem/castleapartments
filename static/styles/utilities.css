@@ -231,6 +231,10 @@
 
 .box-shadow-down { box-shadow: 0 2px 3px darkgrey; }
 
+.border-green { border-color: #34C759; }
+.border-yellow { border-color: #FFCC00; }
+.border-red { border-color: #FF3B30; }
+
 /* ========== Borders & Radius ========== */
 .no-border { border: none; }
 .border { border: 1px solid #ccc; }

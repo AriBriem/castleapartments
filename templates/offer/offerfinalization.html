@@ -23,21 +23,21 @@
                     <label for="input-credit-card" class="flex flex-col text-sm ml-2">Kortanúmer</label>
                     <input type="text" id="input-credit-card" name="card_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.card_number }}">
                     <div class="flex">
-                        <label for="input-expiry-date" class="text-sm ml-2 w-half">Gildistími</label>
+                        <label for="input-expiry-date" class="text-sm ml-2 w-half">Gildistími (YYYY/MM/DD)</label>
                         <label for="input-cvc" class="text-sm ml-8 w-half">CVC</label>
                     </div>
                     <div class="flex g-8">
-                        <input type="number" id="input-expiry-date" name="expiry_date" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value=" {{ data.expiry_date }}">
-                        <input type="number" id="input-cvc" name="cvc_number" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value=" {{ data.cvc_number }}">
+                        <input id="input-expiry-date" name="expiry_date" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.expiry_date }}">
+                        <input type="number" id="input-cvc" name="cvc_number" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.cvc_number }}">
                     </div>
                 </div>
                 <div id="bank-transfer-fields" class="payment-fields hidden">
                     <label for="input-bank-number" class="flex flex-col text-sm ml-2 ">Bankanúmer</label>
-                    <input type="text" id="input-bank-number" name="bank_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value=" {{ data.bank_number }}">
+                    <input type="text" id="input-bank-number" name="bank_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.bank_number }}">
                 </div>
                 <div id="loan-fields" class="payment-fields hidden">
                     <label for="input-loan-provider" class="flex flex-col text-sm ml-2">Lánveitandi</label>
-                    <input type="text" id="input-loan-provider" name="lender" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value=" {{ data.lender }}">
+                    <input type="text" id="input-loan-provider" name="lender" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.lender }}">
                 </div>
             </div>
             <br>

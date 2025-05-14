@@ -36,11 +36,11 @@
                     <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="offer_id" value="{{ offer.id }}">
-                        <button type="submit" name="accepted" value="Accepted" class="{% if offer.status == "Accepted"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-green bg-white text-small mr-1p w-fit-content">Samþykkt
+                        <button type="submit" name="accepted" value="Accepted" class="{% if offer.status == "Accepted"%}border border-green{% else %}no-border{% endif %} px-3 rounded-2 height align center text-green bg-white text-small mr-1p w-fit-content">Samþykkt
                         </button>
-                        <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p w-fit-content">Skilyrt
+                        <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border border-yellow{% else %}no-border{% endif %} px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p w-fit-content">Skilyrt
                         </button>
-                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-red bg-white text-small w-fit-content">Hafnað
+                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected"%}border border-red{% else %}no-border{% endif %} px-3 rounded-2 height align center text-red bg-white text-small w-fit-content">Hafnað
                         </button>
                     </form>
                 </div>
@@ -59,7 +59,7 @@
             </div>
             {% for offer in outgoing_offers %}
 
-                {% if offer.buyer_id == request.user.id %}
+                {% if offer.listing.seller.user.id == request.user.id and offer.listing.sold == False %}
                     <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
                         <h5 class="font-light center wp-15">{{ offer.listing.address }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.post_date }}</h5>
@@ -68,7 +68,7 @@
                         <h5 class="ml-8  font-light center wp-15">{{ offer.amount }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.listing.seller.user.name }}</h5>
                         {% if offer.status == "Accepted" or offer.status == "Contingent"%}
-                            <button onclick="window.location.href='/listings/<int:{{ offer.listing.id }}>/offers/<int:{{ offer.id }}>/finalize'" class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
+                            <button onclick="window.location.href='{% url 'finalize-offer' listing_id=offer.listing.id offer_id=offer.id %}'" class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
                         {% endif %}
                     </div>
                 {% endif %}

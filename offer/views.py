@@ -38,10 +38,10 @@ def finalize_offer(request, listing_id ,offer_id):
     if request.method == 'POST':
         selected_method = request.POST.get('payment-method')
         if selected_method == 'creditcard':
-            if request.POST.get('card-carrier') and request.POST.get('card-number') and request.POST.get('expiry-date') and request.POST.get('cvc_number'):
+            if request.POST.get('card_carrier') and request.POST.get('card_number') and request.POST.get('expiry_date') and request.POST.get('cvc_number'):
                 request.session['payment_data'] = {
                     'payment_method': selected_method,
-                    'card_carrier:': request.POST.get('card_carrier'),
+                    'card_carrier': request.POST.get('card_carrier'),
                     'card_number': request.POST.get('card_number'),
                     'expiry_date': request.POST.get('expiry_date'),
                     'cvc_number': request.POST.get('cvc_number'),
@@ -92,7 +92,7 @@ def finalize_offer(request, listing_id ,offer_id):
                 })
 
 
-        return redirect('finalize-offer-summary', listing_id=listing_id, offer_id=offer_id)
+        return redirect('finalize-summary', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
     return render(request, 'offer/offerfinalization.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data })
@@ -100,14 +100,14 @@ def finalize_offer(request, listing_id ,offer_id):
 def summary(request, listing_id, offer_id):
     data = request.session.get('payment_data')
     if request.method == 'POST':
-        the_offer = Offers.objects.filter(id=data.offer_id)
+        the_offer = Offers.objects.get(id=offer_id)
         Payments.objects.create(
-            offer=data.offer_id,
+            offer=the_offer,
             amount=the_offer.amount,
             time=the_offer.post_date,
-            method=data.payment_method
+            method=data['payment_method']
         )
-
+        del request.session['payment_data']
         return redirect('my-pages')
 
-    return render(request, 'offer/offerfinalization.html',{"show_navbar": False, "show_footer": False, "listing_id":listing_id, "offer_id":offer_id, "data": data})
+    return render(request, 'offer/summary.html',{"show_navbar": False, "show_footer": False, "listing_id":listing_id, "offer_id":offer_id, "data": data})
