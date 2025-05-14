@@ -249,6 +249,7 @@
 .inline-block { display: inline-block; }
 .pointer-events-none { pointer-events: none; }
 .user-select-none { user-select: none; }
+.cursor-pointer { cursor: pointer; }
 
 /* ========== Colors ========== */
 

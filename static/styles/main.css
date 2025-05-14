@@ -303,3 +303,10 @@ input[type="radio"]:checked + .order-by-option {
   border-color: #007bff;
     color: white;
 }
+
+.disabled-label {
+    color: #3E4851 !important;
+    background-color: #bdbdbd !important;
+}
+
+#image-container img {}

@@ -52,3 +52,51 @@ price_input.addEventListener('input', (e) => {
 });
 
 updateRoomCount()
+
+
+// IMAGE UPLOAD FUNCTIONALITY
+const thumbnailUpload = document.querySelector('#choose-thumbnail');
+const imageUpload = document.querySelector('#choose-image');
+const imageUploadLabel = document.querySelector(`label[for="choose-image"]`);
+const thumbnailUploadLabel = document.querySelector(`label[for="choose-thumbnail"]`);
+const images = new Set(); // to keep track of shown images
+
+const imageContainer = document.querySelector('#image-container');
+
+const updateImageContainer = () => {
+    const thumbnail = thumbnailUpload.files[0];
+    if (thumbnail) addNewImage(thumbnail);
+
+    Array.from(imageUpload.files).forEach(addNewImage)
+}
+
+const addNewImage = (file) => {
+    if (images.has(file.name)) return;
+    images.add(file.name);
+    addImage(file)
+}
+
+const addImage = (file) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.classList.add('asp-3-2')
+        img.classList.add('rounded-lg')
+        imageContainer.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+}
+
+thumbnailUpload.addEventListener('change', () => {
+    updateImageContainer()
+    imageUpload.disabled = false;
+    imageUploadLabel.classList.remove('disabled-label');
+    imageUploadLabel.title = '';
+    imageUploadLabel.classList.add('cursor-pointer');
+    thumbnailUploadLabel.classList.add('hidden');
+})
+
+imageUpload.addEventListener('change', () => {
+    updateImageContainer()
+})

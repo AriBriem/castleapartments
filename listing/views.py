@@ -97,12 +97,16 @@ def create_listing(request):
         bathrooms = request.POST.get('bathrooms')
         bedrooms = request.POST.get('bedrooms')
         description = request.POST.get('description')
-        thumbnail_path = request.FILES.get('listing_image')
+        thumbnail_path = request.FILES.get('thumbnail')
         price = request.POST.get('price').replace(".", "")
+
+        listing_images = request.FILES.getlist('listing_images')
+        print(listing_images)
 
         if Listings.objects.filter(address=address).exists():
             messages.error(request, "Listing with this address already exists.")
             return redirect("listing-create")
+
         listing = Listings.objects.create(
             seller_id=request.user.id,
             address=address,
@@ -116,8 +120,8 @@ def create_listing(request):
             price = price,
             thumbnail_path=thumbnail_path
         )
-        #for file in thumbnail_path:
-        #    ListingImage.objects.create(listing=listing.id, image_path=file)
+        for file in listing_images:
+            ListingImage.objects.create(listing=listing, image_path=file)
         messages.success(request, "Listing created successfully. You can now log in.")
         if Listings.objects.filter(seller_id=request.user.id).exclude(address=address).exists():
             return redirect("listing-detail", listing_id=listing.id)
