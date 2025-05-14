@@ -20,7 +20,7 @@
             <button class="loginBtn" onclick="window.location.href='/login'">Innskráning</button>
         {% else %}
             <a href="/mypages" class="float-r m-0">
-                <img src="{{ listing.seller.user.profile_image_path.url }}" class="profilePic" alt="Profile image">
+                <img src="{{ user.profile_image_path.url }}" class="profilePic" alt="Profile image">
             </a>
         {% endif %}
     </div>
