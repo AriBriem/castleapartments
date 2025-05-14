@@ -303,3 +303,27 @@ input[type="radio"]:checked + .order-by-option {
   border-color: #007bff;
     color: white;
 }
+
+.radioButton {
+    display:None
+}
+
+.customButton {
+    background-color: #f3f3f3;
+    color: #000000;
+    border: 1px solid #ccc;
+    width: 33%;
+    padding: 0.25rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+input[type="radio"]:checked + .customButton {
+  background-color: #007bff; /* Bootstrap blue */
+  border-color: #007bff;
+    color: white;
+}

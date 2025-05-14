@@ -6,6 +6,7 @@
         <h1 class="g-2">Gera tilboð</h1>
         <p class="text-sm">Gerðu tilboð í <strong>{{ listing.address }}</strong> </p>
         <form method="POST">
+            {% csrf_token %}
             <div class="inputContainer flex-col">
             <br>
                 <label for="input-amount" class="flex flex-col text-sm ml-2">Upphæð</label>
@@ -15,7 +16,7 @@
             </div>
             <br>
             <div class="flex flex-row">
-                <button class="bg-gray text-black rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+                <button onclick="window.location.href='/listing/<int:{{ listing_id }}>/'" class="bg-gray text-black rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
                 <button type="submit" class="bg-black text-white rounded no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
             </div>
         </form>
