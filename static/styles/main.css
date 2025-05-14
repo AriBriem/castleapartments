@@ -21,6 +21,10 @@ body {
     background: #fafafa;
 }
 
+input:focus-visible {
+    outline: none;
+}
+
 button:hover {
     cursor: pointer;
 }
@@ -281,3 +285,21 @@ footer {
     display: flex;
 }
 
+.order-by-option {
+    display: inline-block;
+    padding: 0.25rem;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+input[type="radio"]:checked + .order-by-option {
+  background-color: #007bff; /* Bootstrap blue */
+  border-color: #007bff;
+    color: white;
+}
