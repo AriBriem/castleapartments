@@ -42,3 +42,5 @@ class ListingImage(models.Model):
     image_path = models.ImageField(max_length=255, upload_to="img/listingimages/", default='/static/img/default.jpg')
     def __str__(self):
         return self.image_path
+    def image_url(self):
+        return self.image_path.url

@@ -330,7 +330,21 @@ input[type="radio"]:checked + .order-by-option {
 }
 
 input[type="radio"]:checked + .customButton {
-  background-color: #007bff; /* Bootstrap blue */
+  background-color: #007bff;
   border-color: #007bff;
     color: white;
 }
+
+.image-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 0.5rem;
+}
+

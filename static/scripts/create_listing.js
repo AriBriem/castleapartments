@@ -59,20 +59,21 @@ const thumbnailUpload = document.querySelector('#choose-thumbnail');
 const imageUpload = document.querySelector('#choose-image');
 const imageUploadLabel = document.querySelector(`label[for="choose-image"]`);
 const thumbnailUploadLabel = document.querySelector(`label[for="choose-thumbnail"]`);
-const images = new Set(); // to keep track of shown images
+const imagesSeen = new Set(); // to keep track of shown images
+
+const listingImages = [];
 
 const imageContainer = document.querySelector('#image-container');
 
 const updateImageContainer = () => {
     const thumbnail = thumbnailUpload.files[0];
     if (thumbnail) addNewImage(thumbnail);
-
-    Array.from(imageUpload.files).forEach(addNewImage)
+    console.log(imageUpload.files)
 }
 
 const addNewImage = (file) => {
-    if (images.has(file.name)) return;
-    images.add(file.name);
+    if (imagesSeen.has(file.name)) return;
+    imagesSeen.add(file.name);
     addImage(file)
 }
 
@@ -98,5 +99,30 @@ thumbnailUpload.addEventListener('change', () => {
 })
 
 imageUpload.addEventListener('change', () => {
+    for (const file of imageUpload.files) {
+        if (!listingImages.some(f => f.name === file.name && f.size === file.size)) {
+            listingImages.push(file);
+            addNewImage(file);
+        }
+    }
     updateImageContainer()
+    imageUpload.value = ''
 })
+
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    listingImages.forEach(file => formData.append('listing_images', file));
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+    }).then(response => response.text())
+      .then(html => {
+          document.open();
+          document.write(html);
+          document.close();
+      }).catch(error => console.error('Upload failed:', error));
+});
