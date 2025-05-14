@@ -24,8 +24,8 @@ def make_offer(request, listing_id):
             })
 
         Offers.objects.create(
-            buyer_id=request.user,
-            listing_id=listing,
+            buyer=request.user,
+            listing=listing,
             amount=amount,
             post_date=timezone.now(),
             expiry_date=expiry_date,

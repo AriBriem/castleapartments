@@ -4,27 +4,27 @@
     <div class="grid grid-3column g-4 my-2">
         {% for listing in listings %}
         <a href="/listing/{{ listing.id }}" class="flex flex-col text-decor-none text-black">
-            <img class="rounded-lg mb-2 asp-3-2" src="{% if listing.thumbnail_path %}{{ listing.thumbnail_path.url }}{% else %}/media/img/listingimages/default.png{% endif %}">
+            <img class="rounded-3 mb-2 asp-3-2" src="{% if listing.thumbnail_path %}{{ listing.thumbnail_path.url }}{% else %}/media/img/listingimages/default.png{% endif %}">
             <div class="flex flex-col px-2">
                 <div class="flex justify-between mb-2">
-                    <p class="text-base"><b>{{ listing.address }}</b></p>
+                    <p class="text-lg mt-3"><b>{{ listing.address }}</b></p>
                     {% if not listing.sold %}
-                        <p class="text-base text-green">Í sölu</p>
+                        <p class="text-base text-green mt-3">Í sölu</p>
                     {% else %}
                         <p class="text-base text-red">Seld</p>
                     {% endif %}
                 </div>
                 <div class="flex justify-between mb-2">
-                    <p class="text-base">{{ listing.postcode }} {{ listing.postcode.location }}</p>
-                    <p class="text-base"><b>Tegund:</b> {{ listing.type.type }}</p>
+                    <p class="text-base font-light text-sm">{{ listing.postcode }} {{ listing.postcode.location }}</p>
+                    <p class="text-base font-light text-sm"><b>Tegund:</b> {{ listing.type.type }}</p>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <p class="text-base"><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
-                    <p class="text-base"><b>Herbergi:</b> {{ listing.rooms }}</p>
+                    <p class="text-base font-light size text-sm"><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
+                    <p class="text-base font-light text-sm"><b>Herbergi:</b> {{ listing.rooms }}</p>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <p class="text-base"><b>Ásett verð</b></p>
-                    <p class="text-base">{{ listing.price }} kr.</p>
+                    <p class="text-base text-sm font-light"><b>Ásett verð:</b></p>
+                    <p class="text-base text-l">{{ listing.price }} kr.</p>
                 </div>
             </div>
         </a>

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% block title %}{{ listing.address }}{% endblock %}
 
 {% block content %}
     <div class="whitespace16">
@@ -24,7 +25,7 @@
                     <h1 class="pageTitle">{{ listing.address }}</h1>
                     <div class="flex items-center">
                         <p class="smallText infoText">Birt: {{ listing.post_date }}</p>
-                        <div class="ml-4 px-2 hp-80 bg-dark rounded-lg flex items-center">
+                        <div class="ml-4 px-2 hp-80 bg-dark rounded-2 flex items-center">
                             <p class="green">Til sölu</p>
                         </div>
                     </div>
@@ -51,19 +52,19 @@
                 </div>
             </div>
             <div class="flex flex-col col34 ml-4">
-                <div class="flex flex-col p-4 text-black rounded-lg bg-dark">
+                <div class="flex flex-col p-4 text-black rounded-4 bg-dark">
                     <div class="flex mb-2 mt-2">
-                        <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
+                        <img src="{{ listing.seller.user.profile_image_path.url }}" class="profilePic" alt="Profile image">
                         <div class="ml-2">
-                            <h3>Jón Jónsson</h3>
-                            <h4 class="font-medium">105 Reykjavík</h4>
+                            <h3 class="text-base">{{ listing.seller.user.name }}</h3>
+                            <h4 class="font-light">{{ listing.seller.user.postcode.location }}</h4>
                         </div>
                     </div>
-                    <p class="mb-1"><b>Sími:</b> 123 1234</p>
-                    <p class="mb-4"><b>Email:</b> jonjonsson@gmail.com</p>
-                    <button class="bg-light no-border rounded text-base py-1">Sjá seljanda</button>
+                    <p class="mb-1 mt-4"><b>Sími:</b> {{ listing.seller.user.phone_number }}</p>
+                    <p class="mb-4"><b>Email:</b> {{ listing.seller.user.email }}</p>
+                    <button onclick="window.location.href='/seller-profile/{{ seller.user.id }}'" class="bg-white no-border rounded-3 text-base py-3 mt-4">Sjá seljanda</button>
                 </div>
-                <button onclick="window.location.href='/listings/{{ listing.id }}/offers/create'" class="bg-black no-border rounded text-base py-1 text-white m-4">Senda tilboð</button>
+                <button onclick="window.location.href='/listings/{{ listing.id }}/offers/create'" class="bg-black no-border rounded-3 text-base text-white m-4 py-3">Senda tilboð</button>
             </div>
         </div>
     </div>
