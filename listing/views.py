@@ -20,12 +20,14 @@ def index(request):
     postcodes_by_location = dict(postcodes_by_location)
 
     types = ListingType.objects.all()
+    listing_count = Listings.objects.all().count()
 
     context = {
         'show_navbar': True,
         'show_footer': True,
         'postcodes_by_location': postcodes_by_location,
         'types': types,
+        'listing_count': listing_count,
     }
 
 

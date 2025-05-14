@@ -33,8 +33,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     personal_id = models.CharField(max_length=255)
     postcode = models.ForeignKey('listing.Postcodes', on_delete=models.CASCADE)
     country = models.ForeignKey('user.Country', on_delete=models.CASCADE)
-    profile_image_path = models.ImageField(upload_to="img/profilepics/")
-    cover_image_path = models.ImageField(upload_to="img/coverimages/")
+    profile_image_path = models.ImageField(upload_to="img/profilepics/", default="img/profilepics/default.jpg")
+    cover_image_path = models.ImageField(upload_to="img/coverimages/", default="img/coverimages/default.jpg")
     register_date = models.DateTimeField(default=timezone.now)
 
     is_active = models.BooleanField(default=True)

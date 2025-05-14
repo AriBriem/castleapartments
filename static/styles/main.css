@@ -345,5 +345,6 @@ input[type="radio"]:checked + .customButton {
     border: none;
     cursor: pointer;
     z-index: 2;
+    border-radius: 0.5rem;
 }
 

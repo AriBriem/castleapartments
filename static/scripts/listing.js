@@ -14,7 +14,7 @@ imageUrlObjects.forEach(url => {
 })
 for (let i = 0; i < 2; i++) {
     if (imageUrls.length <= i+1) {
-        imageUrls.push('/media/img/listingimages/default.png');
+        imageUrls.push('/media/img/listingimages/defaultimage.jpg');
     }
 }
 
