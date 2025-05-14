@@ -166,6 +166,17 @@ def mypages(request):
     if seller_profile:
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
         listings = Listings.objects.filter(seller__user=user)
+        if request.method == 'POST':
+            accepted = request.POST.get('accepted')
+            contingent = request.POST.get('contingent')
+            rejected = request.POST.get('rejected')
+            if accepted:
+                incoming_offers.status = 'Accepted'
+            elif contingent:
+                incoming_offers.status = 'Contingent'
+            elif rejected:
+                incoming_offers.status = 'Rejected'
+            incoming_offers.save()
     else:
         incoming_offers = None
         listings = None

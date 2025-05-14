@@ -32,15 +32,18 @@
                     <h5 class="ml-8  font-light center wp-17">{{ offer.buyer.name }}</h5>
                     <h5 class="ml-8  font-light center wp-17">{{ offer.expiry_date }}</h5>
                     <h5 class="ml-8  font-light center wp-17">{{ offer.amount }}</h5>
-                    <button class="no-border px-3 rounded-2 height align center text-green bg-white text-small mr-1p"
-                            style="width: 9%">Samþykkt
-                    </button>
-                    <button class="no-border px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p"
-                            style="width: 9%">Skilyrt
-                    </button>
-                    <button class="no-border px-3 rounded-2 height align center text-red bg-white text-small"
-                            style="width: 9%">Hafnað
-                    </button>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="accepted" class="{% if incoming_offers.status == "Accepted"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-green bg-white text-small mr-1p"
+                                style="width: 9%">Samþykkt
+                        </button>
+                        <button type="submit" name="contingent" class="{% if incoming_offers.status == "Contingent"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p"
+                                style="width: 9%">Skilyrt
+                        </button>
+                        <button type="submit" name="rejected" class="{% if incoming_offers.status == "Rejected"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-red bg-white text-small"
+                                style="width: 9%">Hafnað
+                        </button>
+                    </form>
                 </div>
             {% endfor %}
             <div>
