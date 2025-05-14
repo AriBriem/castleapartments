@@ -159,6 +159,8 @@ def seller_information(request):
 def seller_profile(request, seller_id):
     seller = get_object_or_404(Users, id=seller_id)
     return render(request, 'user/sellerprofile.html', {"show_navbar": True, "show_footer": True, "seller": seller})
+
+
 def mypages(request):
     user = request.user
     outgoing_offers = Offers.objects.filter(buyer=request.user)
@@ -168,17 +170,23 @@ def mypages(request):
         listings = Listings.objects.filter(seller__user=user)
         if request.method == 'POST':
             offer_id = request.POST.get('offer_id')
+            listing_id = request.POST.get('listing_id')
             accepted = request.POST.get('accepted')
             contingent = request.POST.get('contingent')
             rejected = request.POST.get('rejected')
             offer = Offers.objects.get(id=offer_id)
+            listing = Listings.objects.get(id=listing_id)
             if accepted:
                 offer.status = 'Accepted'
+                listing.sold = True
             elif contingent:
                 offer.status = 'Contingent'
+                listing.sold = True
             elif rejected:
                 offer.status = 'Rejected'
+                listing.sold = False
             offer.save()
+            listing.save()
     else:
         incoming_offers = None
         listings = None
