@@ -41,7 +41,7 @@
                         </button>
                         <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border{% else %}no-border{% endif %} border-yellow px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p w-fit-content" {% if offer.listing.sold == True %}disabled {% endif %}>Skilyrt
                         </button>
-                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected" %}border{% elif offer.listing.sold == True and offer.status != "Accepted" %}border{% else %}no-border{% endif %} border-red px-3 rounded-2 height align center text-red bg-white text-small w-fit-content" {% if offer.listing.sold == True %}disabled {% endif %}>Hafnað
+                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected" %}border{% elif offer.listing.sold == True and offer.status == "Pending" %}border{% else %}no-border{% endif %} border-red px-3 rounded-2 height align center text-red bg-white text-small w-fit-content" {% if offer.listing.sold == True %}disabled {% endif %}>Hafnað
                         </button>
                     </form>
                 </div>
