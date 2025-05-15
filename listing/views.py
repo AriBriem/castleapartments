@@ -45,7 +45,7 @@ def get_listing_by_id(request, listing_id):
     except ObjectDoesNotExist:
         offer = None
 
-    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls, "offer": offer, "offer_id": offer})
+    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls, "offer": offer})
 
 def filter_listings(request):
     postcode_ids = request.GET.get('postcodes')
