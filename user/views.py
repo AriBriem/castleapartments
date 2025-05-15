@@ -19,6 +19,7 @@ def login_user(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, "Account logged in successfully.")
             return redirect('listing-index')
         else:
             return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False, "error": "Invalid email or password."})
@@ -26,6 +27,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
+    messages.success(request, "Logged out successfully.")
     return redirect('listing-index')
 
 def signup(request):
@@ -178,9 +180,36 @@ def seller_information(request):
             is_company=is_company
         )
         if from_listing:
+            messages.success(request, "Seller information created successfully.")
             return redirect('listing-create')
+        messages.success(request, "Seller information changed successfully.")
         return redirect('listing-index')
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
+
+def change_seller_information(request):
+    seller_information = SellerProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        bio = request.POST.get('bio')
+        logo_path = request.FILES.get('logo_path')
+        is_company = request.POST.get('is_company')
+
+        if not bio or is_company not in ['yes', 'no']:
+            return render(request, 'user/sellerinformation.html', {
+                'show_navbar': False,
+                'show_footer': False,
+                'error': 'Settu inn lýsingu og veldu einstakling eða fyrirtæki',
+            })
+        if is_company == "yes":
+            is_company = True
+        elif is_company == "no":
+            is_company = False
+
+        seller_information.bio = bio
+        seller_information.logo_path = logo_path
+        seller_information.is_company = is_company
+        messages.success(request, "Seller information changed successfully.")
+        return redirect('my-pages')
+    return render(request, 'user/changesellerinformation.html',{"show_navbar": False, "show_footer": False})
 
 def seller_profile(request, seller_id):
     seller = get_object_or_404(SellerProfile, id=seller_id)
@@ -191,6 +220,7 @@ def mypages(request):
     user = request.user
     outgoing_offers = Offers.objects.filter(buyer=request.user)
     seller_profile = SellerProfile.objects.filter(user=request.user)
+
     if seller_profile:
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
         listings = Listings.objects.filter(seller__user=user)
@@ -223,6 +253,7 @@ def mypages(request):
         'outgoing_offers': outgoing_offers,
         'listings': listings,
         'user': user,
+        'seller_profile': seller_profile
     }
     return render(request, 'user/mypages.html', context)
 

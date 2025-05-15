@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
@@ -9,6 +10,9 @@ from listing.models import ListingType, Listings
 from listing.models import Postcodes
 from collections import defaultdict
 from user.models import SellerProfile, Bookmarks
+
+from offer.models import Offers
+from user.models import SellerProfile, Users
 
 
 def index(request):
@@ -35,7 +39,13 @@ def get_listing_by_id(request, listing_id):
     listing = get_object_or_404(Listings, id=listing_id)
     listing_images = ListingImage.objects.filter(listing=listing)
     image_urls = [img.image_path.url for img in listing_images]
-    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls})
+    buyer = Users.objects.get(id=request.user.id)
+    try:
+        offer = Offers.objects.get(buyer=buyer, listing=listing)
+    except ObjectDoesNotExist:
+        offer = None
+
+    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls, "offer": offer, "offer_id": offer})
 
 def filter_listings(request):
     postcode_ids = request.GET.get('postcodes')
