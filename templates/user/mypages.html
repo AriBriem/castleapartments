@@ -16,7 +16,7 @@
             </div>
             {% if seller_profile %}
                 <h3 class="mx-2 mt-8">Mínar eignir</h3>
-                <div id="seller-listings">
+                <div id="seller-listings" data-user-id="{{ request.user.id }}">
                 </div>
             {% endif %}
             <div>
@@ -80,10 +80,12 @@
                     <h5 class="ml-8 font-light center wp-15">{{ offer.amount }}</h5>
                     <h5 class="ml-8 font-light center wp-15">{{ offer.listing.seller.user.name }}</h5>
                     {% if offer.status == "Accepted" or offer.status == "Contingent" %}
-                        <button onclick="window.location.href='{% url 'finalize-offer-contact' listing_id=offer.listing.id offer_id=offer.id %}'"
-                                class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">
-                            Klára tilboð
-                        </button>
+                        {% if not offer.has_payment %}
+                            <button onclick="window.location.href='{% url 'finalize-offer-contact' listing_id=offer.listing.id offer_id=offer.id %}'"
+                                    class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">
+                                Klára tilboð
+                            </button>
+                        {% endif %}
                     {% endif %}
                 </div>
             {% empty %}
@@ -93,5 +95,5 @@
 
         </div>
     </div>
-    <script src="{% static '/scripts/seller-pofile.js' %}"></script>
+    <script src="{% static '/scripts/my-pages.js' %}"></script>
 {% endblock %}

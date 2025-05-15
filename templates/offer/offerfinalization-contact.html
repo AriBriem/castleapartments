@@ -23,13 +23,13 @@
                 </div>
                 <div class="flex g-4">
                     <select id="select-location" name="location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                        <option value="{{ data.location }}">{{ data.location }}</option>
+                        <option value="{{ data.postcode }}">{{ data.location }}</option>
                         {% for postcode in postcodes %}
                             <option value="{{ postcode.postcode }}">{{ postcode.location }}</option>
                         {% endfor %}
                     </select>
                     <select id="select-postcode" name="postcode" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                        <option value="{{ data.postcode.postcode }}">{{ data.postcode.postcode }}</option>
+                        <option value="{{ data.postcode }}">{{ data.postcode }}</option>
                         {% for postcode in postcodes %}
                             <option value="{{ postcode.postcode }}">{{ postcode.postcode }}</option>
                         {% endfor %}
@@ -37,7 +37,7 @@
                 </div>
                 <label for="select-country" class="flex flex-col text-sm ml-2">Land</label>
                 <select id="select-country" name="country" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                    <option value="{{ data.country.name }}">{{ data.country.name }}</option>
+                    <option value="{{ data.country }}">{{ data.country_name }}</option>
                     {% for country in countries %}
                         <option value="{{ country.id }}">{{ country.name }}</option>
                     {% endfor %}
