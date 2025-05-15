@@ -4,6 +4,7 @@
 {% block title %}Castle Apartments{% endblock %}
 
 {% block content %}
+    {% csrf_token %}
     <div class="flex flex-col text-center items-center whitespace8 mtv-10">
         <div class="whitespace12 flex flex-col text-center items-center">
             <h1 class="text-dark text-title font-medium text-shadow-soft">Finndu drauma eignina þína á Castle

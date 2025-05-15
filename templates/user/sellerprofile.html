@@ -5,29 +5,31 @@
 {% block content %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
-            <img src="{% if seller.user.cover_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
+            <img src="{% if seller.user.cover_image_path %}{{ seller.user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}"
+                 alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
             <div class="flex flex-row">
-                <img src="{% if seller.user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}"alt="Prófílmynd" class="profilePicLarge ml-12 asp-1-1">
-                <h2 class="ml-4 mt-4">{{ seller.name }}</h2>
+                <img src="{% if seller.logo_path %}{{ seller.logo_path.url }}{% else %}{% if seller.user.profile_image_path %}{{ seller.user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12 asp-1-1">
+                <h2 class="ml-4 mt-4">{{ seller.user.name }}</h2>
             </div>
             <div class="flex flex-row mx-2 mt-8">
-                <p class="wp-50"><b>Sími:</b> {{ seller.phone_number }}</p>
+                <p class="wp-50"><b>Sími:</b> {{ seller.user.phone_number }}</p>
                 <p class="wp-50"><b>{% if seller.is_company %}Fyrirtæki{% else %}Einstaklingur{% endif %}</b></p>
             </div>
             <div class="flex flex-row mx-2 mt-4">
-                <p class="wp-50"><b>Email:</b> {{ seller.email }}</p>
-                <p class="wp-50"><b>Heimilisfang:</b> {{ seller.address }}</p>
+                <p class="wp-50"><b>Email:</b> {{ seller.user.email }}</p>
+                <p class="wp-50"><b>Heimilisfang:</b> {{ seller.user.address }}</p>
             </div>
             <div>
                 <h3 class="mx-2 mt-8">Lýsing</h3>
             </div>
             <div class="flex flex-row mx-2 mt-4 mb-mid">
                 <p>
-                Ég legg mikla áherslu á heiðarleika og góð samskipti þegar kemur að fasteignaviðskiptum. Markmið mitt er að gera ferlið eins auðvelt og þægilegt og mögulegt er fyrir alla aðila. Ég er opinn, hreinskilinn og tilbúinn að svara öllum spurningum sem upp kunna að koma.
+                    {{ seller.bio }}
                 </p>
             </div>
             <div id="seller-listings">
             </div>
         </div>
+    </div>
     <script src="{% static '/scripts/seller-pofile.js' %}"></script>
 {% endblock %}

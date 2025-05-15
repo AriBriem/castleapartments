@@ -157,7 +157,7 @@ def seller_information(request):
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
 
 def seller_profile(request, seller_id):
-    seller = get_object_or_404(Users, id=seller_id)
+    seller = get_object_or_404(SellerProfile, id=seller_id)
     return render(request, 'user/sellerprofile.html', {"show_navbar": True, "show_footer": True, "seller": seller})
 def mypages(request):
     user = request.user

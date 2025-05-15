@@ -58,3 +58,7 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
+class Bookmarks(models.Model):
+    user = models.ForeignKey('user.Users', on_delete=models.CASCADE)
+    listing = models.ForeignKey('listing.Listings', on_delete=models.CASCADE)

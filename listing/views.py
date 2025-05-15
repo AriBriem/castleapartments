@@ -84,7 +84,8 @@ def filter_listings(request):
     return render(request, 'partials/property_list.html', {"listings": listings})
 
 def create_listing(request):
-    if not SellerProfile.objects.filter(user=request.user).exists():
+    seller = SellerProfile.objects.filter(user=request.user)
+    if not seller:
         return redirect('/seller-information?from=listing')
 
     postcodes_by_location = defaultdict(list)
@@ -112,7 +113,7 @@ def create_listing(request):
             return redirect("listing-create")
 
         listing = Listings.objects.create(
-            seller_id=request.user.id,
+            seller=seller,
             address=address,
             postcode=postcode,
             sqr_meters=sqr_meters,

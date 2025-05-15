@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/db8da00bfa.js" crossorigin="anonymous"></script>
 </head>
-<body class="flex flex-col justify-between minh-100v">
+<body class="flex flex-col {% if show_footer %}justify-between{% endif %} minh-100v">
 {% if show_navbar %}
     <div>
   {% include "partials/navbar.html" %}

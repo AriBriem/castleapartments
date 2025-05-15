@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')
 
-        // Send selectedPostcodes to server or filter client-side
         fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}`)
           .then(response => response.text())
           .then(html => {
