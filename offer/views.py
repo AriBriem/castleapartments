@@ -11,6 +11,10 @@ from user.models import Country
 # Create your views here.
 
 def make_offer(request, listing_id):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     listing = get_object_or_404(Listings, id=listing_id)
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -36,6 +40,10 @@ def make_offer(request, listing_id):
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
 def change_offer(request, listing_id, offer_id):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     offer = Offers.objects.get(id=offer_id)
     listing = Listings.objects.get(id=listing_id)
     if request.method == 'POST':
@@ -59,6 +67,10 @@ def change_offer(request, listing_id, offer_id):
                   {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
 
 def finalize_offer_contact(request, listing_id ,offer_id):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     postcodes = Postcodes.objects.all()
     countries = Country.objects.all()
     if request.method == 'POST':
@@ -88,6 +100,10 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     return render(request, 'offer/offerfinalization-contact.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data, "postcodes": postcodes, "countries": countries})
 
 def finalize_offer_payment(request, listing_id ,offer_id):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     if request.method == 'POST':
         selected_method = request.POST.get('payment-method')
         if selected_method == 'creditcard':
@@ -151,6 +167,10 @@ def finalize_offer_payment(request, listing_id ,offer_id):
     return render(request, 'offer/offerfinalization-payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
 
 def summary(request, listing_id, offer_id):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     data = request.session.get('payment_data')
     if request.method == 'POST':
         user = request.user

@@ -3,23 +3,22 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Q
-from listing.models import ListingType, ListingImage
-from listing.models import Postcodes, Listings, ListingType
 from django.shortcuts import render, redirect, get_object_or_404
-from listing.models import ListingType, Listings
-from listing.models import Postcodes
-from collections import defaultdict
-from user.models import SellerProfile, Bookmarks
-
+from listing.models import ListingType, ListingImage, Postcodes, Listings
 from offer.models import Offers
-from user.models import SellerProfile, Users
+from user.models import SellerProfile, Users, Bookmarks
 
+def get_postcodes_by_location():
+    postcodes_by_location = {}
+    for row in Postcodes.objects.values('postcode', 'location'):
+        location = row['location']
+        if location not in postcodes_by_location:
+            postcodes_by_location[location] = []
+        postcodes_by_location[location].append(row['postcode'])
+    return postcodes_by_location
 
 def index(request):
-    postcodes_by_location = defaultdict(list)
-    for row in Postcodes.objects.values('postcode', 'location'):
-        postcodes_by_location[row['location']].append(row['postcode'])
-    postcodes_by_location = dict(postcodes_by_location)
+    postcodes_by_location = get_postcodes_by_location()
 
     types = ListingType.objects.all()
     listing_count = Listings.objects.all().count()
@@ -32,20 +31,28 @@ def index(request):
         'listing_count': listing_count,
     }
 
-
     return render(request, 'listing/index.html', context)
 
 def get_listing_by_id(request, listing_id):
+    user = request.user
     listing = get_object_or_404(Listings, id=listing_id)
     listing_images = ListingImage.objects.filter(listing=listing)
     image_urls = [img.image_path.url for img in listing_images]
-    buyer = Users.objects.get(id=request.user.id)
+
     try:
-        offer = Offers.objects.get(buyer=buyer, listing=listing)
+        offer = Offers.objects.get(buyer=user.id, listing=listing)
     except ObjectDoesNotExist:
         offer = None
 
-    return render(request, 'listing/listing.html', {"show_navbar": True, "show_footer": False, "listing": listing, "images": image_urls, "offer": offer, "offer_id": offer})
+    context = {
+        "show_navbar": True,
+        "show_footer": False,
+        "listing": listing,
+        "images": image_urls,
+        "offer": offer,
+    }
+
+    return render(request, 'listing/listing.html', context)
 
 def filter_listings(request):
     postcode_ids = request.GET.get('postcodes')
@@ -94,8 +101,6 @@ def filter_listings(request):
     else:
         bookmarks = []
 
-    print(is_bookmark)
-
     if is_bookmark:
         if request.user.is_authenticated:
             listings = listings.filter(bookmarks__user=request.user)
@@ -109,15 +114,14 @@ def create_listing(request):
     if not user.is_authenticated:
         return redirect('user-login')
 
-    seller = SellerProfile.objects.get(user=request.user)
-    if not seller:
+    try:
+        seller = SellerProfile.objects.get(user=request.user)
+    except SellerProfile.DoesNotExist:
         return redirect('/seller-information?from=listing')
 
-    postcodes_by_location = defaultdict(list)
-    for row in Postcodes.objects.values('postcode', 'location'):
-        postcodes_by_location[row['location']].append(row['postcode'])
-    postcodes_by_location = dict(postcodes_by_location)
+    postcodes_by_location = get_postcodes_by_location()
     types = ListingType.objects.all()
+
     if request.method == 'POST':
         address = request.POST.get('address')
         postcode = Postcodes.objects.get(postcode = request.POST.get('postcode'))
@@ -131,11 +135,6 @@ def create_listing(request):
         price = request.POST.get('price').replace(".", "")
 
         listing_images = request.FILES.getlist('listing_images')
-        print(listing_images)
-
-        if Listings.objects.filter(address=address).exists():
-            messages.error(request, "Listing with this address already exists.")
-            return redirect("listing-create")
 
         listing = Listings.objects.create(
             seller=seller,
@@ -153,7 +152,6 @@ def create_listing(request):
         for file in listing_images:
             ListingImage.objects.create(listing=listing, image_path=file)
         messages.success(request, "Listing created successfully. You can now log in.")
-        print("")
         listing = Listings.objects.filter(seller=seller, address=address).first()
         if listing:
             return redirect("listing-detail", listing_id=listing.id)
@@ -163,5 +161,6 @@ def create_listing(request):
         "show_navbar": False,
         "show_footer": False,
         "postcodes_by_location": postcodes_by_location,
-        "types": types}
+        "types": types
+    }
     return render(request, 'listing/createlisting.html', context)

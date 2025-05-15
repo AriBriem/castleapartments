@@ -10,7 +10,7 @@
                 <img src="{% if user.profile_image_path %}{{ user.profile_image_path.url }}{% else %}/media/img/profilepics/default.jpg{% endif %}" alt="Prófílmynd" class="profilePicLarge ml-12 asp-1-1">
                 <h2 class="ml-4 mt-4">{{ request.user.name }}</h2>
                 <button class="no-border ml-3 px-3 rounded-2 height align center" onclick="window.location.href='change-profile'">Breyta prófíl</button>
-                <button class="no-border ml-3 px-3 rounded-2 height align center" onclick="window.location.href='change-seller-information'">Breyta seljanda upplýsingum
+                <button class="no-border ml-3 px-3 rounded-2 height align center" onclick="window.location.href='change-seller-information'">{% if seller_profile %}Breyta{% else %}Bæta við{% endif %} seljanda upplýsingum
                 </button>
                 <button class="no-border ml-3 px-3 rounded-2 height align center red" onclick="window.location.href='/logout'">Skrá út</button>
             </div>

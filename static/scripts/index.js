@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+
     const toggleBtn = document.querySelectorAll('.filter-button');
     const filterBoxes = document.querySelectorAll('.filter');
     const expandBtnCity = document.querySelectorAll('.expand-button-city');
@@ -18,64 +20,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const orderByInputs = document.querySelectorAll('input[name="order-by"]')
     const bookmarkToggle = document.querySelector('#bookmark-toggle')
     const bookMarkIcon = document.querySelector('#bookmark-icon')
-    const csrftoken = getCookie('csrftoken');
 
-    let bookmarkButtons = document.querySelectorAll('.bookmark-button');
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    const bookmarkListing = (listingId, isBookmarked, btn) => {
-        const method = isBookmarked ? 'DELETE' : 'POST';
-        const icon = btn.children[0]
-
-        fetch('/bookmark', {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify({listingId: listingId})
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error, status: ${response.status}`);
-                }
-                if (isBookmarked) {
-                    icon.classList.add('far')
-                    icon.classList.remove('fas')
-                    btn.dataset.bookmarked = 'false'
-                } else {
-                    icon.classList.add('fas')
-                    icon.classList.remove('far')
-                    btn.dataset.bookmarked = 'true'
-                }
-            })
-            .catch(err => {
-                console.error('Failed to bookmark', err);
-            });
-    }
+    let bookmarkButtons = document.querySelectorAll('.bookmark-button');  // getting html elements
 
     orderByInputs.forEach(radio => {
         radio.addEventListener('change', () => {
             filterProperties()
         })
-    })
-
-    searchBar.addEventListener('input', () => {
-
     })
 
     searchBtn.addEventListener('click', () => {
@@ -159,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
             bookmarkToggle.dataset.on = 'true'
         }
         filterProperties()
-    })
+    }) // adding filter event listeners
 
     document.addEventListener('click', function (e) {
         if (!e.target.closest('.filter')) {
@@ -167,9 +118,53 @@ document.addEventListener('DOMContentLoaded', function () {
                 box.parentElement.classList.add('hidden')
             })
         }
-    });
+    }); // make sure that when you click outside a filter box then it disappears
 
-    function filterProperties() {
+    const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken'); // get csrftoken to send post requests
+
+    const bookmarkListing = (listingId, isBookmarked, btn) => {
+        const method = isBookmarked ? 'DELETE' : 'POST';
+        const icon = btn.children[0]
+
+        fetch('/bookmark', {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({listingId: listingId})
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error, status: ${response.status}`);
+                }
+                if (isBookmarked) {
+                    icon.classList.add('far')
+                    icon.classList.remove('fas')
+                    btn.dataset.bookmarked = 'false'
+                } else {
+                    icon.classList.add('fas')
+                    icon.classList.remove('far')
+                    btn.dataset.bookmarked = 'true'
+                }
+            })
+    }
+
+    const filterProperties = () => {
         const selectedPostcodes = Array.from(document.querySelectorAll('.postcode-checkbox:checked'))
             .map(pc => pc.value);
         const selectedTypes = Array.from(document.querySelectorAll('.type-checkbox:checked'))
@@ -181,7 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchValue = searchBar.value;
         const orderBy = document.querySelector('input[name="order-by"]:checked')?.value;
         const filterByBookmark = bookmarkToggle.dataset.on
-        console.log(filterByBookmark)
 
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')

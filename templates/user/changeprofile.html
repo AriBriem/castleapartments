@@ -15,7 +15,7 @@
                 <label for="input-phone" class="flex flex-col text-sm ml-2">Símanúmer</label>
                 <input type="text" id="input-phone" name="phone_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ user.phone_number }}">
                 <label for="input-password" class="flex flex-col text-sm ml-2">Lykilorð (skildu eftir autt til að viðhalda gamla lykilorðið þitt)</label>
-                <input type="text" id="input-password" name="password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <input type="text" id="input-password" name="new_password" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                 <label for="input-address" class="flex flex-col text-sm ml-2">Heimilisfang</label>
                 <input type="text" id="input-address" name="address" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ user.address }}">
                 <label for="input-personalID" class="flex flex-col text-sm ml-2">Kennitala</label>
@@ -26,13 +26,13 @@
                 </div>
                 <div class="flex g-4">
                     <select id="select-location" name="location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                        <option value=" {{ user.location }}"></option>
+                        <option value="{{ user.postcode.location }}">{{ user.postcode.location }}</option>
                         {% for location in postcodes_by_location.keys %}
                             <option value="{{ location }}">{{ location }}</option>
                         {% endfor %}
                     </select>
                     <select id="select-postcode" name="postcode" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                        <option value=" {{ user.postcode }}"></option>
+                        <option value="{{ user.postcode }}">{{ user.postcode }}</option>
                         {% for location, postcodes in postcodes_by_location.items %}
                             {% for postcode in postcodes %}
                                 <option value="{{ postcode }}" data-location="{{ location }}">{{ postcode }}</option>
@@ -42,7 +42,7 @@
                 </div>
                 <label for="select-country" class="flex flex-col text-sm ml-2">Land</label>
                 <select id="select-country" name="country" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
-                    <option value=" {{ user.country }}"></option>
+                    <option value="{{ user.country.id }}">{{ user.country }}</option>
                     {% for country in countries %}
                         <option value="{{ country.id }}">{{ country.name }}</option>
                     {% endfor %}

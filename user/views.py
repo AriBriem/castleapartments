@@ -5,11 +5,17 @@ from listing.models import Postcodes, Listings
 from offer.models import Offers
 from user.models import Country, SellerProfile, Bookmarks
 from user.models import Users
-from collections import defaultdict
 from django.http import HttpResponse
 import json
 
-
+def get_postcodes_by_location():
+    postcodes_by_location = {}
+    for row in Postcodes.objects.values('postcode', 'location'):
+        location = row['location']
+        if location not in postcodes_by_location:
+            postcodes_by_location[location] = []
+        postcodes_by_location[location].append(row['postcode'])
+    return postcodes_by_location
 
 # Create your views here.
 def login_user(request):
@@ -31,10 +37,7 @@ def logout_user(request):
     return redirect('listing-index')
 
 def signup(request):
-    postcodes_by_location = defaultdict(list)
-    for row in Postcodes.objects.values('postcode', 'location'):
-        postcodes_by_location[row['location']].append(row['postcode'])
-    postcodes_by_location = dict(postcodes_by_location)
+    postcodes_by_location = get_postcodes_by_location()
     countries = Country.objects.all()
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -91,12 +94,12 @@ def signup(request):
     return render(request, 'user/signup.html', context)
 
 def change_profile(request):
-    postcodes_by_location = defaultdict(list)
-    for row in Postcodes.objects.values('postcode', 'location'):
-        postcodes_by_location[row['location']].append(row['postcode'])
-    postcodes_by_location = dict(postcodes_by_location)
-    countries = Country.objects.all()
     user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
+    postcodes_by_location = get_postcodes_by_location()
+    countries = Country.objects.all()
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -105,10 +108,10 @@ def change_profile(request):
         address = request.POST.get('address')
         personal_id = request.POST.get('personal_id')
         location = request.POST.get('location')
-        postcode = request.POST.get('postcode')
-        country = request.POST.get('country')
-        profile_image_path = request.FILES.get['profile_image']
-        cover_image_path = request.FILES.get['cover_image']
+        postcode = get_object_or_404(Postcodes, postcode=request.POST.get('postcode'))
+        country = get_object_or_404(Country, id=request.POST.get('country'))
+        profile_image_path = request.FILES.get('profile_image')
+        cover_image_path = request.FILES.get('cover_image')
         new_password = request.POST.get('new_password')
 
 
@@ -125,8 +128,6 @@ def change_profile(request):
             user.address = address
         if personal_id:
             user.personal_id = personal_id
-        if location:
-            user.location = location
         if postcode:
             user.postcode = postcode
         if country:
@@ -135,7 +136,7 @@ def change_profile(request):
             user.profile_image_path = profile_image_path
         if cover_image_path:
             user.cover_image_path = cover_image_path
-
+        print(new_password)
         if new_password:
             if not user.check_password(new_password):
                 user.set_password(new_password)
@@ -148,13 +149,17 @@ def change_profile(request):
     context = {
         "show_navbar": False,
         "show_footer": False,
-        "country": countries,
+        "countries": countries,
         "postcodes_by_location": postcodes_by_location,
         "user": user
     }
-    return render(request, 'user/changeprofile.html', )
+    return render(request, 'user/changeprofile.html', context)
 
 def seller_information(request):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     from_listing = request.GET.get('from') == 'listing'
     if request.method == 'POST':
         bio = request.POST.get('bio')
@@ -187,7 +192,15 @@ def seller_information(request):
     return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
 
 def change_seller_information(request):
-    seller_information = SellerProfile.objects.get(user=request.user)
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
+    try:
+        seller_information = SellerProfile.objects.get(user=request.user)
+    except:
+        return redirect('user-seller-information')
+
     if request.method == 'POST':
         bio = request.POST.get('bio')
         logo_path = request.FILES.get('logo_path')
@@ -218,6 +231,9 @@ def seller_profile(request, seller_id):
 
 def mypages(request):
     user = request.user
+    if not user.is_authenticated:
+        return redirect('/login')
+
     outgoing_offers = Offers.objects.filter(buyer=request.user)
     seller_profile = SellerProfile.objects.filter(user=request.user)
 
