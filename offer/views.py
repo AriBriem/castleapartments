@@ -1,10 +1,11 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 
-from listing.models import Listings
+from listing.models import Listings, Postcodes
 from offer.forms import PaymentForm
 from offer.models import Offers
 from payment.models import Payments
+from user.models import Country
 
 
 # Create your views here.
@@ -58,14 +59,16 @@ def change_offer(request, listing_id, offer_id):
                   {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
 
 def finalize_offer_contact(request, listing_id ,offer_id):
+    postcodes = Postcodes.objects.all()
+    countries = Country.objects.all()
     if request.method == 'POST':
         if request.POST.get('address') and request.POST.get('personal_id') and request.POST.get('location') and request.POST.get('postcode') and request.POST.get('country'):
             request.session['payment_data'] = {
                 'address': request.POST.get('address'),
                 'personal_id': request.POST.get('personal_id'),
                 'location': request.POST.get('location'),
-                'postcode': request.POST.get('postcode'),
-                'country': request.POST.get('country'),
+                'postcode': Postcodes.objects.get(postcodes=request.POST.get('postcode')),
+                'country': Country.objects.get(id=request.POST.get('country'))
             }
         else:
             data = request.session.get('payment_data')
@@ -82,7 +85,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         return redirect('finalize-offer-payment', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
-    return render(request, 'offer/offerfinalization-contact.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
+    return render(request, 'offer/offerfinalization-contact.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data, "postcodes": postcodes, "countries": countries})
 
 def finalize_offer_payment(request, listing_id ,offer_id):
     if request.method == 'POST':
@@ -153,7 +156,6 @@ def summary(request, listing_id, offer_id):
         user = request.user
         user.address = data['address']
         user.personal_id = data['personal_id']
-        user.location = data['location']
         user.postcode = data['postcode']
         user.country = data['country']
         user.save()

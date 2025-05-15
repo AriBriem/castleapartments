@@ -39,7 +39,7 @@ def get_listing_by_id(request, listing_id):
     listing = get_object_or_404(Listings, id=listing_id)
     listing_images = ListingImage.objects.filter(listing=listing)
     image_urls = [img.image_path.url for img in listing_images]
-    buyer = Users.objects.get(user=request.user)
+    buyer = Users.objects.get(id=request.user.id)
     try:
         offer = Offers.objects.get(buyer=buyer, listing=listing)
     except ObjectDoesNotExist:
