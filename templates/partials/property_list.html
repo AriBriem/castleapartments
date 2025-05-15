@@ -3,9 +3,9 @@
     {% if listings %}
     <div class="grid grid-3column g-4 my-2">
         {% for listing in listings %}
-        <a href="/listing/{{ listing.id }}" class="flex flex-col text-decor-none text-black pos-rel">
+        <div class="flex flex-col text-decor-none text-black pos-rel">
             <img class="rounded-3 mb-2 asp-3-2" src="{% if listing.thumbnail_path %}{{ listing.thumbnail_path.url }}{% else %}/media/img/listingimages/default.png{% endif %}">
-            <button class="bookmark-button">
+            <button data-id="{{ listing.id }}" class="bookmark-button">
                 <i class="far fa-bookmark text-primary"></i>
             </button>
             <div class="flex flex-col px-2">
@@ -30,7 +30,7 @@
                     <p class="text-base text-l">{{ listing.price }} kr.</p>
                 </div>
             </div>
-        </a>
+        </diva>
         {% endfor %}
     </div>
     {% else %}
@@ -39,4 +39,3 @@
     </div>
     {% endif %}
 </div>
-<script src="{% static '/scripts/property_list.js' %}"></script>

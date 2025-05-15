@@ -17,6 +17,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const orderByInputs = document.querySelectorAll('input[name="order-by"]')
 
+
+    let bookmarkButtons = document.querySelectorAll('.bookmark-button');
+    console.log(bookmarkButtons)
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    const bookmarkListing = (listingId) => {
+        fetch('/bookmarks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken
+            },
+            body: JSON.stringify({listingId: listingId})
+        })
+            .then(res => res.json())
+            .then(data => {
+                alert('Bookmarked!');
+                // Or visually toggle the bookmark icon
+            })
+            .catch(err => {
+                console.error('Failed to bookmark', err);
+            });
+    }
+
     orderByInputs.forEach(radio => {
         radio.addEventListener('change', () => {
             filterProperties()
@@ -91,7 +132,9 @@ document.addEventListener('DOMContentLoaded', function () {
             filterBoxes.forEach(box => {
                 box.parentElement.classList.add('hidden')
             })
-            if (hidden === true) { filterBox.parentElement.classList.remove('hidden'); }
+            if (hidden === true) {
+                filterBox.parentElement.classList.remove('hidden');
+            }
         });
     })
 
@@ -107,9 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function filterProperties() {
         const selectedPostcodes = Array.from(document.querySelectorAll('.postcode-checkbox:checked'))
-          .map(pc => pc.value);
+            .map(pc => pc.value);
         const selectedTypes = Array.from(document.querySelectorAll('.type-checkbox:checked'))
-          .map(pc => pc.value);
+            .map(pc => pc.value);
         const minMeters = metersFromSelect.value;
         const maxMeters = metersToSelect.value;
         const minPrice = priceFromSelect.value;
@@ -121,11 +164,22 @@ document.addEventListener('DOMContentLoaded', function () {
         listContainer.classList.add('filter-blur')
 
         fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}`)
-          .then(response => response.text())
-          .then(html => {
-            listContainer.innerHTML = html;
-            listContainer.classList.remove('filter-blur')
-          });
-  }
-  filterProperties();
+            .then(response => response.text())
+            .then(html => {
+                listContainer.innerHTML = html;
+                listContainer.classList.remove('filter-blur')
+                bookmarkButtons = document.querySelectorAll('.bookmark-button')
+                console.log(bookmarkButtons)
+                bookmarkButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        bookmarkListing(btn.dataset.id)
+                        console.log('button with ' + btn.dataset.id.toString())
+                    })
+                });
+            })
+    }
+
+    filterProperties();
 });
