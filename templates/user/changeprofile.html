@@ -27,14 +27,16 @@
                 <div class="flex g-4">
                     <select id="select-location" name="location" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                         <option value=" {{ user.location }}"></option>
-                        {% for postcode in postcodes %}
-                            <option value="{{ postcode.id }}">{{ postcode.location }}</option>
+                        {% for location in postcodes_by_location.keys %}
+                            <option value="{{ location }}">{{ location }}</option>
                         {% endfor %}
                     </select>
                     <select id="select-postcode" name="postcode" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                         <option value=" {{ user.postcode }}"></option>
-                        {% for postcode in postcodes %}
-                            <option value="{{ postcode.id }}">{{ postcode.postcode }}</option>
+                        {% for location, postcodes in postcodes_by_location.items %}
+                            {% for postcode in postcodes %}
+                                <option value="{{ postcode }}" data-location="{{ location }}">{{ postcode }}</option>
+                            {% endfor %}
                         {% endfor %}
                     </select>
                 </div>

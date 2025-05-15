@@ -6,7 +6,12 @@ from listing.models import Postcodes, Listings
 from offer.models import Offers
 from payment.models import Payments
 from user.models import Country, SellerProfile
+from user.models import Country, SellerProfile, Bookmarks
 from user.models import Users
+from collections import defaultdict
+from django.http import HttpResponse
+import json
+
 
 
 # Create your views here.
@@ -29,7 +34,10 @@ def logout_user(request):
     return redirect('listing-index')
 
 def signup(request):
-    postcodes = Postcodes.objects.all()
+    postcodes_by_location = defaultdict(list)
+    for row in Postcodes.objects.values('postcode', 'location'):
+        postcodes_by_location[row['location']].append(row['postcode'])
+    postcodes_by_location = dict(postcodes_by_location)
     countries = Country.objects.all()
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -75,10 +83,21 @@ def signup(request):
             print(f"Signup error: {e}")
             messages.error(request, str(e))
             return redirect("user-signup")
-    return render(request, 'user/signup.html', {"show_navbar": False, "show_footer": False, "countries": countries, "postcodes": postcodes, "error": messages.error})
+
+    context = {
+        "show_navbar": False,
+        "show_footer": False,
+        "countries": countries,
+        "error": messages.error,
+        'postcodes_by_location': postcodes_by_location,
+    }
+    return render(request, 'user/signup.html', context)
 
 def change_profile(request):
-    postcodes = Postcodes.objects.all()
+    postcodes_by_location = defaultdict(list)
+    for row in Postcodes.objects.values('postcode', 'location'):
+        postcodes_by_location[row['location']].append(row['postcode'])
+    postcodes_by_location = dict(postcodes_by_location)
     countries = Country.objects.all()
     user = request.user
 
@@ -128,7 +147,15 @@ def change_profile(request):
         user.save()
         messages.success(request, "Profile updated successfully.")
         return redirect('my-pages')
-    return render(request, 'user/changeprofile.html', {"show_navbar": False, "show_footer": False, "country": countries, "postcodes": postcodes, "user": user})
+
+    context = {
+        "show_navbar": False,
+        "show_footer": False,
+        "country": countries,
+        "postcodes_by_location": postcodes_by_location,
+        "user": user
+    }
+    return render(request, 'user/changeprofile.html', )
 
 def seller_information(request):
     from_listing = request.GET.get('from') == 'listing'
@@ -236,3 +263,24 @@ def mypages(request):
         'seller_profile': seller_profile,
     }
     return render(request, 'user/mypages.html', context)
+
+def handle_bookmark(request):
+    user = request.user
+    if not user.is_authenticated:
+        return HttpResponse(status=401)
+
+    try:
+        data = json.loads(request.body)
+        listing_id = data.get('listingId')
+        listing = Listings.objects.get(id=listing_id)
+    except:
+        return HttpResponse(status=400)
+
+    if request.method == 'POST':
+        Bookmarks.objects.create(user=user, listing=listing)
+        return HttpResponse(status=201)
+    elif request.method == 'DELETE':
+        Bookmarks.objects.filter(user=user, listing=listing).delete()
+        return HttpResponse(status=204)
+
+    return HttpResponse(status=405)

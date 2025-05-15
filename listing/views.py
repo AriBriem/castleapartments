@@ -8,8 +8,8 @@ from listing.models import Postcodes, Listings, ListingType
 from django.shortcuts import render, redirect, get_object_or_404
 from listing.models import ListingType, Listings
 from listing.models import Postcodes
-# Create your views here.
 from collections import defaultdict
+from user.models import SellerProfile, Bookmarks
 
 from offer.models import Offers
 from user.models import SellerProfile, Users
@@ -57,6 +57,7 @@ def filter_listings(request):
     seller = request.GET.get('seller_id')
     search = request.GET.get('search')
     order_by = request.GET.get('order_by')
+    is_bookmark = request.GET.get('bookmark') == 'true'
 
     filters = Q()
 
@@ -88,8 +89,20 @@ def filter_listings(request):
     if order_by and order_by != 'undefined':
         listings = listings.order_by(order_by)
 
+    if request.user.is_authenticated:
+        bookmarks = Bookmarks.objects.filter(user=request.user).values_list('listing_id', flat=True)
+    else:
+        bookmarks = []
 
-    return render(request, 'partials/property_list.html', {"listings": listings})
+    print(is_bookmark)
+
+    if is_bookmark:
+        if request.user.is_authenticated:
+            listings = listings.filter(bookmarks__user=request.user)
+        else:
+            listings = Listings.objects.none()
+
+    return render(request, 'partials/property_list.html', {"listings": listings, "bookmarks": bookmarks})
 
 def create_listing(request):
     user = request.user

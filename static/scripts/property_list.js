@@ -1,4 +1,3 @@
-
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -14,29 +13,30 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
 const csrftoken = getCookie('csrftoken');
 
-const bookmarkClicked = (event) => {
+const bookmarkClicked = (event, listingId) => {
     event.preventDefault()
     event.stopPropagation()
-
-    function bookmarkItem(itemId) {
-  fetch('/bookmarks', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
-    },
-    body: JSON.stringify({ item_id: itemId })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert('Bookmarked!');
-    // Or visually toggle the bookmark icon
-  })
-  .catch(err => {
-    console.error('Failed to bookmark', err);
-  });
+    bookmarkListing(listingId)
 }
 
+const bookmarkListing = (listingId) => {
+    fetch('/bookmarks', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: JSON.stringify({listingId: listingId})
+    })
+        .then(res => res.json())
+        .then(data => {
+            alert('Bookmarked!');
+            // Or visually toggle the bookmark icon
+        })
+        .catch(err => {
+            console.error('Failed to bookmark', err);
+        });
 }
