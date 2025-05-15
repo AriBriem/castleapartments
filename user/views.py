@@ -1,8 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from listing.models import Postcodes, Listings
 from offer.models import Offers
+from payment.models import Payments
 from user.models import Country, SellerProfile
 from user.models import Users
 
@@ -193,7 +195,11 @@ def seller_profile(request, seller_id):
 def mypages(request):
     user = request.user
     outgoing_offers = Offers.objects.filter(buyer=request.user)
-    seller_profile = SellerProfile.objects.filter(user=request.user)
+    for offer in outgoing_offers:
+        offer.has_payment = Payments.objects.filter(offer=offer).exists()
+    seller_profile = SellerProfile.objects.filter(user=request.user).first()
+
+
 
     if seller_profile:
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
@@ -227,6 +233,6 @@ def mypages(request):
         'outgoing_offers': outgoing_offers,
         'listings': listings,
         'user': user,
-        'seller_profile': seller_profile
+        'seller_profile': seller_profile,
     }
     return render(request, 'user/mypages.html', context)

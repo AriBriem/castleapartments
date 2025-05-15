@@ -37,17 +37,17 @@
                     </div>
                 </div>
                 <div id="bank-transfer-fields" class="payment-fields hidden">
-                    <label for="input-bank-number" class="flex flex-col text-sm ml-2 ">Bankanúmer</label>
-                    <input type="text" id="input-bank-number" name="bank_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.bank_number }}">
+                    <label for="input-bank-number" class="flex flex-col text-sm ml-2 ">Bankanúmer (þarf að vera á formi XXXX-YY-ZZZZZZZ)</label>
+                    <input type="text" id="input-bank-number" pattern="\d{4}-\d{2}-\d{7}" name="bank_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.bank_number }}">
                 </div>
                 <div id="loan-fields" class="payment-fields hidden">
-                    <label for="input-loan-provider" class="flex flex-col text-sm ml-2">Lánveitandi</label>
+                    <label for="input-loan-provider" class="flex flex-col text-sm ml-2">Lánveitandi (t.d. Arion banki, Landsbanki, o.s.frv)</label>
                     <input type="text" id="input-loan-provider" name="lender" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.lender }}">
                 </div>
             </div>
             <br>
             <div class="flex flex-row g-4">
-                <button type="button" onclick="window.location.href='{% url 'finalize-offer-contact' listing_id=listing_id offer_id=offer_id %}'" class="bg-gray text-black no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+                <button type="button" onclick="window.location.href='{% url 'finalize-offer-contact' listing_id=listing_id offer_id=offer_id %}'" class="bg-gray text-black no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Til baka</button>
                 <button type="submit" class="bg-black text-white no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Halda áfram</button>
             </div>
         </form>

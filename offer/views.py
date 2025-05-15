@@ -13,7 +13,8 @@ from user.models import Country
 def make_offer(request, listing_id):
     listing = get_object_or_404(Listings, id=listing_id)
     if request.method == 'POST':
-        amount = request.POST.get('amount')
+        raw_amount = request.POST.get('amount')
+        amount = int(raw_amount.replace('.', ''))
         expiry_date = request.POST.get('expiry_date')
 
         if not amount or not expiry_date:
@@ -63,13 +64,20 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     countries = Country.objects.all()
     if request.method == 'POST':
         if request.POST.get('address') and request.POST.get('personal_id') and request.POST.get('location') and request.POST.get('postcode') and request.POST.get('country'):
-            request.session['payment_data'] = {
+            country_id = request.POST.get('country')
+            country = Country.objects.get(id=country_id)
+            postcode = request.POST.get('postcode')
+            location = Postcodes.objects.get(postcode=postcode).location
+            session_data = request.session.get('payment_data', {})
+            session_data.update({
                 'address': request.POST.get('address'),
                 'personal_id': request.POST.get('personal_id'),
-                'location': request.POST.get('location'),
-                'postcode': Postcodes.objects.get(postcodes=request.POST.get('postcode')),
-                'country': Country.objects.get(id=request.POST.get('country'))
-            }
+                'location': location,
+                'postcode': postcode,
+                'country': country_id,
+                'country_name': country.name
+            })
+            request.session['payment_data'] = session_data
         else:
             data = request.session.get('payment_data')
             return render(request, 'offer/offerfinalization-payment.html', {
@@ -92,13 +100,15 @@ def finalize_offer_payment(request, listing_id ,offer_id):
         selected_method = request.POST.get('payment-method')
         if selected_method == 'creditcard':
             if request.POST.get('card_carrier') and request.POST.get('card_number') and request.POST.get('expiry_date') and request.POST.get('cvc_number'):
-                request.session['payment_data'] = {
+                session_data = request.session.get('payment_data', {})
+                session_data.update({
                     'payment_method': selected_method,
                     'card_carrier': request.POST.get('card_carrier'),
                     'card_number': request.POST.get('card_number'),
                     'expiry_date': request.POST.get('expiry_date'),
                     'cvc_number': request.POST.get('cvc_number'),
-                }
+                })
+                request.session['payment_data'] = session_data
             else:
                 data = request.session.get('payment_data')
                 return render(request, 'offer/offerfinalization-payment.html', {
@@ -145,7 +155,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
                 })
 
 
-        return redirect('finalize-summary', listing_id=listing_id, offer_id=offer_id)
+        return redirect('finalize-offer-summary', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
     return render(request, 'offer/offerfinalization-payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
@@ -156,8 +166,8 @@ def summary(request, listing_id, offer_id):
         user = request.user
         user.address = data['address']
         user.personal_id = data['personal_id']
-        user.postcode = data['postcode']
-        user.country = data['country']
+        user.postcode = Postcodes.objects.get(postcode=data['postcode'])
+        user.country = Country.objects.get(id=data['country'])
         user.save()
         the_offer = Offers.objects.get(id=offer_id)
         Payments.objects.create(
