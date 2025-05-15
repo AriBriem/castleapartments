@@ -7,8 +7,8 @@
         <div class="flex py-4">
             <div class="col66 pos-rel">
                 <img id="image-1" class="h-full rounded-lg" src="{{ listing.thumbnail_path.url }} ">
-                <i id="prev-image" class="fas fa-chevron-left image-button l-4"></i>
-                <i id="next-image" class="fas fa-chevron-right image-button r-4"></i>
+                <i id="prev-image" class="fas fa-chevron-left image-button l-4 rounded"></i>
+                <i id="next-image" class="fas fa-chevron-right image-button r-4 rounded"></i>
             </div>
             <div class="flex flex-col col34 ml-4">
                 <div class="basis50 mb-4">
@@ -62,7 +62,7 @@
                     </div>
                     <p class="mb-1 mt-4"><b>Sími:</b> {{ listing.seller.user.phone_number }}</p>
                     <p class="mb-4"><b>Email:</b> {{ listing.seller.user.email }}</p>
-                    <button onclick="window.location.href='/seller-profile/{{ listing.seller.user.id }}'" class="bg-white no-border rounded-3 text-base py-3 mt-4">Sjá seljanda</button>
+                    <button onclick="window.location.href='/seller-profile/{{ listing.seller.id }}/'" class="bg-white no-border rounded-3 text-base py-3 mt-4">Sjá seljanda</button>
                 </div>
                 <button onclick="window.location.href='/listings/{{ listing.id }}/offers/create'" class="bg-black no-border rounded-3 text-base text-white m-4 py-3">Senda tilboð</button>
             </div>
