@@ -92,6 +92,10 @@ def filter_listings(request):
     return render(request, 'partials/property_list.html', {"listings": listings})
 
 def create_listing(request):
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('user-login')
+
     seller = SellerProfile.objects.get(user=request.user)
     if not seller:
         return redirect('/seller-information?from=listing')
