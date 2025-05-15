@@ -80,7 +80,7 @@
                     <h5 class="ml-8 font-light center wp-15">{{ offer.amount }}</h5>
                     <h5 class="ml-8 font-light center wp-15">{{ offer.listing.seller.user.name }}</h5>
                     {% if offer.status == "Accepted" or offer.status == "Contingent" %}
-                        <button onclick="window.location.href='{% url 'finalize-offer' listing_id=offer.listing.id offer_id=offer.id %}'"
+                        <button onclick="window.location.href='{% url 'finalize-offer-contact' listing_id=offer.listing.id offer_id=offer.id %}'"
                                 class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">
                             Klára tilboð
                         </button>
