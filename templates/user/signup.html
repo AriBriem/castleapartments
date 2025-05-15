@@ -48,10 +48,10 @@
                     {% endfor %}
                 </select>
                 <div class="flex g-4">
-                    <label for="choose-profile" class="flex flex-col text-sm ml-2"><i class="fa fa-file-image-o"></i>  Bæta við prófílmynd</label>
-                    <input type="file" id="choose-profile" name="profile_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png">
-                    <label for="choose-cover" class="flex flex-col text-sm ml-2"><i class="fa fa-file-image-o"></i>  Bæta við forsíðumynd</label>
-                    <input type="file" id="choose-cover" name="cover_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png">
+                    <label for="choose-profile" class="flex g-2 p-2 rounded-lg items-center text-center text-black bg-gray text-sm cursor-pointer"><i class="fa fa-file-image-o"></i>Breyta prófílmynd</label>
+                    <input type="file" id="choose-profile" name="profile_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png" hidden>
+                    <label for="choose-cover" class="flex g-2 p-2 rounded-lg items-center text-center text-black bg-gray text-sm cursor-pointer"><i class="fa fa-file-image-o"></i>Breyta forsíðumynd</label>
+                    <input type="file" id="choose-cover" name="cover_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png" hidden>
                 </div>
                 <p class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg">Ert þú nú þegar með aðgang? <a href="http://127.0.0.1:8000/login">Innskráning</a></p>
             </div>

@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Gera tilboð{% endblock %}
+{% block title %}Endursenda tilboð{% endblock %}
 
 {% block content %}
     <div class="whitespace30 mt-8">
-        <h1 class="g-2">Gera tilboð</h1>
+        <h1 class="g-2">Endursenda tilboð</h1>
         <p class="text-sm">Gerðu tilboð í <strong>{{ listing.address }}</strong> </p>
         <form method="POST">
             {% csrf_token %}
             <div class="inputContainer flex-col">
             <br>
                 <label for="input-amount" class="flex flex-col text-sm ml-2">Upphæð</label>
-                <input type="text" id="input-amount" name="amount" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <input type="text" id="input-amount" name="amount" value="{{ offer.amount }}" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
                 <label for="input-expiry" class="flex flex-col text-sm ml-2">Rennur út (YYYY-MM-DD)</label>
-                <input type="text" id="input-expiry" name="expiry_date" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <input type="text" id="input-expiry" name="expiry_date" value="{{ offer.expiry_date }}" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
             </div>
             <br>
             <div class="flex flex-row">

@@ -6,16 +6,16 @@
     <div class="whitespace16">
         <div class="flex py-4">
             <div class="col66 pos-rel">
-                <img id="image-1" class="h-full rounded-lg" src="{{ listing.thumbnail_path.url }} ">
+                <img id="image-1" class="h-full rounded-lg" alt="Thumbnail image" src="{{ listing.thumbnail_path.url }} ">
                 <i id="prev-image" class="fas fa-chevron-left image-button l-4 rounded"></i>
                 <i id="next-image" class="fas fa-chevron-right image-button r-4 rounded"></i>
             </div>
             <div class="flex flex-col col34 ml-4">
                 <div class="basis50 mb-4">
-                       <img id="image-2" class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                       <img id="image-2" class="h-full rounded-lg" alt="Image 2" src="{% static '/img/test/listingtest.png' %}">
                 </div>
                 <div class="basis50">
-                       <img id="image-3" class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+                       <img id="image-3" class="h-full rounded-lg" alt="Image 3" src="{% static '/img/test/listingtest.png' %}">
                 </div>
             </div>
         </div>
@@ -26,7 +26,11 @@
                     <div class="flex items-center">
                         <p class="smallText infoText">Birt: {{ listing.post_date }}</p>
                         <div class="ml-4 px-2 hp-80 bg-dark rounded-2 flex items-center">
-                            <p class="green">Til sölu</p>
+                            {% if listing.sold == False %}
+                                <p class="green">Til sölu</p>
+                            {% else %}
+                                <p class="red">Seld</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -64,7 +68,12 @@
                     <p class="mb-4"><b>Email:</b> {{ listing.seller.user.email }}</p>
                     <button onclick="window.location.href='/seller-profile/{{ listing.seller.id }}/'" class="bg-white no-border rounded-3 text-base py-3 mt-4">Sjá seljanda</button>
                 </div>
-                <button onclick="window.location.href='/listings/{{ listing.id }}/offers/create'" class="bg-black no-border rounded-3 text-base text-white m-4 py-3">Senda tilboð</button>
+                {% if listing.sold == False and not offer %}
+                    <button onclick="window.location.href='/listings/{{ listing.id }}/offers/create'" class="bg-black no-border rounded-3 text-base text-white m-4 py-3">Senda tilboð</button>
+                {% elif listing.sold == False and offer %}
+                    <button onclick="window.location.href='/listings/{{ listing.id }}/offers/{{ offer.id }}/change'" class="bg-black no-border rounded-3 text-base text-white m-4 py-3">Endursenda tilboð</button>
+                    <p class="ml-4 px-2 hp-80 bg-dark rounded-2 flex center {% if offer.status == "Refused" %}red {% else %}text-black{% endif %}">Seinasta tilboð: {% if offer.status == "Pending" %}Í bið {% elif offer.status == "Rejected"%}Hafnað {% endif %}</p>
+                {% endif %}
             </div>
         </div>
     </div>

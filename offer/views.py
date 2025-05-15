@@ -34,7 +34,57 @@ def make_offer(request, listing_id):
         return redirect('listing-detail', listing_id=listing_id)
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
-def finalize_offer(request, listing_id ,offer_id):
+def change_offer(request, listing_id, offer_id):
+    offer = Offers.objects.get(id=offer_id)
+    listing = Listings.objects.get(id=listing_id)
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        expiry_date = request.POST.get('expiry_date')
+
+        if not amount or not expiry_date:
+            return render(request, 'offer/offer-change.html', {
+                'listing': listing,
+                'error': 'All fields are required.',
+                'show_navbar': False,
+                'show_footer': False,
+            })
+
+        offer.amount = amount
+        offer.expiry_date = expiry_date
+        offer.status = 'Pending'
+        offer.save()
+        return redirect('listing-detail', listing_id=listing_id)
+    return render(request, 'offer/offer-amount.html',
+                  {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
+
+def finalize_offer_contact(request, listing_id ,offer_id):
+    if request.method == 'POST':
+        if request.POST.get('address') and request.POST.get('personal_id') and request.POST.get('location') and request.POST.get('postcode') and request.POST.get('country'):
+            request.session['payment_data'] = {
+                'address': request.POST.get('address'),
+                'personal_id': request.POST.get('personal_id'),
+                'location': request.POST.get('location'),
+                'postcode': request.POST.get('postcode'),
+                'country': request.POST.get('country'),
+            }
+        else:
+            data = request.session.get('payment_data')
+            return render(request, 'offer/offerfinalization-payment.html', {
+                "show_navbar": False,
+                "show_footer": False,
+                "listing_id": listing_id,
+                "offer_id": offer_id,
+                'data': data,
+                'error': 'All fields are required.',
+            })
+
+
+        return redirect('finalize-offer-payment', listing_id=listing_id, offer_id=offer_id)
+
+    data = request.session.get('payment_data')
+    return render(request, 'offer/offerfinalization-contact.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
+
+def finalize_offer_payment(request, listing_id ,offer_id):
     if request.method == 'POST':
         selected_method = request.POST.get('payment-method')
         if selected_method == 'creditcard':
@@ -48,7 +98,7 @@ def finalize_offer(request, listing_id ,offer_id):
                 }
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization.html', {
+                return render(request, 'offer/offerfinalization-payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -65,7 +115,7 @@ def finalize_offer(request, listing_id ,offer_id):
                 }
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization.html', {
+                return render(request, 'offer/offerfinalization-payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -82,7 +132,7 @@ def finalize_offer(request, listing_id ,offer_id):
                 }
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization.html', {
+                return render(request, 'offer/offerfinalization-payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -95,11 +145,18 @@ def finalize_offer(request, listing_id ,offer_id):
         return redirect('finalize-summary', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
-    return render(request, 'offer/offerfinalization.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data })
+    return render(request, 'offer/offerfinalization-payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
 
 def summary(request, listing_id, offer_id):
     data = request.session.get('payment_data')
     if request.method == 'POST':
+        user = request.user
+        user.address = data['address']
+        user.personal_id = data['personal_id']
+        user.location = data['location']
+        user.postcode = data['postcode']
+        user.country = data['country']
+        user.save()
         the_offer = Offers.objects.get(id=offer_id)
         Payments.objects.create(
             offer=the_offer,
