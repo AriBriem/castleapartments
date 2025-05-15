@@ -29,21 +29,24 @@
             </div>
             {% for offer in incoming_offers %}
                 <div class="px-3 flex flex-row mt-4 bg-gray py-3 rounded-3">
-                    <h5 class="font-light center wp-17">{{ offer.listing.address }}</h5>
+                    <h5 class="font-light center wp-17"><a href='{% url 'listing-detail' listing_id=offer.listing.id %}'>{{ offer.listing.address }}</a></h5>
                     <h5 class="ml-8  font-light center wp-17">{{ offer.buyer.name }}</h5>
                     <h5 class="ml-8  font-light center wp-17">{{ offer.expiry_date }}</h5>
                     <h5 class="ml-8  font-light center wp-17">{{ offer.amount }}</h5>
                     <form method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="offer_id" value="{{ offer.id }}">
-                        <button type="submit" name="accepted" value="Accepted" class="{% if offer.status == "Accepted"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-green bg-white text-small mr-1p w-fit-content">Samþykkt
+                        <input type="hidden" name="listing_id" value="{{ offer.listing.id }}">
+                        <button type="submit" name="accepted" value="Accepted" class="{% if offer.status == "Accepted"%}border{% else %}no-border{% endif %} border-green px-3 rounded-2 height align center text-green bg-white text-small mr-1p w-fit-content " {% if offer.listing.sold == True %}disabled {% endif %}>Samþykkt
                         </button>
-                        <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p w-fit-content">Skilyrt
+                        <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border{% else %}no-border{% endif %} border-yellow px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p w-fit-content" {% if offer.listing.sold == True %}disabled {% endif %}>Skilyrt
                         </button>
-                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected"%}border{% else %}no-border{% endif %} px-3 rounded-2 height align center text-red bg-white text-small w-fit-content">Hafnað
+                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected" %}border{% elif offer.listing.sold == True and offer.status == "Pending" %}border{% else %}no-border{% endif %} border-red px-3 rounded-2 height align center text-red bg-white text-small w-fit-content" {% if offer.listing.sold == True %}disabled {% endif %}>Hafnað
                         </button>
                     </form>
                 </div>
+            {% empty %}
+                <h4 class="ml-3 text-gray font-light my-4 text-blue">Hér verða tilboðin sem þú færð sýnileg</h4>
             {% endfor %}
             <div>
                 <h3 class="mx-2 mtv-10">Send tilboð</h3>
@@ -59,16 +62,16 @@
             </div>
             {% for offer in outgoing_offers %}
 
-                {% if offer.buyer_id == request.user.id %}
+                {% if offer.listing.seller.user.id == request.user.id %}
                     <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
                         <h5 class="font-light center wp-15">{{ offer.listing.address }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.post_date }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.expiry_date }}</h5>
-                        <h5 class="ml-8  font-light center wp-15">{{ offer.status }}</h5>
+                        <h5 class="ml-8  font-light center wp-15">{% if offer.status == "Pending" %}Í bið{% elif offer.status == "Accepted" %}Samþykkt{% elif offer.status == "Contingent" %}Skilyrt{% elif offer.status == "Rejected" %}Hafnað {% endif %}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.amount }}</h5>
                         <h5 class="ml-8  font-light center wp-15">{{ offer.listing.seller.user.name }}</h5>
                         {% if offer.status == "Accepted" or offer.status == "Contingent"%}
-                            <button onclick="window.location.href='/listings/<int:{{ offer.listing.id }}>/offers/<int:{{ offer.id }}>/finalize'" class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
+                            <button onclick="window.location.href='{% url 'finalize-offer' listing_id=offer.listing.id offer_id=offer.id %}'" class="no-border px-3 rounded-2 height align center text-white bg-black text-small wp-10">Klára tilboð</button>
                         {% endif %}
                     </div>
                 {% endif %}
