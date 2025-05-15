@@ -84,7 +84,7 @@ def filter_listings(request):
     return render(request, 'partials/property_list.html', {"listings": listings})
 
 def create_listing(request):
-    seller = SellerProfile.objects.filter(user=request.user)
+    seller = SellerProfile.objects.get(user=request.user)
     if not seller:
         return redirect('/seller-information?from=listing')
 
@@ -128,7 +128,9 @@ def create_listing(request):
         for file in listing_images:
             ListingImage.objects.create(listing=listing, image_path=file)
         messages.success(request, "Listing created successfully. You can now log in.")
-        if Listings.objects.filter(seller_id=request.user.id).exclude(address=address).exists():
+        print("")
+        listing = Listings.objects.filter(seller=seller, address=address).first()
+        if listing:
             return redirect("listing-detail", listing_id=listing.id)
         return redirect("user-seller-information")
 
