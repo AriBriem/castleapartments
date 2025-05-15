@@ -3,11 +3,13 @@
     {% if listings %}
     <div class="grid grid-3column g-4 my-2">
         {% for listing in listings %}
-        <div class="flex flex-col text-decor-none text-black pos-rel">
+        <a href="/listing/{{ listing.id }}" class="flex flex-col text-decor-none text-black pos-rel">
             <img class="rounded-3 mb-2 asp-3-2" src="{% if listing.thumbnail_path %}{{ listing.thumbnail_path.url }}{% else %}/media/img/listingimages/default.png{% endif %}">
-            <button data-id="{{ listing.id }}" class="bookmark-button">
-                <i class="far fa-bookmark text-primary"></i>
+            {% if user.is_authenticated %}
+            <button data-id="{{ listing.id }}" data-bookmarked="{% if listing.id in bookmarks %}true{% else %}false{% endif %}" class="bookmark-button">
+                <i class="{% if listing.id in bookmarks %}fas{% else %}far{% endif %} fa-bookmark text-primary"></i>
             </button>
+            {% endif %}
             <div class="flex flex-col px-2">
                 <div class="flex justify-between mb-2">
                     <p class="text-lg mt-3"><b>{{ listing.address }}</b></p>
@@ -32,7 +34,7 @@
             </div>
         </diva>
         {% endfor %}
-    </div>
+    </a>
     {% else %}
     <div class="minh-30v">
         <h4 class="text-gray font-light text-lg my-4">❌ Engar eignir fundust með þessum skilyrðum ❌</h4>

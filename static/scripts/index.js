@@ -16,10 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectFilters = [metersFromSelect, metersToSelect, priceFromSelect, priceToSelect]
 
     const orderByInputs = document.querySelectorAll('input[name="order-by"]')
-
+    const bookmarkToggle = document.querySelector('#bookmark-toggle')
+    const bookMarkIcon = document.querySelector('#bookmark-icon')
+    const csrftoken = getCookie('csrftoken');
 
     let bookmarkButtons = document.querySelectorAll('.bookmark-button');
-    console.log(bookmarkButtons)
 
     function getCookie(name) {
         let cookieValue = null;
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
                 const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
                 if (cookie.substring(0, name.length + 1) === (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
@@ -37,21 +37,31 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookieValue;
     }
 
-    const csrftoken = getCookie('csrftoken');
+    const bookmarkListing = (listingId, isBookmarked, btn) => {
+        const method = isBookmarked ? 'DELETE' : 'POST';
+        const icon = btn.children[0]
 
-    const bookmarkListing = (listingId) => {
-        fetch('/bookmarks', {
-            method: 'POST',
+        fetch('/bookmark', {
+            method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken
             },
             body: JSON.stringify({listingId: listingId})
         })
-            .then(res => res.json())
-            .then(data => {
-                alert('Bookmarked!');
-                // Or visually toggle the bookmark icon
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error, status: ${response.status}`);
+                }
+                if (isBookmarked) {
+                    icon.classList.add('far')
+                    icon.classList.remove('fas')
+                    btn.dataset.bookmarked = 'false'
+                } else {
+                    icon.classList.add('fas')
+                    icon.classList.remove('far')
+                    btn.dataset.bookmarked = 'true'
+                }
             })
             .catch(err => {
                 console.error('Failed to bookmark', err);
@@ -138,8 +148,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
 
+    bookmarkToggle.addEventListener('click', () => {
+        if (bookmarkToggle.dataset.on === 'true') {
+            bookMarkIcon.classList.add('far')
+            bookMarkIcon.classList.remove('fas')
+            bookmarkToggle.dataset.on = 'false'
+        } else {
+            bookMarkIcon.classList.add('fas')
+            bookMarkIcon.classList.remove('far')
+            bookmarkToggle.dataset.on = 'true'
+        }
+        filterProperties()
+    })
 
-    // Optional: Close dropdown when clicking outside
     document.addEventListener('click', function (e) {
         if (!e.target.closest('.filter')) {
             filterBoxes.forEach(box => {
@@ -159,23 +180,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxPrice = priceToSelect.value;
         const searchValue = searchBar.value;
         const orderBy = document.querySelector('input[name="order-by"]:checked')?.value;
+        const filterByBookmark = bookmarkToggle.dataset.on
+        console.log(filterByBookmark)
 
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')
 
-        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}`)
+        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}&bookmark=${filterByBookmark}`)
             .then(response => response.text())
             .then(html => {
                 listContainer.innerHTML = html;
                 listContainer.classList.remove('filter-blur')
                 bookmarkButtons = document.querySelectorAll('.bookmark-button')
-                console.log(bookmarkButtons)
                 bookmarkButtons.forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.preventDefault()
                         e.stopPropagation()
-                        bookmarkListing(btn.dataset.id)
-                        console.log('button with ' + btn.dataset.id.toString())
+                        let isBookmarked = false
+                        if (btn.dataset.bookmarked === 'true') {
+                            isBookmarked = true
+                        }
+
+                        bookmarkListing(btn.dataset.id, isBookmarked, btn)
                     })
                 });
             })

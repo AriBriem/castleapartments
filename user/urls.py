@@ -9,5 +9,7 @@ urlpatterns = [
     path('change-profile', views.change_profile, name='user-change-profile'),
     path('seller-information', views.seller_information, name='user-seller-information'),
     path('seller-profile/<int:seller_id>/', views.seller_profile, name='seller-profile'),
-    path('mypages', views.mypages, name='my-pages')
+    path('mypages', views.mypages, name='my-pages'),
+
+    path('bookmark', views.handle_bookmark, name='create-bookmark'),
 ]
