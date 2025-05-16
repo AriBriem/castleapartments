@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 
 from listing.models import Listings, Postcodes
-from offer.forms import PaymentForm
 from offer.models import Offers
 from payment.models import Payments
 from user.models import Country

@@ -5,22 +5,11 @@ from django.contrib import messages
 from listing.models import Postcodes, Listings
 from offer.models import Offers
 from payment.models import Payments
-from user.models import Country, SellerProfile
 from user.models import Country, SellerProfile, Bookmarks
 from user.models import Users
 from django.http import HttpResponse
 import json
 
-def get_postcodes_by_location():
-    postcodes_by_location = {}
-    for row in Postcodes.objects.values('postcode', 'location'):
-        location = row['location']
-        if location not in postcodes_by_location:
-            postcodes_by_location[location] = []
-        postcodes_by_location[location].append(row['postcode'])
-    return postcodes_by_location
-
-# Create your views here.
 def login_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -49,7 +38,6 @@ def signup(request):
         password = request.POST.get('password')
         address = request.POST.get('address')
         personal_id = request.POST.get('personal_id')
-        location = request.POST.get('location')
         postcode = request.POST.get('postcode')
         country = request.POST.get('country')
         profile_image_path = request.FILES.get('profile_image')
@@ -68,7 +56,7 @@ def signup(request):
             messages.error(request, "User with this email already exists.")
             return redirect("user-signup")
         try:
-            user = Users.objects.create_user(
+            Users.objects.create_user(
                 email=email,
                 password=password,
                 name=name,
@@ -110,7 +98,6 @@ def change_profile(request):
         phone = request.POST.get('phone_number')
         address = request.POST.get('address')
         personal_id = request.POST.get('personal_id')
-        location = request.POST.get('location')
         postcode = get_object_or_404(Postcodes, postcode=request.POST.get('postcode'))
         country = get_object_or_404(Country, id=request.POST.get('country'))
         profile_image_path = request.FILES.get('profile_image')
@@ -201,7 +188,7 @@ def change_seller_information(request):
 
     try:
         seller_information = SellerProfile.objects.get(user=request.user)
-    except:
+    except ObjectDoesNotExist:
         return redirect('user-seller-information')
 
     if request.method == 'POST':
@@ -306,3 +293,12 @@ def handle_bookmark(request):
         return HttpResponse(status=204)
 
     return HttpResponse(status=405)
+
+def get_postcodes_by_location():
+    postcodes_by_location = {}
+    for row in Postcodes.objects.values('postcode', 'location'):
+        location = row['location']
+        if location not in postcodes_by_location:
+            postcodes_by_location[location] = []
+        postcodes_by_location[location].append(row['postcode'])
+    return postcodes_by_location

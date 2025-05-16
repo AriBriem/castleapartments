@@ -1,12 +1,10 @@
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from listing.models import ListingType, ListingImage, Postcodes, Listings
 from offer.models import Offers
-from user.models import SellerProfile, Users, Bookmarks
+from user.models import SellerProfile, Bookmarks
 
 def get_postcodes_by_location():
     postcodes_by_location = {}
@@ -116,7 +114,7 @@ def create_listing(request):
 
     try:
         seller = SellerProfile.objects.get(user=request.user)
-    except SellerProfile.DoesNotExist:
+    except ObjectDoesNotExist:
         return redirect('/seller-information?from=listing')
 
     postcodes_by_location = get_postcodes_by_location()
@@ -155,8 +153,7 @@ def create_listing(request):
         if listing:
             messages.success(request, "Eign skráð.")
             return redirect("listing-detail", listing_id=listing.id)
-        messages.success(request, "Eign skráð. Bættu við nánari upplýsingar.")
-        return redirect("user-seller-information")
+
 
     context = {
         "show_navbar": False,
