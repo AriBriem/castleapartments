@@ -153,6 +153,7 @@
 .hp-80 { height: 80%; }
 .hp-70 { height: 70%; }
 .height { height: 2rem; }
+.height-thin { padding-top: 5px; }
 .max-w-screen { max-width: 100vw; }
 .w-half { width: 50%; }
 .w-33 {width: 33%; }
@@ -217,6 +218,7 @@
 .bg-primary { background-color: #007BFF; color: white; }
 .bg-red { background-color: #FF0000; }
 .bg-green { background-color: #34C759;}
+.bg-gray { color: #747474; }
 
 .text-primary { color: #007BFF; }
 .text-black { color: #000000; }
