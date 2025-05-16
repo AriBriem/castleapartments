@@ -68,7 +68,6 @@ const imageContainer = document.querySelector('#image-container');
 const updateImageContainer = () => {
     const thumbnail = thumbnailUpload.files[0];
     if (thumbnail) addNewImage(thumbnail);
-    console.log(imageUpload.files)
 }
 
 const addNewImage = (file) => {
@@ -124,5 +123,5 @@ form.addEventListener('submit', (e) => {
           document.open();
           document.write(html);
           document.close();
-      }).catch(error => console.error('Upload failed:', error));
+      });
 });

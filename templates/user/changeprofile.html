@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Breyta prófíl{% endblock %}
+{% load static %}
 
 {% block content %}
     {% if error %}
@@ -56,6 +57,7 @@
                     <label for="choose-cover" class="flex g-2 p-2 rounded-lg items-center text-center text-black bg-gray text-sm cursor-pointer"><i class="fa fa-file-image-o"></i>Breyta forsíðumynd</label>
                     <input type="file" id="choose-cover" name="cover_image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png" hidden>
                 </div>
+                <div id="image-container" class="grid grid-2column g-2"></div>
             </div>
 
             <div class="flex flex-row">
@@ -64,4 +66,5 @@
             </div>
         </form>
     </div>
+    <script src="{% static '/scripts/signup.js' %}"></script>
 {% endblock %}
