@@ -118,8 +118,8 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         'address': user.address,
         'personal_id': user.personal_id,
         'location': user.postcode.location,
-        'postcode': user.postcode,
-        'country': user.country_id,
+        'postcode': user.postcode.id,
+        'country': user.country.id,
         'country_name': user.country.name
     })
     request.session['payment_data'] = session_data
