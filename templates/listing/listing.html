@@ -3,6 +3,7 @@
 {% block title %}{{ listing.address }}{% endblock %}
 
 {% block content %}
+    {% csrf_token %}
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == "success" %}
@@ -31,7 +32,14 @@
         <div class="flex pb-4">
             <div class="col66 px-2">
                 <div class="flex justify-between items-stretch my-2">
-                    <h1 class="pageTitle">{{ listing.address }}</h1>
+                    <div class="flex">
+                        <h1 class="pageTitle">{{ listing.address }}</h1>
+                        <button data-id="{{ listing.id }}"
+                                data-bookmarked="{% if bookmarked %}true{% else %}false{% endif %}"
+                                class="bookmark-button px-2 ml-2">
+                            <i class="{% if bookmarked %}fas{% else %}far{% endif %} fa-bookmark text-primary"></i>
+                        </button>
+                    </div>
                     <div class="flex items-center">
                         <p class="smallText infoText">Birt: {{ listing.post_date }}</p>
                         <div class="ml-4 px-2 hp-80 bg-dark rounded-2 flex items-center">
@@ -52,13 +60,17 @@
                         <p><b>Tegund:</b> {{ listing.type.type }}</p>
                     </div>
                     <div class="descCol">
-                        <p><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
+                        <p><b>Fermetrar:</b> {{ listing.sqr_meters }}m²</p>
                         <p><b>Herbergi:</b> {{ listing.rooms }}</p>
                     </div>
-                    <div class="descCol">
+                    <div class="descCol mb-4">
                         <p><b>Svefnherbergi:</b> {{ listing.bedrooms }}</p>
                         <p><b>Baðherbergi:</b> {{ listing.bathrooms }}</p>
                     </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg mt-4">Lýsing</h4>
                 </div>
                 <div class="flex justify-between my-2">
                     <p>{{ listing.description }}</p>

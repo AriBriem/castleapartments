@@ -5,8 +5,8 @@
         {% for listing in listings %}
         <a href="/listing/{{ listing.id }}" class="flex flex-col text-decor-none text-black pos-rel">
             <img class="rounded-3 mb-2 asp-3-2" src="{% if listing.thumbnail_path %}{{ listing.thumbnail_path.url }}{% else %}/media/img/listingimages/default.png{% endif %}">
-            {% if user.is_authenticated %}
-            <button data-id="{{ listing.id }}" data-bookmarked="{% if listing.id in bookmarks %}true{% else %}false{% endif %}" class="bookmark-button">
+            {% if user.is_authenticated and show_bookmark %}
+            <button data-id="{{ listing.id }}" data-bookmarked="{% if listing.id in bookmarks %}true{% else %}false{% endif %}" class="bookmark-button pos-abs">
                 <i class="{% if listing.id in bookmarks %}fas{% else %}far{% endif %} fa-bookmark text-primary"></i>
             </button>
             {% endif %}
@@ -24,7 +24,7 @@
                     <p class="text-base font-light text-sm"><b>Tegund:</b> {{ listing.type.type }}</p>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <p class="text-base font-light size text-sm"><b>Fermetrar:</b> {{ listing.sqr_meters }}</p>
+                    <p class="text-base font-light size text-sm"><b>Fermetrar:</b> {{ listing.sqr_meters }}m²</p>
                     <p class="text-base font-light text-sm"><b>Herbergi:</b> {{ listing.rooms }}</p>
                 </div>
                 <div class="flex justify-between mb-2">

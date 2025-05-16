@@ -7,6 +7,8 @@ from offer.models import Offers
 from payment.models import Payments
 from user.models import Country
 
+from utils import get_postcodes_by_location
+
 
 # Create your views here.
 
@@ -16,6 +18,10 @@ def make_offer(request, listing_id):
         return redirect('/login')
 
     listing = get_object_or_404(Listings, id=listing_id)
+    if listing.seller.user == user:
+        return redirect('/listing/%d' % listing.id)
+    if listing.sold:
+        return redirect('/listing/%d' % listing.id)
     if request.method == 'POST':
         raw_amount = request.POST.get('amount')
         amount = int(raw_amount.replace('.', ''))
@@ -75,7 +81,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     if not user.is_authenticated:
         return redirect('/login')
 
-    postcodes = Postcodes.objects.all()
+    postcodes_by_location = get_postcodes_by_location()
     countries = Country.objects.all()
     if request.method == 'POST':
         if request.POST.get('address') and request.POST.get('personal_id') and request.POST.get('location') and request.POST.get('postcode') and request.POST.get('country'):
@@ -108,7 +114,16 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         return redirect('finalize-offer-payment', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
-    return render(request, 'offer/offerfinalization-contact.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data, "postcodes": postcodes, "countries": countries})
+    context = {
+        "show_navbar": False,
+        "show_footer": False,
+        "listing_id": listing_id,
+        "offer_id": offer_id,
+        "data": data,
+        "postcodes_by_location": postcodes_by_location,
+        "countries": countries
+    }
+    return render(request, 'offer/offerfinalization-contact.html', context)
 
 def finalize_offer_payment(request, listing_id ,offer_id):
     user = request.user

@@ -6,14 +6,7 @@ from listing.models import ListingType, ListingImage, Postcodes, Listings
 from offer.models import Offers
 from user.models import SellerProfile, Bookmarks
 
-def get_postcodes_by_location():
-    postcodes_by_location = {}
-    for row in Postcodes.objects.values('postcode', 'location'):
-        location = row['location']
-        if location not in postcodes_by_location:
-            postcodes_by_location[location] = []
-        postcodes_by_location[location].append(row['postcode'])
-    return postcodes_by_location
+from utils import get_postcodes_by_location
 
 def index(request):
     postcodes_by_location = get_postcodes_by_location()
@@ -36,6 +29,10 @@ def get_listing_by_id(request, listing_id):
     listing = get_object_or_404(Listings, id=listing_id)
     listing_images = ListingImage.objects.filter(listing=listing)
     image_urls = [img.image_path.url for img in listing_images]
+    bookmarked = False
+
+    if user.is_authenticated:
+        bookmarked = Bookmarks.objects.filter(user=request.user, listing=listing).exists()
 
     try:
         offer = Offers.objects.get(buyer=user.id, listing=listing)
@@ -48,6 +45,7 @@ def get_listing_by_id(request, listing_id):
         "listing": listing,
         "images": image_urls,
         "offer": offer,
+        "bookmarked": bookmarked,
     }
 
     return render(request, 'listing/listing.html', context)
@@ -63,6 +61,7 @@ def filter_listings(request):
     search = request.GET.get('search')
     order_by = request.GET.get('order_by')
     is_bookmark = request.GET.get('bookmark') == 'true'
+    show_bookmark = request.GET.get('show_bookmark') == 'true'
 
     filters = Q()
 
@@ -105,7 +104,7 @@ def filter_listings(request):
         else:
             listings = Listings.objects.none()
 
-    return render(request, 'partials/property_list.html', {"listings": listings, "bookmarks": bookmarks})
+    return render(request, 'partials/property_list.html', {"listings": listings, "bookmarks": bookmarks, "show_bookmark": show_bookmark})
 
 def create_listing(request):
     user = request.user
