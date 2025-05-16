@@ -120,38 +120,53 @@ def create_listing(request):
     types = ListingType.objects.all()
 
     if request.method == 'POST':
-        address = request.POST.get('address')
-        postcode = Postcodes.objects.get(postcode = request.POST.get('postcode'))
-        type = ListingType.objects.get(id=request.POST.get('type'))
-        sqr_meters = request.POST.get('sqr_meters')[:-2]
-        rooms = request.POST.get('rooms')
-        bathrooms = request.POST.get('bathrooms')
-        bedrooms = request.POST.get('bedrooms')
-        description = request.POST.get('description')
-        thumbnail_path = request.FILES.get('thumbnail')
-        price = request.POST.get('price').replace(".", "")
+        #Check if everything is filled out
+        if request.POST.get('address') and request.POST.get('postcode') and request.POST.get('type') and request.POST.get('sqr_meters') and request.POST.get('rooms') and request.POST.get('bathrooms') and request.POST.get('bedrooms') and request.POST.get('description') and request.FILES.get('thumbnail') and request.POST.get('price').replace(".", ""):
+            #Get all input from user
+            address = request.POST.get('address')
+            postcode = Postcodes.objects.get(postcode = request.POST.get('postcode'))
+            type = ListingType.objects.get(id=request.POST.get('type'))
+            sqr_meters = request.POST.get('sqr_meters')[:-2]
+            rooms = request.POST.get('rooms')
+            bathrooms = request.POST.get('bathrooms')
+            bedrooms = request.POST.get('bedrooms')
+            description = request.POST.get('description')
+            thumbnail_path = request.FILES.get('thumbnail')
+            price = request.POST.get('price').replace(".", "")
 
-        listing_images = request.FILES.getlist('listing_images')
+            listing_images = request.FILES.getlist('listing_images')
 
-        listing = Listings.objects.create(
-            seller=seller,
-            address=address,
-            postcode=postcode,
-            sqr_meters=sqr_meters,
-            type=type,
-            rooms=rooms,
-            bathrooms=bathrooms,
-            bedrooms=bedrooms,
-            description=description,
-            price = price,
-            thumbnail_path=thumbnail_path
-        )
-        for file in listing_images:
-            ListingImage.objects.create(listing=listing, image_path=file)
-        listing = Listings.objects.filter(seller=seller, address=address).first()
-        if listing:
-            messages.success(request, "Eign skráð.")
-            return redirect("listing-detail", listing_id=listing.id)
+            #Create the listing
+            listing = Listings.objects.create(
+                seller=seller,
+                address=address,
+                postcode=postcode,
+                sqr_meters=sqr_meters,
+                type=type,
+                rooms=rooms,
+                bathrooms=bathrooms,
+                bedrooms=bedrooms,
+                description=description,
+                price = price,
+                thumbnail_path=thumbnail_path
+            )
+            #Store the images in ListingImage
+            for file in listing_images:
+                ListingImage.objects.create(listing=listing, image_path=file)
+            #Make sure that the listing was properly created
+            listing = Listings.objects.filter(seller=seller, address=address).first()
+            if listing:
+                messages.success(request, "Eign skráð.")
+                return redirect("listing-detail", listing_id=listing.id)
+        else:
+            context = {
+                "show_navbar": False,
+                "show_footer": False,
+                "error": 'All fields are required.',
+                "postcodes_by_location": postcodes_by_location,
+                "types": types
+            }
+            return render(request, 'listing/createlisting.html', context)
 
 
     context = {
