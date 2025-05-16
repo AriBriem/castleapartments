@@ -117,7 +117,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     session_data.update({
         'address': user.address,
         'personal_id': user.personal_id,
-        'location': user.location,
+        'location': user.postcode.location,
         'postcode': user.postcode,
         'country': user.country_id,
         'country_name': user.country.name
