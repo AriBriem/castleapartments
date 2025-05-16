@@ -16,7 +16,7 @@
             </div>
             {% if seller_profile %}
                 <h3 class="mx-2 mt-8">Mínar eignir</h3>
-                <div id="seller-listings" data-user-id="{{ request.user.id }}">
+                <div id="seller-listings" data-user-id="{{ seller_profile.id }}">
                 </div>
             {% endif %}
             <div>
@@ -67,7 +67,7 @@
 
             {% for offer in outgoing_offers %}
                 <div class="px-3 flex flex-row mt-8 bg-gray py-3 rounded-3">
-                    <h5 class="font-light center wp-15">{{ offer.listing.address }}</h5>
+                    <h5 class="font-light center wp-15"><a href='{% url 'listing-detail' listing_id=offer.listing.id %}'>{{ offer.listing.address }}</a></h5>
                     <h5 class="ml-8 font-light center wp-15">{{ offer.post_date }}</h5>
                     <h5 class="ml-8 font-light center wp-15">{{ offer.expiry_date }}</h5>
                     <h5 class="ml-8 font-light center wp-15">

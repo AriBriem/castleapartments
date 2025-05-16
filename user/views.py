@@ -11,14 +11,7 @@ from user.models import Users
 from django.http import HttpResponse
 import json
 
-def get_postcodes_by_location():
-    postcodes_by_location = {}
-    for row in Postcodes.objects.values('postcode', 'location'):
-        location = row['location']
-        if location not in postcodes_by_location:
-            postcodes_by_location[location] = []
-        postcodes_by_location[location].append(row['postcode'])
-    return postcodes_by_location
+from utils import get_postcodes_by_location
 
 # Create your views here.
 def login_user(request):
@@ -283,7 +276,7 @@ def mypages(request):
 def handle_bookmark(request):
     user = request.user
     if not user.is_authenticated:
-        return HttpResponse(status=401)
+        return redirect('user-login')
 
     try:
         data = json.loads(request.body)

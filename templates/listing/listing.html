@@ -3,6 +3,7 @@
 {% block title %}{{ listing.address }}{% endblock %}
 
 {% block content %}
+    {% csrf_token %}
     <div class="whitespace16">
         <div class="flex py-4">
             <div class="col66 pos-rel">
@@ -22,7 +23,14 @@
         <div class="flex pb-4">
             <div class="col66 px-2">
                 <div class="flex justify-between items-stretch my-2">
-                    <h1 class="pageTitle">{{ listing.address }}</h1>
+                    <div class="flex">
+                        <h1 class="pageTitle">{{ listing.address }}</h1>
+                        <button data-id="{{ listing.id }}"
+                                data-bookmarked="{% if bookmarked %}true{% else %}false{% endif %}"
+                                class="bookmark-button px-2 ml-2">
+                            <i class="{% if bookmarked %}fas{% else %}far{% endif %} fa-bookmark text-primary"></i>
+                        </button>
+                    </div>
                     <div class="flex items-center">
                         <p class="smallText infoText">Birt: {{ listing.post_date }}</p>
                         <div class="ml-4 px-2 hp-80 bg-dark rounded-2 flex items-center">

@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const listContainer = document.getElementById('property-list')
         listContainer.classList.add('filter-blur')
 
-        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}&bookmark=${filterByBookmark}`)
+        fetch(`/listings/filter/?postcodes=${selectedPostcodes.join(',')}&types=${selectedTypes.join(',')}&meters_from=${minMeters}&meters_to=${maxMeters}&price_from=${minPrice}&price_to=${maxPrice}&search=${searchValue}&order_by=${orderBy}&bookmark=${filterByBookmark}&show_bookmark=true`)
             .then(response => response.text())
             .then(html => {
                 listContainer.innerHTML = html;

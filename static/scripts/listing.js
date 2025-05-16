@@ -10,10 +10,10 @@ let imageUrls = Array()
 
 imageUrls.push(bigImage.src)
 imageUrlObjects.forEach(url => {
-  imageUrls.push(url)
+    imageUrls.push(url)
 })
 for (let i = 0; i < 2; i++) {
-    if (imageUrls.length <= i+1) {
+    if (imageUrls.length <= i + 1) {
         imageUrls.push('/media/img/listingimages/defaultimage.jpg');
     }
 }
@@ -29,7 +29,7 @@ const updateImages = () => {
 const nextImage = () => {
     const newArr = Array(imageUrls.length)
     imageUrls.forEach((url, index) => {
-        const newPos = (index-1+imageUrls.length) % imageUrls.length
+        const newPos = (index - 1 + imageUrls.length) % imageUrls.length
         newArr[newPos] = url;
     })
     imageUrls = newArr;
@@ -39,7 +39,7 @@ const nextImage = () => {
 const prevImage = () => {
     const newArr = Array(imageUrls.length)
     imageUrls.forEach((url, index) => {
-        const newPos = (index+1+imageUrls.length) % imageUrls.length
+        const newPos = (index + 1 + imageUrls.length) % imageUrls.length
         newArr[newPos] = url;
     })
     imageUrls = newArr;
@@ -55,10 +55,6 @@ nextImageButton.addEventListener('click', () => {
 })
 
 updateImages()
-
-console.log(imageUrls)
-
-const bookmarkBtn = document.getElementById('bookmark-btn')
 
 function getCookie(name) {
     let cookieValue = null;
@@ -77,6 +73,16 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie('csrftoken');
+const bookmarkButton = document.querySelector('.bookmark-button');  // getting html elements
+
+bookmarkButton.addEventListener('click', (e) => {
+    let isBookmarked = false
+    if (bookmarkButton.dataset.bookmarked === 'true') {
+        isBookmarked = true
+    }
+    bookmarkListing(bookmarkButton.dataset.id, isBookmarked, bookmarkButton)
+})
+
 
 const bookmarkClicked = (event, listingId) => {
     event.preventDefault()
@@ -84,21 +90,30 @@ const bookmarkClicked = (event, listingId) => {
     bookmarkListing(listingId)
 }
 
-const bookmarkListing = (listingId) => {
-    fetch('/bookmarks', {
-        method: 'POST',
+const bookmarkListing = (listingId, isBookmarked, btn) => {
+    const method = isBookmarked ? 'DELETE' : 'POST';
+    const icon = btn.children[0]
+
+    fetch('/bookmark', {
+        method: method,
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken
         },
         body: JSON.stringify({listingId: listingId})
     })
-        .then(res => res.json())
-        .then(data => {
-            alert('Bookmarked!');
-            // Or visually toggle the bookmark icon
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error, status: ${response.status}`);
+            }
+            if (isBookmarked) {
+                icon.classList.add('far')
+                icon.classList.remove('fas')
+                btn.dataset.bookmarked = 'false'
+            } else {
+                icon.classList.add('fas')
+                icon.classList.remove('far')
+                btn.dataset.bookmarked = 'true'
+            }
         })
-        .catch(err => {
-            console.error('Failed to bookmark', err);
-        });
 }

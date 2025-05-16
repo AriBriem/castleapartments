@@ -349,7 +349,6 @@ input[type="radio"]:checked + .customButton {
 }
 
 .bookmark-button {
-    position: absolute;
     right: 0.5rem;
     top: 0.5rem;
     padding: 0.1rem 0.35rem;
