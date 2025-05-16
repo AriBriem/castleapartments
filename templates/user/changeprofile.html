@@ -2,6 +2,9 @@
 {% block title %}Breyta prófíl{% endblock %}
 
 {% block content %}
+    {% if error %}
+            <p class="w-full bg-red text-black text-left">{{ error }}</p>
+    {% endif %}
     <div class="whitespace30 mt-8">
         <h1 class="g-2 ml-4">Breyta prófíl</h1>
         <form method="POST" enctype="multipart/form-data">

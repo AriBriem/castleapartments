@@ -21,7 +21,7 @@ def login_user(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, "Account logged in successfully.")
+            messages.success(request, "Aðgangur skráður inn")
             return redirect('listing-index')
         else:
             return render(request, 'user/login.html', {"show_navbar": False, "show_footer": False, "error": "Invalid email or password."})
@@ -73,7 +73,7 @@ def signup(request):
                 profile_image_path=profile_image_path,
                 cover_image_path=cover_image_path
             )
-            messages.success(request, "Account created successfully. You can now log in.")
+            messages.success(request, "Aðgangur skapaður. Þú getur núna skráð þig inn")
             return redirect("user-login")
         except ValueError as e:
             print(f"Signup error: {e}")
@@ -139,7 +139,7 @@ def change_profile(request):
                 update_session_auth_hash(request, user)
 
         user.save()
-        messages.success(request, "Profile updated successfully.")
+        messages.success(request, "Prófíll breyttur.")
         return redirect('my-pages')
 
     context = {
@@ -216,7 +216,8 @@ def change_seller_information(request):
         seller_information.bio = bio
         seller_information.logo_path = logo_path
         seller_information.is_company = is_company
-        messages.success(request, "Seller information changed successfully.")
+        seller_information.save()
+        messages.success(request, "Seljanda prófíl breyttur.")
         return redirect('my-pages')
     return render(request, 'user/changesellerinformation.html',{"show_navbar": False, "show_footer": False})
 
@@ -230,12 +231,7 @@ def mypages(request):
     if not user.is_authenticated:
         return redirect('/login')
 
-    outgoing_offers = Offers.objects.filter(buyer=request.user)
-    for offer in outgoing_offers:
-        offer.has_payment = Payments.objects.filter(offer=offer).exists()
     seller_profile = SellerProfile.objects.filter(user=request.user).first()
-
-
 
     if seller_profile:
         incoming_offers = Offers.objects.filter(listing__seller__user=user)
@@ -248,20 +244,30 @@ def mypages(request):
             rejected = request.POST.get('rejected')
             offer = Offers.objects.get(id=offer_id)
             listing = Listings.objects.get(id=listing_id)
+            islenska = ""
             if accepted:
                 offer.status = 'Accepted'
                 listing.sold = True
+                islenska = "Samþykkt"
             elif contingent:
                 offer.status = 'Contingent'
                 listing.sold = True
+                islenska = "Skilyrt"
             elif rejected:
                 offer.status = 'Rejected'
-                listing.sold = False
+                islenska = "Hafnað"
+
             offer.save()
             listing.save()
+            messages.success(request, f"Tilboð merkt sem {islenska}")
     else:
         incoming_offers = None
         listings = None
+
+    outgoing_offers = Offers.objects.filter(buyer=request.user)
+    for offer in outgoing_offers:
+        offer.has_payment = Payments.objects.filter(offer=offer).exists()
+        
     context = {
         'show_navbar': True,
         'show_footer': True,

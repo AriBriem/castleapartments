@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -39,6 +40,7 @@ def make_offer(request, listing_id):
             expiry_date=expiry_date,
             status='Pending'
         )
+        messages.success(request, "Tilboð sent.")
         return redirect('listing-detail', listing_id=listing_id)
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
@@ -50,7 +52,8 @@ def change_offer(request, listing_id, offer_id):
     offer = Offers.objects.get(id=offer_id)
     listing = Listings.objects.get(id=listing_id)
     if request.method == 'POST':
-        amount = request.POST.get('amount')
+        raw_amount = request.POST.get('amount')
+        amount = int(raw_amount.replace('.', ''))
         expiry_date = request.POST.get('expiry_date')
 
         if not amount or not expiry_date:
@@ -65,6 +68,7 @@ def change_offer(request, listing_id, offer_id):
         offer.expiry_date = expiry_date
         offer.status = 'Pending'
         offer.save()
+        messages.success(request, "Tilboð endursent.")
         return redirect('listing-detail', listing_id=listing_id)
     return render(request, 'offer/offer-amount.html',
                   {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
@@ -208,6 +212,7 @@ def summary(request, listing_id, offer_id):
             method=data['payment_method']
         )
         del request.session['payment_data']
+        messages.success(request, "Þú hefur klárað tilboðið þitt.")
         return redirect('my-pages')
 
     return render(request, 'offer/summary.html',{"show_navbar": False, "show_footer": False, "listing_id":listing_id, "offer_id":offer_id, "data": data})
