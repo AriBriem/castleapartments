@@ -19,6 +19,10 @@ def make_offer(request, listing_id):
         return redirect('/login')
 
     listing = get_object_or_404(Listings, id=listing_id)
+    if listing.seller.user == user:
+        return redirect('/listing/%d' % listing.id)
+    if listing.sold:
+        return redirect('/listing/%d' % listing.id)
     if request.method == 'POST':
         raw_amount = request.POST.get('amount')
         amount = int(raw_amount.replace('.', ''))

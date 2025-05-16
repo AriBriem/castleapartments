@@ -83,13 +83,6 @@ bookmarkButton.addEventListener('click', (e) => {
     bookmarkListing(bookmarkButton.dataset.id, isBookmarked, bookmarkButton)
 })
 
-
-const bookmarkClicked = (event, listingId) => {
-    event.preventDefault()
-    event.stopPropagation()
-    bookmarkListing(listingId)
-}
-
 const bookmarkListing = (listingId, isBookmarked, btn) => {
     const method = isBookmarked ? 'DELETE' : 'POST';
     const icon = btn.children[0]

@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-row mx-2 mt-4">
                 <p class="wp-50"><b>Email:</b> {{ seller.user.email }}</p>
-                {% if seller.is_company %}<p class="wp-50"><b>Heimilisfang:</b> {{ seller.user.address }}</p>{% endif %}
+                {% if seller.is_company %}<p class="wp-50"><b>Heimilisfang:</b> {{ seller.user.address }} - {{ seller.user.postcode }} {{ seller.user.postcode.location }}</p>{% endif %}
             </div>
             <div>
                 <h3 class="mx-2 mt-8">Lýsing</h3>
