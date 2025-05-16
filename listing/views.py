@@ -151,10 +151,11 @@ def create_listing(request):
         )
         for file in listing_images:
             ListingImage.objects.create(listing=listing, image_path=file)
-        messages.success(request, "Listing created successfully. You can now log in.")
         listing = Listings.objects.filter(seller=seller, address=address).first()
         if listing:
+            messages.success(request, "Eign skráð.")
             return redirect("listing-detail", listing_id=listing.id)
+        messages.success(request, "Eign skráð. Bættu við nánari upplýsingar.")
         return redirect("user-seller-information")
 
     context = {

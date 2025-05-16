@@ -2,11 +2,11 @@
 {% block title %}Breyta seljanda upplýsingar{% endblock %}
 
 {% block content %}
+    {% if error %}
+            <p class="w-full bg-red text-black text-left">{{ error }}</p>
+    {% endif %}
     <div class="whitespace30 mt-8">
         <h1 class="g-2 ml-2 mb-4">Breyta seljanda upplýsingar</h1>
-        {% if error %}
-            <p class="text-sm ml-2 red">{{ error }}</p>
-        {% endif %}
         <p class="text-sm ml-2">Kaupendur munu geta séð þessar upplýsingar þegar þeir skoða eignina þína</p>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

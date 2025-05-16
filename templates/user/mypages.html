@@ -3,6 +3,15 @@
 {% block title %}{{ request.user.name }}{% endblock %}
 
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+              <div class="w-full bg-green text-black text-left">
+                {{ message }}
+              </div>
+            {% endif %}
+      {% endfor %}
+    {% endif %}
     <div class="whitespace12 mb-large">
         <div class="pt-8">
             <img src="{% if user.cover_image_path %}{{ user.cover_image_path.url }}{% else %}/media/img/coverimages/default.jpg{% endif %}" alt="Forsíðumynd" class="rounded-1rem w-full h-screen-30">
@@ -43,7 +52,7 @@
                         </button>
                         <button type="submit" name="contingent" value="Contingent" class="{% if offer.status == "Contingent"%}border{% else %}no-border{% endif %} border-yellow px-3 rounded-2 height align center text-yellow bg-white text-small mr-1p" {% if offer.listing.sold == True %}disabled {% endif %}>Skilyrt
                         </button>
-                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected" %}border{% elif offer.listing.sold == True and offer.status == "Pending" %}border{% else %}no-border{% endif %} border-red px-3 rounded-2 height align center text-red bg-white text-small" {% if offer.listing.sold == True %}disabled {% endif %}>Hafnað
+                        <button type="submit" name="rejected" value="Rejected" class="{% if offer.status == "Rejected" %}border{% elif offer.listing.sold == True and offer.status == "Pending" %}border{% else %}no-border{% endif %} border-red px-3 rounded-2 height align center text-red bg-white text-small" {% if offer.listing.sold == True or offer.status == "Rejected" %}disabled {% endif %}>Hafnað
                         </button>
                     </form>
                 </div>

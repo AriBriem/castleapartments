@@ -3,6 +3,15 @@
 {% block title %}{{ listing.address }}{% endblock %}
 
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+              <div class="w-full bg-green text-black text-left">
+                {{ message }}
+              </div>
+            {% endif %}
+      {% endfor %}
+    {% endif %}
     <div class="whitespace16">
         <div class="flex py-4">
             <div class="col66 pos-rel">

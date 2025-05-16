@@ -5,6 +5,15 @@
 
 {% block content %}
     {% csrf_token %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success" %}
+              <div class="w-full bg-green text-black text-left">
+                {{ message }}
+              </div>
+            {% endif %}
+      {% endfor %}
+    {% endif %}
     <div class="flex flex-col text-center items-center whitespace8 mtv-10">
         <div class="whitespace12 flex flex-col text-center items-center">
             <h1 class="text-dark text-title font-medium text-shadow-soft">Finndu drauma eignina þína á Castle

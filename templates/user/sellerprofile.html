@@ -16,8 +16,8 @@
                 <p class="wp-50"><b>{% if seller.is_company %}Fyrirtæki{% else %}Einstaklingur{% endif %}</b></p>
             </div>
             <div class="flex flex-row mx-2 mt-4">
-                <p class="wp-50"><b>Email:</b> {{ seller.email }}</p>
-                {% if not seller.is_company %}<p class="wp-50"><b>Heimilisfang:</b> {{ seller.address }}</p>{% endif %}
+                <p class="wp-50"><b>Email:</b> {{ seller.user.email }}</p>
+                {% if seller.is_company %}<p class="wp-50"><b>Heimilisfang:</b> {{ seller.user.address }}</p>{% endif %}
             </div>
             <div>
                 <h3 class="mx-2 mt-8">Lýsing</h3>

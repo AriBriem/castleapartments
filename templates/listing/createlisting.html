@@ -3,6 +3,9 @@
 {% block title %}Skrá eign{% endblock %}
 
 {% block content %}
+    {% if error %}
+            <p class="w-full bg-red text-black text-left">{{ error }}</p>
+    {% endif %}
     <div class="whitespace30 mt-8">
         <h1 class="g-2 ml-2">Skrá eign</h1>
         <p class="text-sm ml-2">Settu þína eign á vefinn okkar og sjáðu hvort þú fáir tilboð</p>
