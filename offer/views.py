@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -80,7 +81,6 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     user = request.user
     if not user.is_authenticated:
         return redirect('/login')
-
     postcodes_by_location = get_postcodes_by_location()
     countries = Country.objects.all()
     if request.method == 'POST':
@@ -113,6 +113,16 @@ def finalize_offer_contact(request, listing_id ,offer_id):
 
         return redirect('finalize-offer-payment', listing_id=listing_id, offer_id=offer_id)
 
+    session_data = request.session.get('payment_data', {})
+    session_data.update({
+        'address': user.address,
+        'personal_id': user.personal_id,
+        'location': user.location,
+        'postcode': user.postcode,
+        'country': user.country_id,
+        'country_name': user.country.name
+    })
+    request.session['payment_data'] = session_data
     data = request.session.get('payment_data')
     context = {
         "show_navbar": False,
@@ -161,6 +171,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
                     'payment_method': selected_method,
                     'bank_number': request.POST.get('bank_number'),
                 })
+                request.session['payment_data'] = session_data
             else:
                 data = request.session.get('payment_data')
                 return render(request, 'offer/offerfinalization-payment.html', {
@@ -179,6 +190,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
                     'payment_method': selected_method,
                     'lender': request.POST.get('lender'),
                 })
+                request.session['payment_data'] = session_data
             else:
                 data = request.session.get('payment_data')
                 return render(request, 'offer/offerfinalization-payment.html', {
