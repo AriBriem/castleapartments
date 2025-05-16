@@ -1,6 +1,5 @@
 const listContainer = document.querySelector('#seller-listings')
 const sellerId = listContainer.dataset.userId;
-console.log(sellerId)
 
 const loadListings = () => {
     fetch(`/listings/filter?seller_id=${sellerId}&show_bookmark=false`)

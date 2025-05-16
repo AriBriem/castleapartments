@@ -4,7 +4,8 @@ const rooms_select = document.querySelector('#input-rooms')
 const bedrooms_select = document.querySelector('#input-bedrooms')
 const bathrooms_select = document.querySelector('#input-bathrooms')
 const price_input = document.querySelector('#input-price')
-const meter_input = document.querySelector('#input-square-meters')
+const meter_input = document.querySelector('#input-square-meters') // get html elements
+
 
 location_select.addEventListener('change', () => {
     Array.from(postcode_select.options).forEach(postcode => {
@@ -22,13 +23,6 @@ bedrooms_select.addEventListener('change', () => {
 bathrooms_select.addEventListener('change', () => {
     updateRoomCount()
 })
-
-const updateRoomCount = () => {
-    new_value = Number(bedrooms_select.value) + Number(bathrooms_select.value);
-    if (new_value >= 0) {
-        rooms_select.value = new_value;
-    }
-}
 
 meter_input.addEventListener('input', (e) => {
     let value = e.target.value;
@@ -49,10 +43,7 @@ price_input.addEventListener('input', (e) => {
 
     // Update input
     e.target.value = formatted;
-});
-
-updateRoomCount()
-
+}); // formatting event listeners
 
 // IMAGE UPLOAD FUNCTIONALITY
 const thumbnailUpload = document.querySelector('#choose-thumbnail');
@@ -106,7 +97,14 @@ imageUpload.addEventListener('change', () => {
     }
     updateImageContainer()
     imageUpload.value = ''
-})
+}) // image handling
+
+const updateRoomCount = () => {
+    const new_value = Number(bedrooms_select.value) + Number(bathrooms_select.value);
+    if (new_value >= 0) {
+        rooms_select.value = new_value;
+    }
+}
 
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
@@ -125,3 +123,5 @@ form.addEventListener('submit', (e) => {
           document.close();
       });
 });
+
+updateRoomCount()

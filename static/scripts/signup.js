@@ -21,7 +21,7 @@ const updateImageContainer = async () => {
     if (profileUpload.files[0]) {
         const profileDiv = document.createElement('div')
         const profileText = document.createElement('p')
-        profileText.textContent = 'prófílmynd'
+        profileText.textContent = 'Prófílmynd'
         const profileImg = await getImage(profileUpload.files[0]);
         imageContainer.appendChild(profileDiv)
         profileDiv.appendChild(profileText)
@@ -30,7 +30,7 @@ const updateImageContainer = async () => {
     if (coverUpload.files[0]) {
         const coverDiv = document.createElement('div')
         const coverText = document.createElement('p')
-        coverText.textContent = 'forsíðumynd'
+        coverText.textContent = 'Forsíðumynd'
         const coverImg = await getImage(coverUpload.files[0]);
         imageContainer.appendChild(coverDiv)
         coverDiv.appendChild(coverText)

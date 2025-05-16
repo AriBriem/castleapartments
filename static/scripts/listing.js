@@ -18,8 +18,6 @@ for (let i = 0; i < 2; i++) {
     }
 }
 
-console.log(imageUrls)
-
 const updateImages = () => {
     bigImage.src = imageUrls[0]
     smallImage1.src = imageUrls[1]
