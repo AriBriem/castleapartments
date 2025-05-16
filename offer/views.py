@@ -134,7 +134,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         'address': user.address,
         'personal_id': user.personal_id,
         'location': user.postcode.location,
-        'postcode': user.postcode.id,
+        'postcode': user.postcode.postcode,
         'country': user.country.id,
         'country_name': user.country.name
     })
@@ -265,5 +265,7 @@ def summary(request, listing_id, offer_id):
         messages.success(request, "Þú hefur klárað tilboðið þitt.")
         #Redirects to my pages
         return redirect('my-pages')
+
+    context = {}
 
     return render(request, 'offer/summary.html',{"show_navbar": False, "show_footer": False, "listing_id":listing_id, "offer_id":offer_id, "data": data})

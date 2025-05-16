@@ -44,10 +44,10 @@
                     <label for="credit-card" class="customButton">Kreditkort</label>
                     <input type="radio" id="bank-transfer" name="payment-method" value="transfer" onclick="showPaymentFields('bank-transfer')" class="radioButton" {% if data.payment_method == "transfer" %}checked{% endif %} disabled>
                     <label for="bank-transfer" class="customButton">Millifærsla</label>
-                    <input type="radio" id="loan" name="payment-method" value="loan" onclick="showPaymentFields('loan')" class="radioButton" {% if data.payment_method == "transfer" %}checked{% endif %} disabled>
+                    <input type="radio" id="loan" name="payment-method" value="loan" onclick="showPaymentFields('loan')" class="radioButton" {% if data.payment_method == "loan" %}checked{% endif %} disabled>
                     <label for="loan" class="customButton">Lán</label>
                 </div>
-                <div id="credit-card-fields" class="payment-fields">
+                <div id="credit-card-fields" class="payment-fields" {% if not data.payment_method == "creditcard" %}hidden{% endif %}>
                     <label for="input-credit-card-holder" class="flex flex-col text-sm ml-2">Korthafi</label>
                     <input type="text" id="input-credit-card" name="card_carrier" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.card_carrier }}" disabled>
                     <label for="input-credit-card" class="flex flex-col text-sm ml-2">Kortanúmer</label>
@@ -61,11 +61,11 @@
                         <input type="number" id="input-cvc" name="cvc_number" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.cvc_number }}" disabled>
                     </div>
                 </div>
-                <div id="bank-transfer-fields" class="payment-fields hidden">
+                <div id="bank-transfer-fields" class="payment-fields {% if not data.payment_method == "transfer" %}hidden{% endif %}">
                     <label for="input-bank-number" class="flex flex-col text-sm ml-2 ">Bankanúmer</label>
                     <input type="text" id="input-bank-number" name="bank_number" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.bank_number }}" disabled>
                 </div>
-                <div id="loan-fields" class="payment-fields hidden">
+                <div id="loan-fields" class="payment-fields {% if not data.payment_method == "loan" %}hidden{% endif %}">
                     <label for="input-loan-provider" class="flex flex-col text-sm ml-2">Lánveitandi</label>
                     <input type="text" id="input-loan-provider" name="lender" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10" value="{{ data.lender }}" disabled>
                 </div>
