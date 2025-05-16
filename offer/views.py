@@ -156,10 +156,11 @@ def finalize_offer_payment(request, listing_id ,offer_id):
 
         elif selected_method == 'transfer':
             if request.POST.get('bank_number'):
-                request.session['payment_data'] = {
+                session_data = request.session.get('payment_data', {})
+                session_data.update({
                     'payment_method': selected_method,
                     'bank_number': request.POST.get('bank_number'),
-                }
+                })
             else:
                 data = request.session.get('payment_data')
                 return render(request, 'offer/offerfinalization-payment.html', {
@@ -173,10 +174,11 @@ def finalize_offer_payment(request, listing_id ,offer_id):
 
         elif selected_method == 'loan':
             if request.POST.get('lender'):
-                request.session['payment_data'] = {
+                session_data = request.session.get('payment_data', {})
+                session_data.update({
                     'payment_method': selected_method,
                     'lender': request.POST.get('lender'),
-                }
+                })
             else:
                 data = request.session.get('payment_data')
                 return render(request, 'offer/offerfinalization-payment.html', {
