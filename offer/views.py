@@ -1,15 +1,12 @@
 from django.contrib import messages
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
-
 from listing.models import Listings, Postcodes
 from offer.models import Offers
 from payment.models import Payments
 from user.models import Country
-
 from utils import get_postcodes_by_location
 
-#View for offer-amount.html
 def make_offer(request, listing_id):
     #Check if user is authenticated in case they somehow get into the offer-amount page before logging in
     user = request.user
@@ -52,7 +49,6 @@ def make_offer(request, listing_id):
         return redirect('listing-detail', listing_id=listing_id)
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
-#View for offer-change.html
 def change_offer(request, listing_id, offer_id):
     # Check if user is authenticated in case they somehow get into the offer-change page before logging in
     user = request.user
@@ -86,7 +82,6 @@ def change_offer(request, listing_id, offer_id):
         return redirect('listing-detail', listing_id=listing_id)
     return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
 
-#View for offerfinalization-contact.html
 def finalize_offer_contact(request, listing_id ,offer_id):
     # Check if user is authenticated in case they somehow get into the offerfinalization-contact page before logging in
     user = request.user
@@ -151,7 +146,6 @@ def finalize_offer_contact(request, listing_id ,offer_id):
     }
     return render(request, 'offer/offerfinalization-contact.html', context)
 
-#View for offerfinalization-payment.html
 def finalize_offer_payment(request, listing_id ,offer_id):
     # Check if user is authenticated in case they somehow get into the offerfinalization-payment page before logging in
     user = request.user
@@ -236,7 +230,6 @@ def finalize_offer_payment(request, listing_id ,offer_id):
     data = request.session.get('payment_data')
     return render(request, 'offer/offerfinalization-payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
 
-#View for summary.html
 def summary(request, listing_id, offer_id):
     # Check if user is authenticated in case they somehow get into the summary page before logging in
     user = request.user

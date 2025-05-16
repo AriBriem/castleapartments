@@ -10,7 +10,7 @@ urlpatterns = [
     path('seller-information', views.seller_information, name='user-seller-information'),
     path('change-seller-information', views.change_seller_information, name='user-change-seller-information'),
     path('seller-profile/<int:seller_id>/', views.seller_profile, name='seller-profile'),
-    path('mypages', views.mypages, name='my-pages'),
+    path('mypages', views.my_pages, name='my-pages'),
 
     path('bookmark', views.handle_bookmark, name='create-bookmark'),
 ]

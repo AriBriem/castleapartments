@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from listing.models import ListingType, ListingImage, Postcodes, Listings
 from offer.models import Offers
 from user.models import SellerProfile, Bookmarks
-
 from utils import get_postcodes_by_location
 
 def index(request):
@@ -60,7 +59,7 @@ def filter_listings(request):
     seller = request.GET.get('seller_id')
     search = request.GET.get('search')
     order_by = request.GET.get('order_by')
-    is_bookmark = request.GET.get('bookmark') == 'true'
+    filter_bookmark = request.GET.get('bookmark') == 'true'
     show_bookmark = request.GET.get('show_bookmark') == 'true'
 
     filters = Q()
@@ -98,7 +97,7 @@ def filter_listings(request):
     else:
         bookmarks = []
 
-    if is_bookmark:
+    if filter_bookmark:
         if request.user.is_authenticated:
             listings = listings.filter(bookmarks__user=request.user)
         else:
