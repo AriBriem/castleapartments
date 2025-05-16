@@ -3,67 +3,79 @@
 {% block title %}Skrá eign{% endblock %}
 
 {% block content %}
-    <div class="whitespace16">
-        <div class="flex py-4">
-            <div class="col66">
-                <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
+    {% if error %}
+            <p class="w-full bg-red text-black text-left">{{ error }}</p>
+    {% endif %}
+    <div class="whitespace30 mt-8">
+        <h1 class="g-2 ml-2">Skrá eign</h1>
+        <p class="text-sm ml-2">Settu þína eign á vefinn okkar og sjáðu hvort þú fáir tilboð</p>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="inputContainer flex-col g-2">
+            <br>
+                <label for="input-address" class="flex flex-col text-sm ml-2">Heimilisfang</label>
+                <input type="text" id="input-address" name="address" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <div class="flex g-4">
+                    <label for="input-location" class="flex flex-col text-sm ml-2 w-half">Staðsetning</label>
+                    <label for="input-postcode" class="flex flex-col text-sm ml-2 w-half">Póstnúmer</label>
+                </div>
+                <div class="flex g-4">
+                    <select id="input-location" name="location" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                        <option value=""></option>
+                        {% for location in postcodes_by_location.keys %}
+                            <option value="{{ location }}">{{ location }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="input-postcode" name="postcode" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10" disabled>
+                        <option value=""></option>
+                        {% for location, postcodes in postcodes_by_location.items %}
+                            {% for postcode in postcodes %}
+                                <option value="{{ postcode }}" data-location="{{ location }}">{{ postcode }}</option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex g-4">
+                    <label for="select-type" class="flex flex-col text-sm ml-2 w-half" >Tegund</label>
+                    <label for="input-square-meters" class="flex flex-col text-sm ml-2 w-half">Fermetrar</label>
+                </div>
+                <div class="flex g-4">
+                    <select id="select-type" name="type" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                        <option value=""></option>
+                        {% for type in types %}
+                            <option value="{{ type.id }}">{{ type.type }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="text" id="input-square-meters" name="sqr_meters" class="w-half no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                </div>
+                <div class="flex g-4">
+                    <label for="input-rooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi herbergja</label>
+                    <label for="input-bedrooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi svefnherbergja</label>
+                    <label for="input-bathrooms" class="flex flex-col text-sm ml-2 w-33">Fjöldi baðherbergja</label>
+                </div>
+                <div class="flex g-4">
+                    <input type="number" id="input-rooms" min="0" name="rooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10" readonly>
+                    <input type="number" id="input-bedrooms" min="0" name="bedrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                    <input type="number" id="input-bathrooms" min="0" name="bathrooms" class="w-33 no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                </div>
+                <label for="input-price" class="flex flex-col text-sm ml-2">Ásett verð</label>
+                <input type="text" id="input-price" name="price" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-10">
+                <label for="input-description" class="flex flex-col text-sm ml-2">Lýsing eignar</label>
+                <textarea id="input-description" name="description" class="w-full no-border rounded-lg bg-none p-2-left text-base bg-white h-20" rows="10" cols="60" placeholder="Type here..."></textarea>
             </div>
-            <div class="flex flex-col col34 ml-4">
-                <div class="basis50 mb-4">
-                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
-                </div>
-                <div class="basis50">
-                       <img class="h-full rounded-lg" src="{% static '/img/test/listingtest.png' %}">
-                </div>
+            <br>
+            <div class="flex g-2">
+                <label for="choose-thumbnail" class="flex g-2 p-2 rounded-lg items-center text-center text-black bg-gray text-sm cursor-pointer"><i class="fa fa-file-image-o"></i>Bæta við smámynd (sýnd á forsíðu)</label>
+                <input type="file" id="choose-thumbnail" name="thumbnail" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png" hidden>
+                <label for="choose-image" class="flex g-2 p-2 rounded-lg items-center text-center text-black bg-gray text-sm disabled-label" title="Þú verður að setja inn smámynd áður en þú getur sett inn aðrar myndir"><i class="fa fa-file-image-o"></i>Bæta við mynd</label>
+                <input type="file" multiple id="choose-image" class="bg-gray text-black no-border w-fit-content p-1 text-sm rounded-lg" accept=".jpg,.jpeg,.png" hidden disabled>
             </div>
-        </div>
-        <div class="flex pb-4">
-            <div class="col66">
-                <div class="flex justify-between my-2">
-                    <h1 class="pageTitle">Heimilisfang 123</h1>
-                    <div class="flex justify-between my-2">
-                        <p class="smallText infoText">Birt: 29.0.2005</p>
-                        <div class="infoBox">
-                            <p class="green">Til sölu</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between my-2">
-                    <p>Ásett verð: <b>48.000.000 kr.</b></p>
-                </div>
-                <div class="flex justify-between my-2">
-                    <div class="descCol">
-                        <p>105 Reykjavík</p>
-                        <p><b>Tegund:</b> Fjölbýli</p>
-                    </div>
-                    <div class="descCol">
-                        <p><b>Fermetrar:</b> 50</p>
-                        <p><b>Herbergi:</b> 2</p>
-                    </div>
-                    <div class="descCol">
-                        <p><b>Svefnherbergi:</b> 1</p>
-                        <p><b>Baðherbergi:</b> 1</p>
-                    </div>
-                </div>
-                <div class="flex justify-between my-2">
-                    <p>Heimilisfang 123 er notalegt einbýlishús staðsett í friðsælu og fjölskylduvænu hverfi. Húsið státar af rúmgóðum stofum, björtum eldhúskrók og fallegum garði sem hentar vel til útivistar. Í nágrenninu eru leikvellir, skóli og dagvöruverslun í göngufæri.</p>
-                </div>
+            <div id="image-container" class="grid grid-2column g-4 w-full my-4"></div>
+            <div class="flex flex-row g-4">
+                <button type="button" onclick="window.location.href='/'" class="bg-gray text-black no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Hætta við</button>
+                <button type="submit" class="bg-black text-white no-border w-half p-1 text-base mb-4 mt-2 h-10 rounded-lg">Staðfesta</button>
             </div>
-            <div class="flex flex-col col34 ml-4">
-                <div class="flex flex-col p-4 text-black rounded-lg bg-dark">
-                    <div class="flex mb-2 mt-2">
-                        <img src="{% static '/img/test/profiletest.png' %}" class="profilePic">
-                        <div class="ml-2">
-                            <h3>Jón Jónsson</h3>
-                            <h4 class="font-medium">105 Reykjavík</h4>
-                        </div>
-                    </div>
-                    <p class="mb-1"><b>Sími:</b> 123 1234</p>
-                    <p class="mb-4"><b>Email:</b> jonjonsson@gmail.com</p>
-                    <button class="bg-light no-border rounded text-base py-1">Sjá seljanda</button>
-                </div>
-                <button class="bg-black no-border rounded text-base py-1 text-white m-4">Senda tilboð</button>
-            </div>
-        </div>
+        </form>
     </div>
+    <script src="{% static '/scripts/create_listing.js' %}"></script>
 {% endblock %}

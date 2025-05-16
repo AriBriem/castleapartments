@@ -165,7 +165,7 @@ def create_listing(request):
                 "postcodes_by_location": postcodes_by_location,
                 "types": types
             }
-            return render(request, 'listing/createlisting.html', context)
+            return render(request, 'listing/listing_create.html', context)
 
 
     context = {
@@ -174,4 +174,4 @@ def create_listing(request):
         "postcodes_by_location": postcodes_by_location,
         "types": types
     }
-    return render(request, 'listing/createlisting.html', context)
+    return render(request, 'listing/listing_create.html', context)

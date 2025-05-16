@@ -28,7 +28,7 @@ def make_offer(request, listing_id):
 
         #Check if everything is filled in
         if not amount or not expiry_date:
-            return render(request, 'offer/offer-amount.html', {
+            return render(request, 'offer/offer_create.html', {
                 'listing': listing,
                 'error': 'All fields are required.',
                 'show_navbar': False,
@@ -47,7 +47,7 @@ def make_offer(request, listing_id):
         messages.success(request, "Tilboð sent.")
         #Redirects to the listing itself
         return redirect('listing-detail', listing_id=listing_id)
-    return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
+    return render(request, 'offer/offer_create.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing})
 
 def change_offer(request, listing_id, offer_id):
     # Check if user is authenticated in case they somehow get into the offer-change page before logging in
@@ -65,7 +65,7 @@ def change_offer(request, listing_id, offer_id):
 
         # Check if everything is filled in
         if not amount or not expiry_date:
-            return render(request, 'offer/offer-change.html', {
+            return render(request, 'offer/offer_change.html', {
                 'listing': listing,
                 'error': 'All fields are required.',
                 'show_navbar': False,
@@ -80,7 +80,7 @@ def change_offer(request, listing_id, offer_id):
         messages.success(request, "Tilboð endursent.")
         # Redirects to the listing itself
         return redirect('listing-detail', listing_id=listing_id)
-    return render(request, 'offer/offer-amount.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
+    return render(request, 'offer/offer_create.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "listing": listing, "offer": offer})
 
 def finalize_offer_contact(request, listing_id ,offer_id):
     # Check if user is authenticated in case they somehow get into the offerfinalization-contact page before logging in
@@ -111,7 +111,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         else:
             #Failstate if everything isn't filled out
             data = request.session.get('payment_data')
-            return render(request, 'offer/offerfinalization-payment.html', {
+            return render(request, 'offer/offer_finalization_payment.html', {
                 "show_navbar": False,
                 "show_footer": False,
                 "listing_id": listing_id,
@@ -144,7 +144,7 @@ def finalize_offer_contact(request, listing_id ,offer_id):
         "postcodes_by_location": postcodes_by_location,
         "countries": countries
     }
-    return render(request, 'offer/offerfinalization-contact.html', context)
+    return render(request, 'offer/offer_finalization_contact.html', context)
 
 def finalize_offer_payment(request, listing_id ,offer_id):
     # Check if user is authenticated in case they somehow get into the offerfinalization-payment page before logging in
@@ -171,7 +171,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
             # Failstate if everything isn't filled out
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization-payment.html', {
+                return render(request, 'offer/offer_finalization_payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -193,7 +193,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
             # Failstate if everything isn't filled out
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization-payment.html', {
+                return render(request, 'offer/offer_finalization_payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -215,7 +215,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
             # Failstate if everything isn't filled out
             else:
                 data = request.session.get('payment_data')
-                return render(request, 'offer/offerfinalization-payment.html', {
+                return render(request, 'offer/offer_finalization_payment.html', {
                     "show_navbar": False,
                     "show_footer": False,
                     "listing_id": listing_id,
@@ -228,7 +228,7 @@ def finalize_offer_payment(request, listing_id ,offer_id):
         return redirect('finalize-offer-summary', listing_id=listing_id, offer_id=offer_id)
 
     data = request.session.get('payment_data')
-    return render(request, 'offer/offerfinalization-payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
+    return render(request, 'offer/offer_finalization_payment.html', {"show_navbar": False, "show_footer": False, "listing_id": listing_id, "offer_id": offer_id, "data": data})
 
 def summary(request, listing_id, offer_id):
     # Check if user is authenticated in case they somehow get into the summary page before logging in

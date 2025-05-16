@@ -143,7 +143,7 @@ def change_profile(request):
         "postcodes_by_location": postcodes_by_location,
         "user": user
     }
-    return render(request, 'user/changeprofile.html', context)
+    return render(request, 'user/change_profile.html', context)
 
 def seller_information(request):
     user = request.user
@@ -157,7 +157,7 @@ def seller_information(request):
         is_company = request.POST.get('is_company')
 
         if not bio or is_company not in ['yes', 'no']:
-            return render(request, 'user/sellerinformation.html', {
+            return render(request, 'user/seller_information.html', {
                 'show_navbar': False,
                 'show_footer': False,
                 'error': 'Settu inn lýsingu og veldu einstakling eða fyrirtæki',
@@ -179,7 +179,7 @@ def seller_information(request):
             return redirect('listing-create')
         messages.success(request, "Seller information changed successfully.")
         return redirect('listing-index')
-    return render(request, 'user/sellerinformation.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
+    return render(request, 'user/seller_information.html', {"show_navbar": False, "show_footer": False, "from_listing": from_listing})
 
 def change_seller_information(request):
     user = request.user
@@ -197,7 +197,7 @@ def change_seller_information(request):
         is_company = request.POST.get('is_company')
 
         if not bio or is_company not in ['yes', 'no']:
-            return render(request, 'user/sellerinformation.html', {
+            return render(request, 'user/seller_information.html', {
                 'show_navbar': False,
                 'show_footer': False,
                 'error': 'Settu inn lýsingu og veldu einstakling eða fyrirtæki',
@@ -213,11 +213,11 @@ def change_seller_information(request):
         seller_information.save()
         messages.success(request, "Seljanda prófíl breyttur.")
         return redirect('my-pages')
-    return render(request, 'user/changesellerinformation.html',{"show_navbar": False, "show_footer": False})
+    return render(request, 'user/change_seller_information.html', {"show_navbar": False, "show_footer": False})
 
 def seller_profile(request, seller_id):
     seller = get_object_or_404(SellerProfile, id=seller_id)
-    return render(request, 'user/sellerprofile.html', {"show_navbar": True, "show_footer": True, "seller": seller})
+    return render(request, 'user/seller_profile.html', {"show_navbar": True, "show_footer": True, "seller": seller})
 
 
 def my_pages(request):
@@ -271,7 +271,7 @@ def my_pages(request):
         'user': user,
         'seller_profile': seller_profile,
     }
-    return render(request, 'user/mypages.html', context)
+    return render(request, 'user/my_pages.html', context)
 
 def handle_bookmark(request):
     user = request.user
